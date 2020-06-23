@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.dit.hp.appleseasonid.Adapter.VehicleTypesAdapter;
 import com.dit.hp.appleseasonid.Adapter.VehicleUserTypesAdapter;
+import com.dit.hp.appleseasonid.Modal.IDCardPojo;
 import com.dit.hp.appleseasonid.Modal.ResponsePojoGet;
 import com.dit.hp.appleseasonid.Modal.SuccessResponse;
 import com.dit.hp.appleseasonid.Modal.UploadObject;
@@ -30,6 +31,8 @@ import com.dit.hp.appleseasonid.Modal.VehicleUserTypePojo;
 import com.dit.hp.appleseasonid.R;
 import com.dit.hp.appleseasonid.enums.TaskType;
 import com.dit.hp.appleseasonid.generic.Generic_Async_Get;
+import com.dit.hp.appleseasonid.generic.Generic_Async_UploadFiles;
+import com.dit.hp.appleseasonid.interfaces.AsyncTaskListenerFile;
 import com.dit.hp.appleseasonid.interfaces.AsyncTaskListenerObjectGet;
 import com.dit.hp.appleseasonid.json.JsonParse;
 import com.dit.hp.appleseasonid.presentation.CustomDialog;
@@ -70,7 +73,7 @@ import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 import rx.android.schedulers.AndroidSchedulers;
 
-public class GenerateIDCard extends AppCompatActivity implements AsyncTaskListenerObjectGet, View.OnClickListener {
+public class GenerateIDCard extends AppCompatActivity implements AsyncTaskListenerObjectGet, View.OnClickListener, AsyncTaskListenerFile {
 
     EditText name, mobilenumber, aadhaarnumber, vehicle_number, chassis_number, engine_number, driving_licence_number, remarks;
     TextView districtname, barriername, passvalidfrom, passvalidto, date, time;
@@ -95,6 +98,7 @@ public class GenerateIDCard extends AppCompatActivity implements AsyncTaskListen
     private TextView compressedSizeTextView;
     private File actualImage;
     private File compressedImage;
+    IDCardPojo cardPojo = null;
 
 
     @Override
@@ -259,14 +263,30 @@ public class GenerateIDCard extends AppCompatActivity implements AsyncTaskListen
                     if (mobilenumber.getText().toString() != null && !mobilenumber.getText().toString().isEmpty()) {
                         vehicleOwnerEntries.setVehicleOwnerMobileNumber(Long.parseLong(mobilenumber.getText().toString().trim()));
 
-                        if(actualImage!=null){
+                        if (actualImage != null) {
                             vehicleOwnerEntries.setVehicleOwnerImageName(compressedImage.getName().trim());
                             vehicleOwnerEntries.setOtherInformation("");
                             vehicleOwnerEntries.setMobileInformation("");
                             vehicleOwnerEntries.setDataEnteredBy(1);
                             System.out.println(vehicleOwnerEntries.toJSON());
 
-                        }else{
+                            cardPojo = new IDCardPojo();
+                            cardPojo.setFunctionName(Econstants.methordUploadData);
+                            cardPojo.setVahicleEntries(vehicleOwnerEntries);
+                            cardPojo.setFilePath(compressedImage.getPath());
+                            cardPojo.setTaskType(TaskType.UPLOAD_DATA);
+                            cardPojo.setUrl(Econstants.url);
+
+                            if (AppStatus.getInstance(GenerateIDCard.this).isOnline()) {
+                                new Generic_Async_UploadFiles(GenerateIDCard.this,
+                                        GenerateIDCard.this,
+                                        TaskType.UPLOAD_DATA).execute(cardPojo);
+                            } else {
+                                CD.showDialog(GenerateIDCard.this, Econstants.internetNotAvailable);
+                            }
+
+
+                        } else {
                             CD.showDialog(GenerateIDCard.this, "Please Click the Photo of the Person.");
                         }
                         System.out.println(vehicleOwnerEntries.toJSON());
@@ -561,5 +581,13 @@ public class GenerateIDCard extends AppCompatActivity implements AsyncTaskListen
         final String[] units = new String[]{"B", "KB", "MB", "GB", "TB"};
         int digitGroups = (int) (Math.log10(size) / Math.log10(1024));
         return new DecimalFormat("#,##0.#").format(size / Math.pow(1024, digitGroups)) + " " + units[digitGroups];
+    }
+
+    @Override
+    public void onTaskCompleted(IDCardPojo object, TaskType taskType) throws JSONException {
+        if(taskType == object.getTaskType()){
+            Log.e("Result",object.getReponse());
+        }
+
     }
 }

@@ -29,6 +29,7 @@ public class Econstants {
     public static final String methordGetBarriers = "/barriers/";
     public static final String methordGetVehicleType = "/vehicletypes/";
     public static final String methodVehicleUserType = "/vehicleusertypes/";
+    public static final String methordUploadData = "/uploadData/";
 
     public static final String Date_Format = "dd-MM-yyyy";
 

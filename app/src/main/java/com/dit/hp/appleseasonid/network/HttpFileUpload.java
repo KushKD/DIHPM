@@ -34,12 +34,12 @@ public class HttpFileUpload {
         }
     }
 
-    public void Send_Now(FileInputStream fStream){
+    public String Send_Now(FileInputStream fStream){
         fileInputStream = fStream;
-        Sending();
+       return Sending();
     }
 
-    void Sending(){
+   private String Sending(){
         String iFileName = filename_;
         Log.e("iFileName",iFileName);
         Log.e("filepath",filepath_);
@@ -120,15 +120,16 @@ public class HttpFileUpload {
             String s=b.toString();
             Log.i("Response",s);
             dos.close();
+            return s;
         }
         catch (MalformedURLException ex)
         {
-            Log.e(Tag, "URL error: " + ex.getMessage(), ex);
+            return  ex.getLocalizedMessage().toString();
         }
 
         catch (IOException ioe)
         {
-            Log.e(Tag, "IO error: " + ioe.getLocalizedMessage(), ioe);
+            return  ioe.getLocalizedMessage().toString();
         }
     }
 

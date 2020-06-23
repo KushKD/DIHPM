@@ -12,7 +12,8 @@ public enum TaskType {
     GET_BARRIERS(4),
     UPLOAD_SCANNED_PASS(5),
     GET_VEHICLE_TYPE(6),
-    GET_VEHICLE_TYPE_USER(7);
+    GET_VEHICLE_TYPE_USER(7),
+    UPLOAD_DATA(8);
 
     int value; private TaskType(int value) { this.value = value; }
 }
