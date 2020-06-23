@@ -76,4 +76,13 @@ public class DateTime {
         String newString = new SimpleDateFormat("HH:mm:ss").format(date); // 9:00
         return newString;
     }
+
+    public static Date StringToDate(String dob) throws ParseException {
+        //Instantiating the SimpleDateFormat class
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+        //Parsing the given String to Date object
+        Date date = formatter.parse(dob);
+        System.out.println("Date object value: "+date);
+        return date;
+    }
 }

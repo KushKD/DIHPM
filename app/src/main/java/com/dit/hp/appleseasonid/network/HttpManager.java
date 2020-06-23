@@ -35,7 +35,7 @@ public class HttpManager {
 
 
     public ResponsePojoGet GetData(UploadObject data) throws IOException {
-        System.out.print("#@#@#@#@"+data.getUrl()+data.getMethordName()+data.getParam());
+       // System.out.print("#@#@#@#@"+data.getUrl()+data.getMethordName()+data.getParam());
         BufferedReader reader = null;
         URL url_ =  null;
         ResponsePojoGet response = null;
