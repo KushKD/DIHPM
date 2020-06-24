@@ -23,6 +23,7 @@
                 android:paddingTop="10dp"
                 android:paddingLeft="40dp"
                 android:id="@+id/imageView1"
+                android:src="@drawable/logo_"
                 android:layout_width="100dp"
                 android:layout_height="100dp"/>
 
@@ -32,7 +33,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:textSize="25dp"
-                android:textColor="@color/darkblue"
+                android:textColor="@color/navyblue"
                 android:textStyle="bold"
                 android:layout_centerVertical="true"
                 android:layout_gravity="center_horizontal"
@@ -40,7 +41,7 @@
                 android:layout_toRightOf="@+id/imageView1"
                 android:gravity="center_vertical"
                 android:onClick="bugAndLuggage"
-                android:text="Login"
+                android:text="Register Yourself"
                 android:paddingLeft="10dp"/>
 
 
@@ -87,7 +88,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="15dp"
                         android:fontFamily="@font/raleway_semibold"
-                        android:textColor="@color/darkblue"
+                        android:textColor="@color/navyblue"
                         android:layout_centerVertical="true"
                         android:layout_gravity="center_horizontal"
                         android:layout_toEndOf="@+id/imageView1"
@@ -102,7 +103,7 @@
                         android:layout_height="fill_parent"
                         android:layout_margin="10dp"
                         android:fontFamily="@font/raleway_semibold"
-                        android:textColor="@color/blue"
+                        android:textColor="@color/navyblue"
                         android:layout_weight="1"/>
 
                     <TextView
@@ -111,7 +112,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="15dp"
                         android:fontFamily="@font/raleway_semibold"
-                        android:textColor="@color/darkblue"
+                        android:textColor="@color/navyblue"
                         android:layout_centerVertical="true"
                         android:layout_gravity="center_horizontal"
                         android:layout_toEndOf="@+id/imageView1"
@@ -127,7 +128,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="fill_parent"
                         android:fontFamily="@font/raleway_semibold"
-                        android:textColor="@color/blue"
+                        android:textColor="@color/navyblue"
                         android:layout_weight="1" />
 
 
@@ -142,8 +143,8 @@
                         android:maxLines="1"
                         android:textSize="15sp"
                         android:singleLine="true"
-                        android:textColor="@color/darkblue"
-                        android:textColorHint="@color/darkblue" />
+                        android:textColor="@color/navyblue"
+                        android:textColorHint="@color/navyblue" />
 
                     <EditText
                         android:id="@+id/depat_name"
@@ -174,8 +175,8 @@
                         android:inputType="number"
                         android:maxLength="10"
                         android:singleLine="true"
-                        android:textColor="@color/darkblue"
-                        android:textColorHint="@color/darkblue" />
+                        android:textColor="@color/navyblue"
+                        android:textColorHint="@color/navyblue" />
 
 
 
@@ -186,7 +187,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:background="@color/darkblue"
+                        android:background="@color/navyblue"
                         android:text="Sign In"
                         android:textColor="@color/white"
                         android:textStyle="bold" />
