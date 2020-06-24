@@ -93,13 +93,13 @@ public class MainActivity extends LocationBaseActivity implements SamplePresente
 
         ModulesPojo mp = new ModulesPojo();
         mp.setId("1");
-        mp.setName("Create Id");
-        mp.setLogo("scan");
+        mp.setName("Generate Id Card");
+        mp.setLogo("truck");
 
-//        ModulesPojo mp2 = new ModulesPojo();
-//        mp2.setId("2");
-//        mp2.setName("Search Pass");
-//        mp2.setLogo("searchpass");
+        ModulesPojo mp2 = new ModulesPojo();
+        mp2.setId("2");
+        mp2.setName("Scan Id Card");
+        mp2.setLogo("scan");
 //
 //        ModulesPojo mp3 = new ModulesPojo();
 //        mp3.setId("3");
@@ -113,7 +113,7 @@ public class MainActivity extends LocationBaseActivity implements SamplePresente
 
 
         modules.add(mp);
-//        modules.add(mp2);
+        modules.add(mp2);
 //        modules.add(mp3);
 //        modules.add(mp4);
 
@@ -289,10 +289,10 @@ public class MainActivity extends LocationBaseActivity implements SamplePresente
                     scanData = updateScanData(scanData);
                     Log.e("UserLocation", userLocation);
                     Log.e("scanDate", scanData.toString());
-                    CD.showDialogScanData(MainActivity.this, scanData);
+                   // CD.showDialogScanData(MainActivity.this, scanData);
                     // uploadDataToServer(scanData);
 
-                } catch (JSONException | ParseException e) {
+                } catch (JSONException  e) {
                     CD.showDialog(MainActivity.this, result);
                     e.printStackTrace();
                 }

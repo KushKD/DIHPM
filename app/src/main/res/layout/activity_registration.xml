@@ -23,7 +23,6 @@
                 android:paddingTop="10dp"
                 android:paddingLeft="40dp"
                 android:id="@+id/imageView1"
-                android:src="@drawable/epass_splash"
                 android:layout_width="100dp"
                 android:layout_height="100dp"/>
 

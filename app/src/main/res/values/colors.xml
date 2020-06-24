@@ -9,7 +9,8 @@
     <color name="border_grey">#a9a9a9</color>
 
     <color name="blue">#0091D7</color>
-    <color name="darkblue">#366988</color>
+    <color name="darkblue">#366988</color>  2D6091
+    <color name="navyblue">#2D6091</color>
 
     <color name="progress_color">#ef6c00</color>
 

@@ -8,7 +8,7 @@ import android.util.Log;
 
 import com.dit.hp.appleseasonid.Modal.ResponsePojo;
 import com.dit.hp.appleseasonid.Modal.UploadObject;
-import com.dit.hp.appleseasonid.database.DatabaseHandler;
+
 import com.dit.hp.appleseasonid.enums.TaskType;
 import com.dit.hp.appleseasonid.interfaces.AsyncTaskListenerObject;
 import com.dit.hp.appleseasonid.network.HttpManager;

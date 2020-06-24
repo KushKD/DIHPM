@@ -14,13 +14,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.core.content.ContextCompat;
-
-import com.blikoon.qrcodescanner.QrCodeActivity;
 import com.dit.hp.appleseasonid.Modal.ModulesPojo;
 import com.dit.hp.appleseasonid.R;
 import com.dit.hp.appleseasonid.activities.GenerateIDCard;
-import com.dit.hp.appleseasonid.database.DatabaseHandler;
 import com.dit.hp.appleseasonid.lazyloader.ImageLoader;
 import com.dit.hp.appleseasonid.presentation.CustomDialog;
 
@@ -106,16 +102,15 @@ public class HomeGridViewAdapter extends BaseAdapter {
                 }
                 if (s.getName().equalsIgnoreCase("Total Scanned Passes")) {
 
-                    DatabaseHandler DB = new DatabaseHandler(c);
-                    CD.showDialog((Activity) c, Integer.toString(DB.getNoOfRowsCount()));
+
 
                 }
                 if (s.getName().equalsIgnoreCase("Search Pass")) {
-                    try {
-                        CD.showDialogSearchByPassId((Activity) c);
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
+//                    try {
+//                       // CD.showDialogSearchByPassId((Activity) c);
+//                    } catch (ParseException e) {
+//                        e.printStackTrace();
+//                    }
                 }
                 if (s.getName().equalsIgnoreCase("Manual Entry")) {
 

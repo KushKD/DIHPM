@@ -41,13 +41,19 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.SliderAdapter
         switch (position) {
             case 0:
                 Glide.with(viewHolder.itemView)
-                        .load(R.drawable.ep)
+                        .load(R.drawable.apple_one)
                         .into(viewHolder.imageViewBackground);
                 break;
 
             case 1:
                 Glide.with(viewHolder.itemView)
-                        .load(R.drawable.cv)
+                        .load(R.drawable.apple_two)
+                        .into(viewHolder.imageViewBackground);
+                break;
+
+            case 2:
+                Glide.with(viewHolder.itemView)
+                        .load(R.drawable.apple_three)
                         .into(viewHolder.imageViewBackground);
                 break;
 
@@ -58,7 +64,7 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.SliderAdapter
 
     @Override
     public int getCount() {
-        return 2;
+        return 3;
     }
 
     public class SliderAdapterVH extends SliderViewAdapter.ViewHolder {

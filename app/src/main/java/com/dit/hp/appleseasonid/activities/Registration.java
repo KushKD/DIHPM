@@ -13,20 +13,14 @@ import android.widget.EditText;
 
 import com.dit.hp.appleseasonid.Adapter.GenericAdapter;
 import com.dit.hp.appleseasonid.Adapter.GenericAdapterBarrier;
-import com.dit.hp.appleseasonid.Modal.BlockPojo;
 import com.dit.hp.appleseasonid.Modal.DistrictBarrierPojo;
 import com.dit.hp.appleseasonid.Modal.DistrictPojo;
-import com.dit.hp.appleseasonid.Modal.GramPanchayatPojo;
-import com.dit.hp.appleseasonid.Modal.ResponsePojo;
 import com.dit.hp.appleseasonid.Modal.ResponsePojoGet;
-import com.dit.hp.appleseasonid.Modal.StatePojo;
 import com.dit.hp.appleseasonid.Modal.SuccessResponse;
-import com.dit.hp.appleseasonid.Modal.TehsilPojo;
 import com.dit.hp.appleseasonid.Modal.UploadObject;
 import com.dit.hp.appleseasonid.R;
 import com.dit.hp.appleseasonid.enums.TaskType;
 import com.dit.hp.appleseasonid.generic.Generic_Async_Get;
-import com.dit.hp.appleseasonid.interfaces.AsyncTaskListenerObject;
 import com.dit.hp.appleseasonid.interfaces.AsyncTaskListenerObjectGet;
 import com.dit.hp.appleseasonid.json.JsonParse;
 import com.dit.hp.appleseasonid.presentation.CustomDialog;
@@ -52,7 +46,7 @@ public class Registration extends AppCompatActivity implements AsyncTaskListener
     private String Global_district_id, globalDistrictName;
     private String Global_barrier_id, globalBarrierName;
 
-    public List<StatePojo> states = null;
+
     public List<DistrictPojo> districts = null;
 
 

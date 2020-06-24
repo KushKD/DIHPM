@@ -3,7 +3,6 @@
 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/pullToRefresh"
-    android:background="@color/cream"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -24,12 +23,14 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:gravity="center_vertical|center_horizontal|center"
-            android:background="@drawable/bordor_top_bottom"
+
             android:orientation="horizontal" >
 
             <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/customborder_dialog"
+                android:layout_marginLeft="5dp"
                 android:src="@drawable/hp_n" />
 
             <LinearLayout
@@ -43,11 +44,11 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:ellipsize="end"
+                    android:textStyle="bold"
                     android:padding="5dp"
                     android:singleLine="true"
                     android:text="Apple Season ID Card System"
-                    android:fontFamily="@font/raleway_semibold"
-                    android:textColor="@color/darkblue"
+                    android:textColor="@color/navyblue"
                     android:textSize="15sp" />
 
                 <TextView
@@ -59,7 +60,6 @@
                     android:ellipsize="end"
                     android:singleLine="true"
                     android:text="Government of Himachal Pradesh"
-                    android:fontFamily="@font/raleway_semibold"
                     android:textColor="#3D3D3D"
                     android:textSize="13sp" />
             </LinearLayout>
@@ -130,10 +130,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/raleway_semibold"
             android:gravity="center"
+            android:textStyle="bold"
             android:text="\u00A9 2020 Department Of Information Technology Himachal Pradesh"
-            android:textColor="@color/blue"
+            android:textColor="@color/navyblue"
             android:textSize="16sp" />
 
     </LinearLayout>

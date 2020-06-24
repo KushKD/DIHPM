@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -78,7 +79,7 @@ public class GenerateIDCard extends AppCompatActivity implements AsyncTaskListen
 
     EditText name, mobilenumber, aadhaarnumber, vehicle_number, chassis_number, engine_number, driving_licence_number, remarks;
     TextView districtname, barriername, passvalidfrom, passvalidto, date, time;
-    SearchableSpinner vehicletype, vehicle_owner_type;
+    Spinner vehicletype, vehicle_owner_type;
     CustomDialog CD = new CustomDialog();
     List<VehicleType> vehicleTypes = null;
     List<VehicleUserTypePojo> vehicleUserTypes = null;
@@ -93,10 +94,7 @@ public class GenerateIDCard extends AppCompatActivity implements AsyncTaskListen
     Media media = null;
     VehicleOwnerEntries vehicleOwnerEntries = null;
 
-    private ImageView actualImageView;
     private ImageView compressedImageView;
-    private TextView actualSizeTextView;
-    private TextView compressedSizeTextView;
     private File actualImage;
     private File compressedImage;
     IDCardPojo cardPojo = null;
@@ -302,7 +300,7 @@ public class GenerateIDCard extends AppCompatActivity implements AsyncTaskListen
             }
         });
 
-        click_image.setOnClickListener(new View.OnClickListener() {
+        compressedImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 launchCamera();
@@ -327,8 +325,7 @@ public class GenerateIDCard extends AppCompatActivity implements AsyncTaskListen
                 File imgFile = new File(media.getPath());
                 Log.e("File", String.valueOf(imgFile.length()));
                 actualImage = new File(media.getPath());
-                actualImageView.setImageBitmap(BitmapFactory.decodeFile(actualImage.getAbsolutePath()));
-                actualSizeTextView.setText(String.format("Size : %s", getReadableFileSize(actualImage.length())));
+
                 clearImage();
 
                 Compressor.getDefault(this)
@@ -349,14 +346,8 @@ public class GenerateIDCard extends AppCompatActivity implements AsyncTaskListen
                         });
 
 
-                try {
-                    Bitmap myBitmap = BitmapFactory.decodeFile(media.getPath());
-                    actualImageView.setImageBitmap(getRotateImage(media.getPath(), myBitmap));
-                    actualSizeTextView.setText(String.format("Size : %s", getReadableFileSize(actualImage.length())));
-                    clearImage();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                Bitmap myBitmap = BitmapFactory.decodeFile(media.getPath());
+                clearImage();
                 Toast.makeText(getApplicationContext(), "Media captured.", Toast.LENGTH_SHORT).show();
             }
         }
@@ -431,13 +422,8 @@ public class GenerateIDCard extends AppCompatActivity implements AsyncTaskListen
         vehicle_owner_type = findViewById(R.id.vehicle_owner_type);
         submit = findViewById(R.id.submit);
         back = findViewById(R.id.back);
-        click_image = findViewById(R.id.click_image);
-        actualImageView = findViewById(R.id.actual_image);
         compressedImageView = findViewById(R.id.compressed_image);
-        actualSizeTextView = findViewById(R.id.actual_size);
-        compressedSizeTextView = findViewById(R.id.compressed_size);
 
-        actualImageView.setBackgroundColor(getRandomColor());
         clearImage();
 
         try {
@@ -549,18 +535,15 @@ public class GenerateIDCard extends AppCompatActivity implements AsyncTaskListen
     }
 
     private void clearImage() {
-        actualImageView.setBackgroundColor(getRandomColor());
+
         compressedImageView.setImageDrawable(null);
-        compressedImageView.setBackgroundColor(getRandomColor());
-        compressedSizeTextView.setText("Size : -");
+
     }
 
     private void setCompressedImage() {
         compressedImageView.setImageBitmap(BitmapFactory.decodeFile(compressedImage.getAbsolutePath()));
-        compressedSizeTextView.setText(String.format("Size : %s", getReadableFileSize(compressedImage.length())));
+       // compressedImageView.setImageBitmap(getRotateImage(media.getPath(), myBitmap));
 
-        Toast.makeText(this, "Compressed image save in " + compressedImage.getPath(), Toast.LENGTH_LONG).show();
-        Log.d("Compressor", "Compressed image save in " + compressedImage.getPath());
     }
 
     public void showError(String errorMessage) {

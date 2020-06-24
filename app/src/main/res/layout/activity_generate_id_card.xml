@@ -8,7 +8,7 @@
         android:id="@+id/a"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:background="@color/darkblue"
+        android:background="@color/navyblue"
 
         android:gravity="center"
         android:padding="10dp"
@@ -29,7 +29,7 @@
         android:layout_marginBottom="5dp"
         android:gravity="center_horizontal"
         android:text="Generate Id Card  "
-
+        android:visibility="gone"
         android:textColor="@color/blue"
         android:textSize="22sp" />
 
@@ -66,103 +66,30 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="300dp"
+                        android:layout_height="200dp"
+                        android:gravity="center|center_horizontal|center_vertical"
                         android:orientation="vertical">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
 
-                            <ImageView
-                                android:id="@+id/actual_image"
-                                android:layout_width="0dp"
-                                android:layout_height="240dp"
-                                android:layout_marginEnd="4dp"
-                                android:layout_marginRight="4dp"
-                                android:layout_weight="1"
-                                android:adjustViewBounds="true"/>
+
 
                             <ImageView
                                 android:id="@+id/compressed_image"
-                                android:layout_width="0dp"
-                                android:layout_height="240dp"
-                                android:layout_marginLeft="4dp"
-                                android:layout_marginStart="4dp"
+                                android:layout_width="200dp"
+                                android:layout_height="200dp"
+                                android:background="@drawable/im_back"
                                 android:layout_weight="1"
                                 android:adjustViewBounds="true"/>
 
-                        </LinearLayout>
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:orientation="horizontal">
 
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="4dp"
-                                android:layout_marginRight="4dp"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:text="Actual Image"
-                                android:textSize="12sp"/>
 
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="4dp"
-                                android:layout_marginStart="4dp"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:text="Compressed Image"
-                                android:textSize="12sp"/>
 
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="2dp"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:id="@+id/actual_size"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="4dp"
-                                android:layout_marginRight="4dp"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:text="Size : -"
-                                android:textSize="12sp"/>
-
-                            <TextView
-                                android:id="@+id/compressed_size"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="4dp"
-                                android:layout_marginStart="4dp"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:text="Size : -"
-                                android:textSize="12sp"/>
-
-                        </LinearLayout>
 
 
                     </LinearLayout>
 
-                    <Button
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/click_image"
-                        android:text="click Image"
-                        android:layout_margin="10dp"
-                        android:background="@color/border_grey"
-                        />
+
 
                     <LinearLayout
 
@@ -179,7 +106,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:background="@color/darkblue"
+                            android:background="@color/navyblue"
                             android:gravity="center|center_vertical|center_horizontal"
                             android:padding="10dp"
                             android:text="Details"
@@ -261,70 +188,7 @@
                         </LinearLayout>
 
 
-                        <LinearLayout
-                            android:id="@+id/district_name"
-                            android:layout_width="fill_parent"
-                            android:layout_height="fill_parent"
-                            android:layout_margin="3dp"
-                            android:layout_marginTop="2dp"
-                            android:layout_weight="1"
-                            android:background="#fff"
-                            android:elevation="4dp"
-                            android:orientation="horizontal">
 
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="fill_parent"
-                                android:layout_weight="1"
-                                android:gravity="left|center_vertical|center_horizontal"
-                                android:text="District Name"
-                                android:textColor="@color/darkblue" />
-
-
-                            <TextView
-                                android:id="@+id/districtname"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:background="@drawable/customborder_dialog"
-                                android:gravity="left|center_vertical|center_horizontal"
-                                android:inputType="phone"
-                                android:padding="5dp" />
-                        </LinearLayout>
-
-
-                        <LinearLayout
-                            android:id="@+id/barrier_name"
-                            android:layout_width="fill_parent"
-                            android:layout_height="fill_parent"
-                            android:layout_margin="3dp"
-                            android:layout_marginTop="2dp"
-                            android:layout_weight="1"
-                            android:background="#fff"
-                            android:elevation="4dp"
-                            android:orientation="horizontal">
-
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="fill_parent"
-                                android:layout_weight="1"
-                                android:gravity="left|center_vertical|center_horizontal"
-                                android:text="Barrier Name"
-                                android:textColor="@color/darkblue" />
-
-
-                            <TextView
-                                android:id="@+id/barriername"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:background="@drawable/customborder_dialog"
-                                android:gravity="left|center_vertical|center_horizontal"
-                                android:inputType="phone"
-                                android:padding="5dp" />
-                        </LinearLayout>
 
                         <LinearLayout
                             android:id="@+id/pass_valid_from"
@@ -407,7 +271,7 @@
                                 android:gravity="left|center_vertical|center_horizontal"
                                 android:padding="5dp"
                                 android:text="Aadhaar Number"
-                                android:textColor="@color/darkblue" />
+                                android:textColor="@color/navyblue" />
 
                             <EditText
                                 android:id="@+id/aadhaarnumber"
@@ -425,7 +289,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:background="@color/darkblue"
+                            android:background="@color/navyblue"
                             android:gravity="center|center_vertical|center_horizontal"
                             android:padding="10dp"
                             android:text="Vehicle Details"
@@ -441,18 +305,18 @@
                             android:layout_marginTop="2dp"
                             android:background="#fff"
                             android:elevation="4dp"
-                            android:orientation="vertical">
+                            android:orientation="horizontal">
 
                             <TextView
                                 android:layout_width="fill_parent"
                                 android:layout_height="fill_parent"
                                 android:layout_weight="1"
-                                android:gravity="left"
+                                android:gravity="center"
                                 android:padding="5dp"
                                 android:text="Vehicle Type"
-                                android:textColor="@color/darkblue" />
+                                android:textColor="@color/navyblue" />
 
-                            <com.doi.spinnersearchable.SearchableSpinner
+                            <Spinner
                                 android:id="@+id/vehicletype"
                                 android:layout_width="match_parent"
                                 android:layout_height="fill_parent"
@@ -471,18 +335,18 @@
                             android:layout_marginTop="2dp"
                             android:background="#fff"
                             android:elevation="4dp"
-                            android:orientation="vertical">
+                            android:orientation="horizontal">
 
                             <TextView
                                 android:layout_width="fill_parent"
                                 android:layout_height="fill_parent"
                                 android:layout_weight="1"
-                                android:gravity="left"
+                                android:gravity="center"
                                 android:padding="5dp"
                                 android:text="Vehicle Owner Type"
                                 android:textColor="@color/darkblue" />
 
-                            <com.doi.spinnersearchable.SearchableSpinner
+                            <Spinner
                                 android:id="@+id/vehicle_owner_type"
                                 android:layout_width="match_parent"
                                 android:layout_height="fill_parent"
@@ -640,7 +504,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:background="@color/darkblue"
+                            android:background="@color/navyblue"
                             android:gravity="center|center_vertical|center_horizontal"
                             android:padding="10dp"
                             android:text="Other Information"
@@ -705,33 +569,71 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:id="@+id/remarksl"
+                            android:id="@+id/district_name"
                             android:layout_width="fill_parent"
                             android:layout_height="fill_parent"
                             android:layout_margin="3dp"
                             android:layout_marginTop="2dp"
+                            android:layout_weight="1"
                             android:background="#fff"
                             android:elevation="4dp"
-                            android:orientation="vertical">
+                            android:orientation="horizontal">
+
 
                             <TextView
-                                android:layout_width="fill_parent"
+                                android:layout_width="match_parent"
                                 android:layout_height="fill_parent"
                                 android:layout_weight="1"
-                                android:gravity="left|center_vertical|center_horizontal"
-                                android:padding="5dp"
-                                android:text="Remarks"
+                                android:gravity="center|center_vertical|center_horizontal"
+                                android:text="District Name"
                                 android:textColor="@color/darkblue" />
 
-                            <EditText
-                                android:id="@+id/remarks"
+
+                            <TextView
+                                android:id="@+id/districtname"
                                 android:layout_width="match_parent"
-                                android:layout_height="60sp"
+                                android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:background="@drawable/customborder_dialog"
-                                android:gravity="left|center_vertical|center_horizontal"
+                                android:gravity="center|center_vertical|center_horizontal"
+                                android:inputType="phone"
                                 android:padding="5dp" />
                         </LinearLayout>
+
+
+                        <LinearLayout
+                            android:id="@+id/barrier_name"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_margin="3dp"
+                            android:layout_marginTop="2dp"
+                            android:layout_weight="1"
+                            android:background="#fff"
+                            android:elevation="4dp"
+                            android:orientation="horizontal">
+
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="fill_parent"
+                                android:layout_weight="1"
+                                android:gravity="center|center_vertical|center_horizontal"
+                                android:text="Barrier Name"
+                                android:textColor="@color/darkblue" />
+
+
+                            <TextView
+                                android:id="@+id/barriername"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@drawable/customborder_dialog"
+                                android:gravity="center|center_vertical|center_horizontal"
+                                android:inputType="phone"
+                                android:padding="5dp" />
+                        </LinearLayout>
+
+
 
 
                     </LinearLayout>
@@ -762,7 +664,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginRight="2dp"
                     android:layout_weight="1"
-                    android:background="@color/darkblue"
+                    android:background="@color/navyblue"
                     android:gravity="center_vertical|center_horizontal"
                     android:text="Back"
                     android:textColor="#ffffffff" />

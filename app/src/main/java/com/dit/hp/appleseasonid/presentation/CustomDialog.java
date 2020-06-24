@@ -20,12 +20,10 @@ import com.dit.hp.appleseasonid.Modal.IDCardServerObject;
 import com.dit.hp.appleseasonid.Modal.ScanDataPojo;
 import com.dit.hp.appleseasonid.Modal.VerifyObject;
 import com.dit.hp.appleseasonid.R;
-import com.dit.hp.appleseasonid.database.DatabaseHandler;
 import com.dit.hp.appleseasonid.json.JsonParse;
 import com.dit.hp.appleseasonid.lazyloader.ImageLoader;
 import com.dit.hp.appleseasonid.utilities.CommonUtils;
 import com.dit.hp.appleseasonid.utilities.DateTime;
-import com.dit.hp.appleseasonid.utilities.Econstants;
 import com.dit.hp.appleseasonid.utilities.Preferences;
 
 import org.json.JSONException;
@@ -209,181 +207,181 @@ public class CustomDialog {
     }
 
 
-    public void showDialogScanData(final Activity activity, final ScanDataPojo scanData) throws ParseException {
-        final Dialog dialog = new Dialog(activity);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setCancelable(false);
-        dialog.setContentView(R.layout.dialog_pojo_custom);
+//    public void showDialogScanData(final Activity activity, final ScanDataPojo scanData) throws ParseException {
+//        final Dialog dialog = new Dialog(activity);
+//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        dialog.setCancelable(false);
+//        dialog.setContentView(R.layout.dialog_pojo_custom);
+//
+//        int width = (int) (activity.getResources().getDisplayMetrics().widthPixels * 0.95);
+//        int height = (int) (activity.getResources().getDisplayMetrics().heightPixels * 0.95);
+//        dialog.getWindow().setLayout(width, height);
+//        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//
+//        // TextView name = (TextView)dialog.findViewById(R.id.name);
+//        TextView passnumber = (TextView) dialog.findViewById(R.id.passnumber);
+//        TextView vehiclenumber = (TextView) dialog.findViewById(R.id.vehiclenumber);
+//        TextView mobile = (TextView) dialog.findViewById(R.id.mobile);
+//        TextView dateissue = (TextView) dialog.findViewById(R.id.dateissue);
+//        TextView district = (TextView) dialog.findViewById(R.id.district);
+//        TextView barrier = (TextView) dialog.findViewById(R.id.barrier);
+//        TextView datescan = (TextView) dialog.findViewById(R.id.datescan);
+//        TextView timescan = (TextView) dialog.findViewById(R.id.timescan);
+//        final EditText number_of_passengers = (EditText) dialog.findViewById(R.id.number_of_passengers);
+//
+//
+//        // Log.e("====Manual Entry", scanData.getNumber_of_passengers_manual());
+//        DatabaseHandler DB = new DatabaseHandler(activity);
+//
+//
+//        // name.setText(taskPojo.getTask_name());
+//        passnumber.setText(scanData.getPassNo());
+//        vehiclenumber.setText("-");
+//        mobile.setText(scanData.getMobileNumbr());
+//        dateissue.setText(scanData.getDateIssueDate());
+//        district.setText(DB.getDistrictNameById(scanData.getDistict()));
+//        barrier.setText(DB.getBarrierNameById(scanData.getDistict(), scanData.getBarrrier()));
+//        datescan.setText(DateTime.Change_Date_Format_second(scanData.getScanDate()));
+//        Log.e("ScanDae", DateTime.Change_Date_Format_second(scanData.getScanDate()));
+//        timescan.setText(DateTime.changeTime(scanData.getScanDate()));
+////        task_completed_by.setText(taskPojo.getTask_completed_by_name());
+//
+//
+//        Button cancel = (Button) dialog.findViewById(R.id.cancel);
+//        Button proceed = (Button) dialog.findViewById(R.id.proceed);
+//
+//        cancel.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // activity.finish();
+//                dialog.dismiss();
+//            }
+//        });
+//
+//        proceed.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                if (!number_of_passengers.getText().toString().isEmpty() && number_of_passengers.getText().toString() != null) {
+//
+//                    scanData.setNumber_of_passengers_manual(number_of_passengers.getText().toString());
+//                    System.out.println("====Manual Entry" + scanData.getNumber_of_passengers_manual());
+//                } else {
+//                    scanData.setNumber_of_passengers_manual("0");
+//                    System.out.println("====Manual Entry" + scanData.getNumber_of_passengers_manual());
+//                }
+//
+//
+//                //Start ASYNC TASK TODO
+//                // prepare your parameters that need to be sent back to activity
+//                Intent intent = new Intent("UploadServer");
+//                intent.setPackage(activity.getPackageName());
+//                Bundle bundle = new Bundle();
+//                bundle.putSerializable("SCAN_DATA", scanData);
+//                intent.putExtras(bundle);
+//                activity.sendBroadcast(intent);
+//                dialog.dismiss();
+//            }
+//        });
+//
+//        dialog.show();
+//
+//    }
 
-        int width = (int) (activity.getResources().getDisplayMetrics().widthPixels * 0.95);
-        int height = (int) (activity.getResources().getDisplayMetrics().heightPixels * 0.95);
-        dialog.getWindow().setLayout(width, height);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-        // TextView name = (TextView)dialog.findViewById(R.id.name);
-        TextView passnumber = (TextView) dialog.findViewById(R.id.passnumber);
-        TextView vehiclenumber = (TextView) dialog.findViewById(R.id.vehiclenumber);
-        TextView mobile = (TextView) dialog.findViewById(R.id.mobile);
-        TextView dateissue = (TextView) dialog.findViewById(R.id.dateissue);
-        TextView district = (TextView) dialog.findViewById(R.id.district);
-        TextView barrier = (TextView) dialog.findViewById(R.id.barrier);
-        TextView datescan = (TextView) dialog.findViewById(R.id.datescan);
-        TextView timescan = (TextView) dialog.findViewById(R.id.timescan);
-        final EditText number_of_passengers = (EditText) dialog.findViewById(R.id.number_of_passengers);
-
-
-        // Log.e("====Manual Entry", scanData.getNumber_of_passengers_manual());
-        DatabaseHandler DB = new DatabaseHandler(activity);
-
-
-        // name.setText(taskPojo.getTask_name());
-        passnumber.setText(scanData.getPassNo());
-        vehiclenumber.setText("-");
-        mobile.setText(scanData.getMobileNumbr());
-        dateissue.setText(scanData.getDateIssueDate());
-        district.setText(DB.getDistrictNameById(scanData.getDistict()));
-        barrier.setText(DB.getBarrierNameById(scanData.getDistict(), scanData.getBarrrier()));
-        datescan.setText(DateTime.Change_Date_Format_second(scanData.getScanDate()));
-        Log.e("ScanDae", DateTime.Change_Date_Format_second(scanData.getScanDate()));
-        timescan.setText(DateTime.changeTime(scanData.getScanDate()));
-//        task_completed_by.setText(taskPojo.getTask_completed_by_name());
-
-
-        Button cancel = (Button) dialog.findViewById(R.id.cancel);
-        Button proceed = (Button) dialog.findViewById(R.id.proceed);
-
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // activity.finish();
-                dialog.dismiss();
-            }
-        });
-
-        proceed.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (!number_of_passengers.getText().toString().isEmpty() && number_of_passengers.getText().toString() != null) {
-
-                    scanData.setNumber_of_passengers_manual(number_of_passengers.getText().toString());
-                    System.out.println("====Manual Entry" + scanData.getNumber_of_passengers_manual());
-                } else {
-                    scanData.setNumber_of_passengers_manual("0");
-                    System.out.println("====Manual Entry" + scanData.getNumber_of_passengers_manual());
-                }
-
-
-                //Start ASYNC TASK TODO
-                // prepare your parameters that need to be sent back to activity
-                Intent intent = new Intent("UploadServer");
-                intent.setPackage(activity.getPackageName());
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("SCAN_DATA", scanData);
-                intent.putExtras(bundle);
-                activity.sendBroadcast(intent);
-                dialog.dismiss();
-            }
-        });
-
-        dialog.show();
-
-    }
-
-    public void showDialogSearchByPassId(final Activity activity) throws ParseException {
-        final ScanDataPojo scanData = new ScanDataPojo();
-        scanData.setScannedByPhoneNumber(Preferences.getInstance().phone_number);
-        scanData.setDistict(Preferences.getInstance().district_id);
-        scanData.setBarrrier(Preferences.getInstance().barrier_id);
-        scanData.setLatitude("0");
-        scanData.setLongitude("0");
-        scanData.setPassNo("-");
-        scanData.setMobileNumbr("-");
-        scanData.setPrsonNo("-");
-        scanData.setDateIssueDate("-");
-        scanData.setScanDate(CommonUtils.getCurrentDate());
-        final Dialog dialog = new Dialog(activity);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setCancelable(false);
-        dialog.setContentView(R.layout.dialog_pojopassid_custom);
-
-        int width = (int) (activity.getResources().getDisplayMetrics().widthPixels * 0.95);
-        int height = (int) (activity.getResources().getDisplayMetrics().heightPixels * 0.95);
-        dialog.getWindow().setLayout(width, height);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-        // TextView name = (TextView)dialog.findViewById(R.id.name);
-        final EditText passnumber = (EditText) dialog.findViewById(R.id.passnumber);
-
-
-        TextView district = (TextView) dialog.findViewById(R.id.district);
-        TextView barrier = (TextView) dialog.findViewById(R.id.barrier);
-        TextView datescan = (TextView) dialog.findViewById(R.id.datescan);
-        TextView timescan = (TextView) dialog.findViewById(R.id.timescan);
-        final EditText number_of_passengers = (EditText) dialog.findViewById(R.id.number_of_passengers);
-
-
-        // Log.e("====Manual Entry", scanData.getNumber_of_passengers_manual());
-        DatabaseHandler DB = new DatabaseHandler(activity);
-
-
-        // name.setText(taskPojo.getTask_name());
-
-
-        district.setText(DB.getDistrictNameById(scanData.getDistict()));
-        barrier.setText(DB.getBarrierNameById(scanData.getDistict(), scanData.getBarrrier()));
-        datescan.setText(DateTime.Change_Date_Format_second(scanData.getScanDate()));
-
-        timescan.setText(DateTime.changeTime(scanData.getScanDate()));
-//        task_completed_by.setText(taskPojo.getTask_completed_by_name());
-
-
-        Button cancel = (Button) dialog.findViewById(R.id.cancel);
-        Button proceed = (Button) dialog.findViewById(R.id.proceed);
-
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // activity.finish();
-                dialog.dismiss();
-            }
-        });
-
-        proceed.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (!number_of_passengers.getText().toString().isEmpty() && number_of_passengers.getText().toString() != null) {
-
-                    scanData.setNumber_of_passengers_manual(number_of_passengers.getText().toString());
-                    System.out.println("====Manual Entry" + scanData.getNumber_of_passengers_manual());
-                } else {
-                    scanData.setNumber_of_passengers_manual("0");
-                }
-
-
-                if (!passnumber.getText().toString().isEmpty() && passnumber.getText().toString() != null) {
-
-                    scanData.setPassNo(passnumber.getText().toString());
-                    System.out.println("====Manual Entry" + scanData.getPassNo());
-                    Intent intent = new Intent("UploadServerManual");
-                    intent.setPackage(activity.getPackageName());
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("SCAN_DATA", scanData);
-                    intent.putExtras(bundle);
-                    activity.sendBroadcast(intent);
-                    dialog.dismiss();
-                } else {
-                    showDialog(activity, "Please Enter Pass Number");
-                }
-
-
-            }
-        });
-
-        dialog.show();
-
-    }
+//    public void showDialogSearchByPassId(final Activity activity) throws ParseException {
+//        final ScanDataPojo scanData = new ScanDataPojo();
+//        scanData.setScannedByPhoneNumber(Preferences.getInstance().phone_number);
+//        scanData.setDistict(Preferences.getInstance().district_id);
+//        scanData.setBarrrier(Preferences.getInstance().barrier_id);
+//        scanData.setLatitude("0");
+//        scanData.setLongitude("0");
+//        scanData.setPassNo("-");
+//        scanData.setMobileNumbr("-");
+//        scanData.setPrsonNo("-");
+//        scanData.setDateIssueDate("-");
+//        scanData.setScanDate(CommonUtils.getCurrentDate());
+//        final Dialog dialog = new Dialog(activity);
+//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        dialog.setCancelable(false);
+//        dialog.setContentView(R.layout.dialog_pojopassid_custom);
+//
+//        int width = (int) (activity.getResources().getDisplayMetrics().widthPixels * 0.95);
+//        int height = (int) (activity.getResources().getDisplayMetrics().heightPixels * 0.95);
+//        dialog.getWindow().setLayout(width, height);
+//        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//
+//        // TextView name = (TextView)dialog.findViewById(R.id.name);
+//        final EditText passnumber = (EditText) dialog.findViewById(R.id.passnumber);
+//
+//
+//        TextView district = (TextView) dialog.findViewById(R.id.district);
+//        TextView barrier = (TextView) dialog.findViewById(R.id.barrier);
+//        TextView datescan = (TextView) dialog.findViewById(R.id.datescan);
+//        TextView timescan = (TextView) dialog.findViewById(R.id.timescan);
+//        final EditText number_of_passengers = (EditText) dialog.findViewById(R.id.number_of_passengers);
+//
+//
+//        // Log.e("====Manual Entry", scanData.getNumber_of_passengers_manual());
+//        DatabaseHandler DB = new DatabaseHandler(activity);
+//
+//
+//        // name.setText(taskPojo.getTask_name());
+//
+//
+//        district.setText(DB.getDistrictNameById(scanData.getDistict()));
+//        barrier.setText(DB.getBarrierNameById(scanData.getDistict(), scanData.getBarrrier()));
+//        datescan.setText(DateTime.Change_Date_Format_second(scanData.getScanDate()));
+//
+//        timescan.setText(DateTime.changeTime(scanData.getScanDate()));
+////        task_completed_by.setText(taskPojo.getTask_completed_by_name());
+//
+//
+//        Button cancel = (Button) dialog.findViewById(R.id.cancel);
+//        Button proceed = (Button) dialog.findViewById(R.id.proceed);
+//
+//        cancel.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // activity.finish();
+//                dialog.dismiss();
+//            }
+//        });
+//
+//        proceed.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                if (!number_of_passengers.getText().toString().isEmpty() && number_of_passengers.getText().toString() != null) {
+//
+//                    scanData.setNumber_of_passengers_manual(number_of_passengers.getText().toString());
+//                    System.out.println("====Manual Entry" + scanData.getNumber_of_passengers_manual());
+//                } else {
+//                    scanData.setNumber_of_passengers_manual("0");
+//                }
+//
+//
+//                if (!passnumber.getText().toString().isEmpty() && passnumber.getText().toString() != null) {
+//
+//                    scanData.setPassNo(passnumber.getText().toString());
+//                    System.out.println("====Manual Entry" + scanData.getPassNo());
+//                    Intent intent = new Intent("UploadServerManual");
+//                    intent.setPackage(activity.getPackageName());
+//                    Bundle bundle = new Bundle();
+//                    bundle.putSerializable("SCAN_DATA", scanData);
+//                    intent.putExtras(bundle);
+//                    activity.sendBroadcast(intent);
+//                    dialog.dismiss();
+//                } else {
+//                    showDialog(activity, "Please Enter Pass Number");
+//                }
+//
+//
+//            }
+//        });
+//
+//        dialog.show();
+//
+//    }
 
     public void showIdCard(final Activity activity, IDCardServerObject object)  {
         final Dialog dialog = new Dialog(activity);

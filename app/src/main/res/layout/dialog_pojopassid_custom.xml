@@ -12,8 +12,7 @@
 
         android:gravity="center"
         android:padding="10dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/searchpass" />
+        android:scaleType="fitCenter"/>
 
     <!--android:src="@drawable/dialog_cross"-->
 

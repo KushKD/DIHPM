@@ -14,7 +14,6 @@
             android:layout_height="120dp"
             android:id="@+id/a"
             android:gravity="center"
-            android:src="@drawable/success"
             android:padding="40dp"
             android:background="@color/darkblue"
 
