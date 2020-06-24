@@ -4,8 +4,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.Locale;
 
 
 public class VehicleOwnerEntries implements Serializable {
@@ -17,16 +15,16 @@ public class VehicleOwnerEntries implements Serializable {
     private String idCardNumber;
 
 
-    private Integer vehicleDistrictId;
+    private int vehicleDistrictId;
 
 
-    private Integer vehicleBarrierId;
+    private int vehicleBarrierId;
 
 
-    private Integer vehicleTypeId;
+    private int vehicleTypeId;
 
 
-    private Integer vehicleOwnerTypeId;
+    private int vehicleOwnerTypeId;
 
 
     private String vehicleOwnerName;
@@ -37,10 +35,10 @@ public class VehicleOwnerEntries implements Serializable {
     private Long vehicleOwnerMobileNumber;
 
 
-    private Date isValidFrom;
+    private String isValidFrom;
 
 
-    private Date isValidUpto;
+    private String isValidUpto;
 
 
     private String vehicleOwnerAadhaarNumber;
@@ -64,8 +62,7 @@ public class VehicleOwnerEntries implements Serializable {
     private String otherInformation;
 
 
-    private Integer dataEnteredBy;
-
+    private int dataEnteredBy;
 
     public Long getVehicleOwnerId() {
         return vehicleOwnerId;
@@ -83,35 +80,35 @@ public class VehicleOwnerEntries implements Serializable {
         this.idCardNumber = idCardNumber;
     }
 
-    public Integer getVehicleDistrictId() {
+    public int getVehicleDistrictId() {
         return vehicleDistrictId;
     }
 
-    public void setVehicleDistrictId(Integer vehicleDistrictId) {
+    public void setVehicleDistrictId(int vehicleDistrictId) {
         this.vehicleDistrictId = vehicleDistrictId;
     }
 
-    public Integer getVehicleBarrierId() {
+    public int getVehicleBarrierId() {
         return vehicleBarrierId;
     }
 
-    public void setVehicleBarrierId(Integer vehicleBarrierId) {
+    public void setVehicleBarrierId(int vehicleBarrierId) {
         this.vehicleBarrierId = vehicleBarrierId;
     }
 
-    public Integer getVehicleTypeId() {
+    public int getVehicleTypeId() {
         return vehicleTypeId;
     }
 
-    public void setVehicleTypeId(Integer vehicleTypeId) {
+    public void setVehicleTypeId(int vehicleTypeId) {
         this.vehicleTypeId = vehicleTypeId;
     }
 
-    public Integer getVehicleOwnerTypeId() {
+    public int getVehicleOwnerTypeId() {
         return vehicleOwnerTypeId;
     }
 
-    public void setVehicleOwnerTypeId(Integer vehicleOwnerTypeId) {
+    public void setVehicleOwnerTypeId(int vehicleOwnerTypeId) {
         this.vehicleOwnerTypeId = vehicleOwnerTypeId;
     }
 
@@ -139,19 +136,19 @@ public class VehicleOwnerEntries implements Serializable {
         this.vehicleOwnerMobileNumber = vehicleOwnerMobileNumber;
     }
 
-    public Date getIsValidFrom() {
+    public String getIsValidFrom() {
         return isValidFrom;
     }
 
-    public void setIsValidFrom(Date isValidFrom) {
+    public void setIsValidFrom(String isValidFrom) {
         this.isValidFrom = isValidFrom;
     }
 
-    public Date getIsValidUpto() {
+    public String getIsValidUpto() {
         return isValidUpto;
     }
 
-    public void setIsValidUpto(Date isValidUpto) {
+    public void setIsValidUpto(String isValidUpto) {
         this.isValidUpto = isValidUpto;
     }
 
@@ -211,28 +208,37 @@ public class VehicleOwnerEntries implements Serializable {
         this.otherInformation = otherInformation;
     }
 
-    public Integer getDataEnteredBy() {
+    public int getDataEnteredBy() {
         return dataEnteredBy;
     }
 
-    public void setDataEnteredBy(Integer dataEnteredBy) {
+    public void setDataEnteredBy(int dataEnteredBy) {
         this.dataEnteredBy = dataEnteredBy;
     }
 
-
     @Override
     public String toString() {
-        return "VehicleOwnerEntries [vehicleOwnerId=" + vehicleOwnerId + ", idCardNumber=" + idCardNumber
-                + ", vehicleDistrictId=" + vehicleDistrictId + ", vehicleBarrierId=" + vehicleBarrierId
-                + ", vehicleTypeId=" + vehicleTypeId + ", vehicleOwnerTypeId=" + vehicleOwnerTypeId
-                + ", vehicleOwnerName=" + vehicleOwnerName + ", vehicleOwnerImageName=" + vehicleOwnerImageName
-                + ", vehicleOwnerMobileNumber=" + vehicleOwnerMobileNumber + ", isValidFrom=" + isValidFrom
-                + ", isValidUpto=" + isValidUpto + ", vehicleOwnerAadhaarNumber=" + vehicleOwnerAadhaarNumber
-                + ", vehicleOwnerVehicleNumber=" + vehicleOwnerVehicleNumber + ", vehicleOwnerChassisNumber="
-                + vehicleOwnerChassisNumber + ", vehicleOwnerEngineNumber=" + vehicleOwnerEngineNumber
-                + ", vehicleOwnerDrivingLicence=" + vehicleOwnerDrivingLicence + ", mobileInformation="
-                + mobileInformation + ", otherInformation=" + otherInformation + ", dataEnteredBy=" + dataEnteredBy
-                + "]";
+        return "VehicleOwnerEntries{" +
+                "vehicleOwnerId=" + vehicleOwnerId +
+                ", idCardNumber='" + idCardNumber + '\'' +
+                ", vehicleDistrictId=" + vehicleDistrictId +
+                ", vehicleBarrierId=" + vehicleBarrierId +
+                ", vehicleTypeId=" + vehicleTypeId +
+                ", vehicleOwnerTypeId=" + vehicleOwnerTypeId +
+                ", vehicleOwnerName='" + vehicleOwnerName + '\'' +
+                ", vehicleOwnerImageName='" + vehicleOwnerImageName + '\'' +
+                ", vehicleOwnerMobileNumber=" + vehicleOwnerMobileNumber +
+                ", isValidFrom='" + isValidFrom + '\'' +
+                ", isValidUpto='" + isValidUpto + '\'' +
+                ", vehicleOwnerAadhaarNumber='" + vehicleOwnerAadhaarNumber + '\'' +
+                ", vehicleOwnerVehicleNumber='" + vehicleOwnerVehicleNumber + '\'' +
+                ", vehicleOwnerChassisNumber='" + vehicleOwnerChassisNumber + '\'' +
+                ", vehicleOwnerEngineNumber='" + vehicleOwnerEngineNumber + '\'' +
+                ", vehicleOwnerDrivingLicence='" + vehicleOwnerDrivingLicence + '\'' +
+                ", mobileInformation='" + mobileInformation + '\'' +
+                ", otherInformation='" + otherInformation + '\'' +
+                ", dataEnteredBy=" + dataEnteredBy +
+                '}';
     }
 
     public String toJSON() {

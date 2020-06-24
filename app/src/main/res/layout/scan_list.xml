@@ -40,7 +40,7 @@
 
 
 
-    central_dept
+
 
     <TextView
         android:id="@+id/phone_no"

@@ -58,43 +58,32 @@ public class Generic_Async_UploadFiles extends AsyncTask<IDCardPojo, String, IDC
 
             FileInputStream fstrm = null;
             try {
-                //  mediaFiles.
-                 myList = mediaFiles[0];
-              //  mProgressDialog.setMax((int)(myList.getMdefiafilesUpdated().size()));
 
-               // Log.e("List Size", Integer.toString(myList.getMdefiafilesUpdated().size()));
-               // for (int i = 0; i < myList.getMdefiafilesUpdated().size(); i++) {
-                    //publishProgress((int) i+1);
+                 myList = mediaFiles[0];
+
                 File file = new File(myList.getFilePath());
                     Log.e("File Name", file.getName());
                 Log.e("File Path", file.getPath());
 
-
-                    //File f = new File(myList.getMdefiafilesUpdated().get(i).getPath());
-                   // Log.e("file Name", f.getName());
                     fstrm = new FileInputStream(file.getPath());
                     hfu = new HttpFileUpload(Econstants.url+myList.getFunctionName(),  file.getName(),
                             file.getPath(),
                             myList.getVahicleEntries().toJSON());
                     System.out.println("Connection ...Please wait");
                 responseMessage = hfu.Send_Now(fstrm);
-                myList.setReponse(responseMessage);
-                   // imagename.add(myList.getMdefiafilesUpdated().get(i).getName()+" \t"+hfu.ResponceCode);
+                myList.setReponse(responseMessage.split("~~")[0]);
+                myList.setResponseCode(Integer.parseInt(responseMessage.split("~~")[1]));
 
-              //  }
-
-            } catch (FileNotFoundException e) {   //FileNotFoundException
+            } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
 
 
 
         } catch (Exception e) {
-            // Error: File not found
             System.out.println("Exception is"+e.getMessage());
         }
 
-        // hfu.ResponceCode;
         return myList;
     }
 

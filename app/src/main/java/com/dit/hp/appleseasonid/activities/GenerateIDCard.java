@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.dit.hp.appleseasonid.Adapter.VehicleTypesAdapter;
 import com.dit.hp.appleseasonid.Adapter.VehicleUserTypesAdapter;
 import com.dit.hp.appleseasonid.Modal.IDCardPojo;
+import com.dit.hp.appleseasonid.Modal.IDCardServerObject;
 import com.dit.hp.appleseasonid.Modal.ResponsePojoGet;
 import com.dit.hp.appleseasonid.Modal.SuccessResponse;
 import com.dit.hp.appleseasonid.Modal.UploadObject;
@@ -206,15 +207,12 @@ public class GenerateIDCard extends AppCompatActivity implements AsyncTaskListen
                 vehicleOwnerEntries.setVehicleDistrictId(Integer.parseInt(Preferences.getInstance().district_id));
                 vehicleOwnerEntries.setVehicleBarrierId(Integer.parseInt(Preferences.getInstance().barrier_id));
                 vehicleOwnerEntries.setVehicleTypeId(Integer.parseInt(globalVehicleId));
-                vehicleOwnerEntries.setVehicleOwnerId(Long.parseLong(globalVehicleUserId));
+                vehicleOwnerEntries.setVehicleOwnerTypeId(Integer.parseInt(globalVehicleUserId));
 
 
-                try {
-                    vehicleOwnerEntries.setIsValidFrom(DateTime.StringToDate(passvalidfrom.getText().toString().trim()));
-                    vehicleOwnerEntries.setIsValidUpto(DateTime.StringToDate(passvalidto.getText().toString().trim()));
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
+
+                    vehicleOwnerEntries.setIsValidFrom(passvalidfrom.getText().toString().trim());
+                    vehicleOwnerEntries.setIsValidUpto(passvalidto.getText().toString().trim());
 
 
                 if (aadhaarnumber.getText().toString() == null || aadhaarnumber.getText().toString().isEmpty()) {
@@ -584,10 +582,26 @@ public class GenerateIDCard extends AppCompatActivity implements AsyncTaskListen
     }
 
     @Override
-    public void onTaskCompleted(IDCardPojo object, TaskType taskType) throws JSONException {
-        if(taskType == object.getTaskType()){
-            Log.e("Result",object.getReponse());
+    public void onTaskCompleted(IDCardPojo result, TaskType taskType) throws JSONException {
+        SuccessResponse response = null;
+        if(taskType == result.getTaskType()){
+            Log.e("Result",result.getReponse());
+            if (Integer.toString(result.getResponseCode()).equalsIgnoreCase(Integer.toString(HttpsURLConnection.HTTP_OK))) {
+                response = JsonParse.getSuccessResponse(result.getReponse());
+                if (response.getStatus().equalsIgnoreCase("OK")) {
+                    IDCardServerObject object = JsonParse.getIdCardUserServerDetails(response.getResponse());
+                    Log.e("Object@#$%^",object.toString());
+                    CD.showIdCard(GenerateIDCard.this,object);
+
+                    } else {
+                        CD.showDialog(GenerateIDCard.this, response.getMessage());
+
+                    }
+                } else {
+                    CD.showDialog(GenerateIDCard.this, response.getMessage());
+                }
+            }
         }
 
-    }
+
 }

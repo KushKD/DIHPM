@@ -3,13 +3,18 @@ package com.dit.hp.appleseasonid.network;
 
 import android.util.Log;
 
+import com.dit.hp.appleseasonid.utilities.Econstants;
+
+import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.Buffer;
 
 public class HttpFileUpload {
     URL connectURL;
@@ -20,6 +25,7 @@ public class HttpFileUpload {
     FileInputStream fileInputStream = null;
     DataOutputStream dos = null;
     public String ResponceCode = null;
+    BufferedReader reader =null;
 
     public HttpFileUpload(String urlString, String filename, String filepath, String jsonData){
         try{
@@ -74,7 +80,7 @@ public class HttpFileUpload {
             dos.writeBytes(jsonData_);
             dos.writeBytes(lineEnd);
 
-
+            Log.e("JsonData",jsonData_.toString());
 
             dos.writeBytes(twoHyphens + boundary + lineEnd);
             //UploadFile
@@ -107,20 +113,37 @@ public class HttpFileUpload {
             fileInputStream.close();
 
             dos.flush();
-            ResponceCode = String.valueOf(conn.getResponseCode());
-            Log.e(Tag,"ted, Response: "+String.valueOf(conn.getResponseMessage()));
 
-            InputStream is = conn.getInputStream();
+  System.out.println("@#@#@#@#@#@#@#@#@#"+conn.getResponseCode());
 
-            // retrieve the response from server
-            int ch;
+            if (conn.getResponseCode() != 200) {
+                reader = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+                StringBuilder sb = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line + "\n");
+                }
+                conn.disconnect();
+              Log.e("Error",sb.toString());
+                return sb.toString()+"~~"+conn.getResponseCode();
+            }else {
 
-            StringBuffer b =new StringBuffer();
-            while( ( ch = is.read() ) != -1 ){ b.append( (char)ch ); }
-            String s=b.toString();
-            Log.i("Response",s);
-            dos.close();
-            return s;
+
+                reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                StringBuilder sb = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line + "\n");
+                }
+                conn.disconnect();
+                Log.e("Success",sb.toString());
+                return sb.toString()+"~~"+conn.getResponseCode();
+
+            }
+
+
+
+
         }
         catch (MalformedURLException ex)
         {

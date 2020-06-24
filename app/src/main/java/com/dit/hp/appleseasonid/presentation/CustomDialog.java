@@ -13,13 +13,16 @@ import android.view.Window;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.dit.hp.appleseasonid.Modal.IDCardServerObject;
 import com.dit.hp.appleseasonid.Modal.ScanDataPojo;
 import com.dit.hp.appleseasonid.Modal.VerifyObject;
 import com.dit.hp.appleseasonid.R;
 import com.dit.hp.appleseasonid.database.DatabaseHandler;
 import com.dit.hp.appleseasonid.json.JsonParse;
+import com.dit.hp.appleseasonid.lazyloader.ImageLoader;
 import com.dit.hp.appleseasonid.utilities.CommonUtils;
 import com.dit.hp.appleseasonid.utilities.DateTime;
 import com.dit.hp.appleseasonid.utilities.Econstants;
@@ -381,5 +384,44 @@ public class CustomDialog {
         dialog.show();
 
     }
+
+    public void showIdCard(final Activity activity, IDCardServerObject object)  {
+        final Dialog dialog = new Dialog(activity);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.dialog_custom_id);
+
+        ImageLoader il = new ImageLoader(activity);
+
+        int width = (int) (activity.getResources().getDisplayMetrics().widthPixels );
+        int height = (int) (activity.getResources().getDisplayMetrics().heightPixels );
+        dialog.getWindow().setLayout(width, height);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        TextView name = (TextView) dialog.findViewById(R.id.name);
+        TextView id_card = (TextView) dialog.findViewById(R.id.id_card);
+        ImageView id_photo =  (ImageView)dialog.findViewById(R.id.id_photo);
+
+        il.DisplayImage(object.getImageUrl(), id_photo, null,null, false);
+
+
+        name.setText(object.getDriverName());
+        id_card.setText(object.getIdCardNumber());
+
+        Button dialog_ok = (Button) dialog.findViewById(R.id.dialog_ok);
+
+        dialog_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activity.finish();
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+
+    }
+
+
 
 }

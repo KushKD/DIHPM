@@ -1,5 +1,6 @@
 package com.dit.hp.appleseasonid.json;
 
+import com.dit.hp.appleseasonid.Modal.IDCardServerObject;
 import com.dit.hp.appleseasonid.Modal.ScanDataPojo;
 import com.dit.hp.appleseasonid.Modal.SuccessResponse;
 import com.dit.hp.appleseasonid.Modal.VerifyObject;
@@ -38,6 +39,26 @@ public class JsonParse {
 
         return sr;
     }
+
+
+
+    public static IDCardServerObject getIdCardUserServerDetails(String data) throws JSONException {
+
+        JSONObject responseObject = new JSONObject(data);
+        IDCardServerObject sr = new IDCardServerObject();
+        sr.setImageUrl(responseObject.getString("fileDownloadUri"));
+
+        JSONObject responseObject2 = responseObject.getJSONObject("ownerData");
+
+        sr.setDriverName(responseObject2.getString("vehicleOwnerName"));
+        sr.setIdCardNumber(responseObject2.getString("idCardNumber"));
+
+        return sr;
+    }
+
+
+
+
 
     public static VerifyObject createVerifyMessage(String data) throws JSONException {
 

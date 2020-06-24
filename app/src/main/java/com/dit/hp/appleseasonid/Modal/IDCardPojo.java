@@ -12,6 +12,7 @@ public class IDCardPojo implements Serializable {
     private TaskType taskType;
     private String url;
     private String reponse;
+    private int responseCode;
 
     public String getReponse() {
         return reponse;
@@ -53,6 +54,14 @@ public class IDCardPojo implements Serializable {
         this.vahicleEntries = vahicleEntries;
     }
 
+    public int getResponseCode() {
+        return responseCode;
+    }
+
+    public void setResponseCode(int responseCode) {
+        this.responseCode = responseCode;
+    }
+
     public String getFilePath() {
         return filePath;
     }
@@ -70,6 +79,7 @@ public class IDCardPojo implements Serializable {
                 ", taskType=" + taskType +
                 ", url='" + url + '\'' +
                 ", reponse='" + reponse + '\'' +
+                ", responseCode=" + responseCode +
                 '}';
     }
 }
