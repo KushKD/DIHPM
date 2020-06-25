@@ -64,6 +64,16 @@ public class VehicleOwnerEntries implements Serializable {
 
     private int dataEnteredBy;
 
+    private boolean active;
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
     public Long getVehicleOwnerId() {
         return vehicleOwnerId;
     }
@@ -238,6 +248,7 @@ public class VehicleOwnerEntries implements Serializable {
                 ", mobileInformation='" + mobileInformation + '\'' +
                 ", otherInformation='" + otherInformation + '\'' +
                 ", dataEnteredBy=" + dataEnteredBy +
+                ", active=" + active +
                 '}';
     }
 
@@ -259,11 +270,12 @@ public class VehicleOwnerEntries implements Serializable {
             jsonObject.put("vehicleOwnerAadhaarNumber", getVehicleOwnerAadhaarNumber());
             jsonObject.put("vehicleOwnerVehicleNumber", getVehicleOwnerVehicleNumber());
             jsonObject.put("vehicleOwnerChassisNumber", getVehicleOwnerChassisNumber());
-            jsonObject.put("vehicleOwnerEngineNumber", getVehicleOwnerChassisNumber());
+            jsonObject.put("vehicleOwnerEngineNumber", getVehicleOwnerEngineNumber());
             jsonObject.put("vehicleOwnerDrivingLicence", getVehicleOwnerDrivingLicence());
             jsonObject.put("mobileInformation", getMobileInformation());
             jsonObject.put("otherInformation", getOtherInformation());
             jsonObject.put("dataEnteredBy", getDataEnteredBy());
+            jsonObject.put("active",isActive());
 
 
             return jsonObject.toString();

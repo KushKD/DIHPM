@@ -5,11 +5,14 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.dit.hp.appleseasonid.Adapter.GenericAdapter;
 import com.dit.hp.appleseasonid.Adapter.GenericAdapterBarrier;
@@ -18,6 +21,7 @@ import com.dit.hp.appleseasonid.Modal.DistrictPojo;
 import com.dit.hp.appleseasonid.Modal.ResponsePojoGet;
 import com.dit.hp.appleseasonid.Modal.SuccessResponse;
 import com.dit.hp.appleseasonid.Modal.UploadObject;
+import com.dit.hp.appleseasonid.Modal.User;
 import com.dit.hp.appleseasonid.R;
 import com.dit.hp.appleseasonid.enums.TaskType;
 import com.dit.hp.appleseasonid.generic.Generic_Async_Get;
@@ -58,7 +62,7 @@ public class Registration extends AppCompatActivity implements AsyncTaskListener
     GenericAdapterBarrier adapter_barrier = null;
 
     com.doi.spinnersearchable.SearchableSpinner sp_district, sp_barrier;
-    EditText phone, depat_name, name;
+    EditText phone, otp;
     Button register;
 
 
@@ -77,8 +81,9 @@ public class Registration extends AppCompatActivity implements AsyncTaskListener
         sp_barrier.setPrompt("Please Select Barrier");
 
         phone = findViewById(R.id.phone);
-        depat_name = findViewById(R.id.depat_name);
-        name = findViewById(R.id.name);
+        phone.addTextChangedListener(textWatcher);
+        otp = findViewById(R.id.otp);
+        otp.addTextChangedListener(verifyTextWatcher);
         register = findViewById(R.id.register);
 
 
@@ -158,6 +163,7 @@ public class Registration extends AppCompatActivity implements AsyncTaskListener
             }
         });
 
+
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -165,26 +171,25 @@ public class Registration extends AppCompatActivity implements AsyncTaskListener
 
                 if (!phone.getText().toString().trim().isEmpty() && phone.getText().toString().trim().length() == 10) {
 
-                    if (!name.getText().toString().isEmpty() && name.getText().toString() != null) {
+                    //  if (!name.getText().toString().isEmpty() && name.getText().toString() != null) {
 
 
-                        Preferences.getInstance().loadPreferences(Registration.this);
-                        Preferences.getInstance().district_id = Global_district_id;
-                        Preferences.getInstance().districtName = globalDistrictName;
-                        Preferences.getInstance().barrier_id = Global_barrier_id;
-                        Preferences.getInstance().barrierName = globalBarrierName;
-                        Preferences.getInstance().name = name.getText().toString().trim();
-                        Preferences.getInstance().phone_number = phone.getText().toString().trim();
-                        Preferences.getInstance().isLoggedIn = true;
-                        Preferences.getInstance().savePreferences(Registration.this);
-                        Intent mainIntent = new Intent(Registration.this, MainActivity.class);
-                        Registration.this.startActivity(mainIntent);
-                        Registration.this.finish();
+//                        Preferences.getInstance().loadPreferences(Registration.this);
+//                        Preferences.getInstance().district_id = Global_district_id;
+//                        Preferences.getInstance().districtName = globalDistrictName;
+//                        Preferences.getInstance().barrier_id = Global_barrier_id;
+//                        Preferences.getInstance().barrierName = globalBarrierName;
+//                        Preferences.getInstance().phone_number = phone.getText().toString().trim();
+//                        Preferences.getInstance().isLoggedIn = true;
+//                        Preferences.getInstance().savePreferences(Registration.this);
+//                        Intent mainIntent = new Intent(Registration.this, MainActivity.class);
+//                        Registration.this.startActivity(mainIntent);
+//                        Registration.this.finish();
 
 
-                    } else {
-                        CD.showDialog(Registration.this, "Please enter name");
-                    }
+//                    } else {
+//                        CD.showDialog(Registration.this, "Please enter name");
+//                    }
 
 
                 } else {
@@ -197,6 +202,78 @@ public class Registration extends AppCompatActivity implements AsyncTaskListener
 
 
     }
+
+    TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            try {
+                if (s.length() == 10) {
+                    if (AppStatus.getInstance(Registration.this).isOnline()) {
+                        UploadObject object = new UploadObject();
+                        object.setUrl(Econstants.url);
+                        object.setMethordName(Econstants.methordGetOTP);
+                        object.setTasktype(TaskType.GET_OTP);
+                        object.setParam(s.toString());
+                        Log.e("Object", object.toString());
+                        new Generic_Async_Get(
+                                Registration.this,
+                                Registration.this,
+                                TaskType.GET_OTP).
+                                execute(object);
+                    } else {
+                        CD.showDialog(Registration.this, Econstants.internetNotAvailable);
+                    }
+                }
+            } catch (Exception ex) {
+                Log.e("Da43", ex.getLocalizedMessage().toString());
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+        }
+    };
+
+    TextWatcher verifyTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            try {
+                if (s.length() == 6) {
+                    if (AppStatus.getInstance(Registration.this).isOnline()) {
+                        UploadObject object = new UploadObject();
+                        object.setUrl(Econstants.url);
+                        object.setMethordName(Econstants.methordVerifyOtp);
+                        object.setTasktype(TaskType.VEREIFY_OTP);
+                        object.setParam(phone.getText().toString().trim()+"/"+s.toString());
+                        Log.e("Object", object.toString());
+                        new Generic_Async_Get(
+                                Registration.this,
+                                Registration.this,
+                                TaskType.VEREIFY_OTP).
+                                execute(object);
+                    } else {
+                        CD.showDialog(Registration.this, Econstants.internetNotAvailable);
+                    }
+                }
+            } catch (Exception ex) {
+                Log.e("Da43", ex.getLocalizedMessage().toString());
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+        }
+    };
 
 
     private void requestPermissions() {
@@ -283,6 +360,56 @@ public class Registration extends AppCompatActivity implements AsyncTaskListener
                 } else {
                     CD.showDialog(Registration.this, response.getMessage());
                 }
+            }
+        } else if (TaskType.GET_OTP == taskType) {
+            SuccessResponse response = null;
+            try{
+                if (result.getResponseCode().equalsIgnoreCase(Integer.toString(HttpsURLConnection.HTTP_OK))) {
+                    response = JsonParse.getSuccessResponse(result.getResponse());
+                    if (response.getStatus().equalsIgnoreCase("OK")) {
+                        phone.setEnabled(false);
+                        Toast.makeText(Registration.this, response.getResponse(), Toast.LENGTH_SHORT).show();
+
+                    } else {
+                        phone.setEnabled(true);
+                        Toast.makeText(Registration.this, response.getResponse(), Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    CD.showDialog(Registration.this, response.getMessage());
+                }
+            }catch(Exception ex){
+                CD.showDialog(Registration.this,result.getResponse());
+            }
+
+        }
+        else if (TaskType.VEREIFY_OTP == taskType) {
+            SuccessResponse response = null;
+            User userData = new User();
+            if (result.getResponseCode().equalsIgnoreCase(Integer.toString(HttpsURLConnection.HTTP_OK))) {
+                response = JsonParse.getSuccessResponse(result.getResponse());
+                if (response.getStatus().equalsIgnoreCase("OK")) {
+
+                    userData = JsonParse.getUSerDetilas(response.getResponse());
+                        Preferences.getInstance().loadPreferences(Registration.this);
+                        Preferences.getInstance().district_id = Global_district_id;
+                        Preferences.getInstance().districtName = globalDistrictName;
+                        Preferences.getInstance().barrier_id = Global_barrier_id;
+                        Preferences.getInstance().barrierName = globalBarrierName;
+                        Preferences.getInstance().phone_number = String.valueOf(userData.getMobileNumber());
+                        System.out.println("==="+userData.getUserId());
+                       Preferences.getInstance().userid = String.valueOf(userData.getUserId());
+                        Preferences.getInstance().isLoggedIn = true;
+                        Preferences.getInstance().savePreferences(Registration.this);
+                        Intent mainIntent = new Intent(Registration.this, MainActivity.class);
+                        Registration.this.startActivity(mainIntent);
+                        Registration.this.finish();
+
+                } else {
+                    Log.e("User else", response.getResponse());
+                    Toast.makeText(Registration.this, response.getResponse(), Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                CD.showDialog(Registration.this, response.getMessage());
             }
         }
 

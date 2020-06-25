@@ -1,8 +1,11 @@
 package com.dit.hp.appleseasonid.json;
 
+import android.util.Log;
+
 import com.dit.hp.appleseasonid.Modal.IDCardServerObject;
 import com.dit.hp.appleseasonid.Modal.ScanDataPojo;
 import com.dit.hp.appleseasonid.Modal.SuccessResponse;
+import com.dit.hp.appleseasonid.Modal.User;
 import com.dit.hp.appleseasonid.Modal.VerifyObject;
 import com.dit.hp.appleseasonid.utilities.CommonUtils;
 
@@ -37,6 +40,17 @@ public class JsonParse {
         sr.setMessage(responseObject.getString("MSG"));
         sr.setResponse(responseObject.getString("RESPONSE"));
 
+        return sr;
+    }
+
+    public static User getUSerDetilas(String data) throws JSONException {
+
+        JSONObject responseObject = new JSONObject(data);
+        User sr = new User();
+        sr.setUserName(responseObject.getString("user_name"));
+        sr.setUserId(responseObject.getInt("user_id"));
+        sr.setMobileNumber(responseObject.getLong("mobile_number"));
+        Log.e("Data",sr.toString());
         return sr;
     }
 

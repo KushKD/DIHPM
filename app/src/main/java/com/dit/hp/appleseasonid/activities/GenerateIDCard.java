@@ -206,6 +206,8 @@ public class GenerateIDCard extends AppCompatActivity implements AsyncTaskListen
                 vehicleOwnerEntries.setVehicleBarrierId(Integer.parseInt(Preferences.getInstance().barrier_id));
                 vehicleOwnerEntries.setVehicleTypeId(Integer.parseInt(globalVehicleId));
                 vehicleOwnerEntries.setVehicleOwnerTypeId(Integer.parseInt(globalVehicleUserId));
+                vehicleOwnerEntries.setActive(true);
+
 
 
 
@@ -263,7 +265,8 @@ public class GenerateIDCard extends AppCompatActivity implements AsyncTaskListen
                             vehicleOwnerEntries.setVehicleOwnerImageName(compressedImage.getName().trim());
                             vehicleOwnerEntries.setOtherInformation("");
                             vehicleOwnerEntries.setMobileInformation("");
-                            vehicleOwnerEntries.setDataEnteredBy(1);
+                            System.out.println("==="+Preferences.getInstance().userid);
+                            vehicleOwnerEntries.setDataEnteredBy(Integer.parseInt(Preferences.getInstance().userid));
                             System.out.println(vehicleOwnerEntries.toJSON());
 
                             cardPojo = new IDCardPojo();

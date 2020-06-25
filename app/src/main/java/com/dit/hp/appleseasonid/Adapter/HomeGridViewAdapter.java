@@ -13,12 +13,16 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dit.hp.appleseasonid.Modal.ModulesPojo;
 import com.dit.hp.appleseasonid.R;
 import com.dit.hp.appleseasonid.activities.GenerateIDCard;
+import com.dit.hp.appleseasonid.activities.MainActivity;
+import com.dit.hp.appleseasonid.activities.Registration;
 import com.dit.hp.appleseasonid.lazyloader.ImageLoader;
 import com.dit.hp.appleseasonid.presentation.CustomDialog;
+import com.dit.hp.appleseasonid.utilities.Preferences;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -100,7 +104,26 @@ public class HomeGridViewAdapter extends BaseAdapter {
                     (c).startActivity(i);
 
                 }
-                if (s.getName().equalsIgnoreCase("Total Scanned Passes")) {
+                if (s.getId().equalsIgnoreCase("3")) {
+                    Preferences.getInstance().loadPreferences(c.getApplicationContext());
+
+
+                    Preferences.getInstance().district_id = "";
+                    Preferences.getInstance().districtName = "";
+                    Preferences.getInstance().barrierName = "";
+                    Preferences.getInstance().barrier_id = "";
+                    Preferences.getInstance().phone_number = "";
+                    Preferences.getInstance().userid = "";
+                    Preferences.getInstance().isLoggedIn = false;
+
+
+                    Preferences.getInstance().savePreferences(c.getApplicationContext());
+                    Toast.makeText(c.getApplicationContext(),"Logout Successful",Toast.LENGTH_LONG).show();
+
+                    Intent mainIntent = new Intent(c.getApplicationContext(), Registration.class);
+                    (c).startActivity(mainIntent);
+                    ((Activity)c).finish();
+
 
 
 

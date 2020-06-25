@@ -21,12 +21,20 @@ public class Preferences {
         private String KEY_IS_LOGED_IN = "isLoggedIn";
         private String KEY_NAME = "name";
         private String KEY_NAME_DEPARTMENT = "dept_name";
+        private String KEY_USER_ID = "userid";
     private String KEY_BARRIER_NAME = "barrierName";
     private String KEY_DISTRICT_NAME = "districtName";
 
 
 
-        public String district_id,barrier_id,phone_number,name,dept_name, barrierName,districtName;
+        public String district_id;
+    public String barrier_id;
+    public String phone_number;
+    public String name;
+    public String dept_name;
+    public String barrierName;
+    public String districtName;
+    public String userid;
         public boolean isLoggedIn;
 
 
@@ -48,7 +56,7 @@ public class Preferences {
             district_id = preferences.getString(KEY_DISTRICTID, "");
             barrier_id = preferences.getString(KEY_BARRIERID, "");
             phone_number = preferences.getString(KEY_PHONENUMBER, "");
-
+            userid = preferences.getString(KEY_USER_ID,"");
             isLoggedIn = preferences.getBoolean(KEY_IS_LOGED_IN, isLoggedIn);
             name = preferences.getString(KEY_NAME,"");
             dept_name = preferences.getString(KEY_NAME_DEPARTMENT,"");
@@ -70,6 +78,7 @@ public class Preferences {
             editor.putString(KEY_DISTRICT_NAME, districtName);
             editor.putString(KEY_BARRIER_NAME, barrierName);
             editor.putBoolean(KEY_IS_LOGED_IN, isLoggedIn);
+            editor.putString(KEY_USER_ID,userid);
             //editor.clear();
             editor.commit();
         }

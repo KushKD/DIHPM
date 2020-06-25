@@ -101,10 +101,10 @@ public class MainActivity extends LocationBaseActivity implements SamplePresente
         mp2.setName("Scan Id Card");
         mp2.setLogo("scan");
 //
-//        ModulesPojo mp3 = new ModulesPojo();
-//        mp3.setId("3");
-//        mp3.setName("Manual Entry");
-//        mp3.setLogo("manualentry");
+        ModulesPojo mp3 = new ModulesPojo();
+        mp3.setId("3");
+        mp3.setName("Log Out");
+        mp3.setLogo("logout");
 //
 //        ModulesPojo mp4 = new ModulesPojo();
 //        mp4.setId("4");
@@ -114,7 +114,7 @@ public class MainActivity extends LocationBaseActivity implements SamplePresente
 
         modules.add(mp);
         modules.add(mp2);
-//        modules.add(mp3);
+        modules.add(mp3);
 //        modules.add(mp4);
 
         // Log.e("userLocation",userLocation);

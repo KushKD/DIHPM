@@ -64,6 +64,16 @@ public class Generic_Async_Get extends AsyncTask<UploadObject,Void ,ResponsePojo
                 Data_From_Server = http_manager.GetData(uploadObjects[0]);
                 return Data_From_Server;
             }
+            else if(uploadObjects[0].getTasktype().toString().equalsIgnoreCase(TaskType.GET_OTP.toString())){
+                Log.e("We Here", uploadObjects[0].getMethordName());
+                Data_From_Server = http_manager.GetData(uploadObjects[0]);
+                return Data_From_Server;
+            }
+            else if(uploadObjects[0].getTasktype().toString().equalsIgnoreCase(TaskType.VEREIFY_OTP.toString())){
+                Log.e("We Here", uploadObjects[0].getMethordName());
+                Data_From_Server = http_manager.GetData(uploadObjects[0]);
+                return Data_From_Server;
+            }
 
         } catch (Exception e) {
             Log.e("Value Saved",e.getLocalizedMessage().toString());

@@ -21,12 +21,14 @@ import java.io.UnsupportedEncodingException;
 public class Econstants {
 
     //Development
-    public static final String url = "http://192.168.1.39:8080/test/api";
+    public static final String url = "http://192.168.1.37:8080/test/api";
     public static final String stateID = "9";
     public static final String blank = "";
     public static final String internetNotAvailable = "Internet not Available. Please Connect to Internet and try again.";
     public static final String methordGetDistrict = "/districts/";
     public static final String methordGetBarriers = "/barriers/";
+    public static final String methordGetOTP = "/getotp/";
+    public static final String methordVerifyOtp = "/verifyotp/";
     public static final String methordGetVehicleType = "/vehicletypes/";
     public static final String methodVehicleUserType = "/vehicleusertypes/";
     public static final String methordUploadData = "/uploadData/";
