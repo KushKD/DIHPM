@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blikoon.qrcodescanner.QrCodeActivity;
 import com.dit.hp.appleseasonid.Modal.ModulesPojo;
 import com.dit.hp.appleseasonid.R;
 import com.dit.hp.appleseasonid.activities.GenerateIDCard;
@@ -35,7 +36,6 @@ import java.util.ArrayList;
 public class HomeGridViewAdapter extends BaseAdapter {
     Context c;
     ArrayList<ModulesPojo> gridHome;
-
 
 
     ImageLoader il = new ImageLoader(c);
@@ -99,7 +99,7 @@ public class HomeGridViewAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
 
-                if (s.getId()=="1") {
+                if (s.getId() == "1") {
                     Intent i = new Intent(c.getApplicationContext(), GenerateIDCard.class);
                     (c).startActivity(i);
 
@@ -118,22 +118,18 @@ public class HomeGridViewAdapter extends BaseAdapter {
 
 
                     Preferences.getInstance().savePreferences(c.getApplicationContext());
-                    Toast.makeText(c.getApplicationContext(),"Logout Successful",Toast.LENGTH_LONG).show();
+                    Toast.makeText(c.getApplicationContext(), "Logout Successful", Toast.LENGTH_LONG).show();
 
                     Intent mainIntent = new Intent(c.getApplicationContext(), Registration.class);
                     (c).startActivity(mainIntent);
-                    ((Activity)c).finish();
-
-
+                    ((Activity) c).finish();
 
 
                 }
-                if (s.getName().equalsIgnoreCase("Search Pass")) {
-//                    try {
-//                       // CD.showDialogSearchByPassId((Activity) c);
-//                    } catch (ParseException e) {
-//                        e.printStackTrace();
-//                    }
+                if (s.getId().equalsIgnoreCase("2")) {
+                    Intent i = new Intent(c.getApplicationContext(), QrCodeActivity.class);
+                    ((Activity) c).startActivityForResult(i, 101);
+
                 }
                 if (s.getName().equalsIgnoreCase("Manual Entry")) {
 
@@ -149,9 +145,6 @@ public class HomeGridViewAdapter extends BaseAdapter {
 
         return view;
     }
-
-
-
 
 
 }

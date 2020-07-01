@@ -15,7 +15,8 @@ public enum TaskType {
     GET_VEHICLE_TYPE_USER(7),
     UPLOAD_DATA(8),
     GET_OTP(9),
-    VEREIFY_OTP(10);
+    VEREIFY_OTP(10),
+    SCAN_ID_CARD(11);
 
     int value; private TaskType(int value) { this.value = value; }
 }

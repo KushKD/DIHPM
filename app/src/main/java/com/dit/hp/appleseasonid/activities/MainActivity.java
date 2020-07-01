@@ -18,18 +18,22 @@ import android.widget.GridView;
 
 import com.dit.hp.appleseasonid.Adapter.HomeGridViewAdapter;
 import com.dit.hp.appleseasonid.Adapter.SliderAdapter;
+import com.dit.hp.appleseasonid.Modal.IdCardScanPojo;
 import com.dit.hp.appleseasonid.Modal.ModulesPojo;
 import com.dit.hp.appleseasonid.Modal.ResponsePojo;
+import com.dit.hp.appleseasonid.Modal.ResponsePojoGet;
 import com.dit.hp.appleseasonid.Modal.ScanDataPojo;
 import com.dit.hp.appleseasonid.Modal.SuccessResponse;
 import com.dit.hp.appleseasonid.Modal.UploadObject;
 import com.dit.hp.appleseasonid.R;
 import com.dit.hp.appleseasonid.enums.TaskType;
 import com.dit.hp.appleseasonid.generic.GenericAsyncPostObject;
+import com.dit.hp.appleseasonid.generic.Generic_Async_Get;
 import com.dit.hp.appleseasonid.interfaces.AsyncTaskListenerObject;
 import com.dit.hp.appleseasonid.json.JsonParse;
 import com.dit.hp.appleseasonid.presentation.CustomDialog;
 import com.dit.hp.appleseasonid.utilities.AppStatus;
+import com.dit.hp.appleseasonid.utilities.Econstants;
 import com.dit.hp.appleseasonid.utilities.Preferences;
 import com.dit.hp.appleseasonid.utilities.SamplePresenter;
 import com.kushkumardhawan.locationmanager.base.LocationBaseActivity;
@@ -285,12 +289,12 @@ public class MainActivity extends LocationBaseActivity implements SamplePresente
                 Log.d(LOGTAG, "Have scan result in your app activity :" + result);
                 // CD.showDialog(MainActivity.this, result);
                 try {
-                    ScanDataPojo scanData = JsonParse.getObjectSave(result);
-                    scanData = updateScanData(scanData);
-                    Log.e("UserLocation", userLocation);
-                    Log.e("scanDate", scanData.toString());
+                    IdCardScanPojo scanData = JsonParse.getObjectSave(result);
+                   // scanData = updateScanData(scanData);
+                   // Log.e("UserLocation", userLocation);
+                    //Log.e("scanDate", scanData.toString());
                    // CD.showDialogScanData(MainActivity.this, scanData);
-                    // uploadDataToServer(scanData);
+                     uploadDataToServer(scanData);
 
                 } catch (JSONException  e) {
                     CD.showDialog(MainActivity.this, result);
@@ -305,8 +309,32 @@ public class MainActivity extends LocationBaseActivity implements SamplePresente
 
     }
 
+    private void uploadDataToServer(IdCardScanPojo scanData) {
+
+        if (AppStatus.getInstance(MainActivity.this).isOnline()) {
+
+            Log.e("Data From Dialog", scanData.toString());
+
+            //TODO Internet Check
+            UploadObject object = new UploadObject();
+            object.setUrl(Econstants.url);
+            object.setMethordName(Econstants.methordverifyVehicle);
+            object.setTasktype(TaskType.SCAN_ID_CARD);
+            object.setParam(scanData.toJSON());
+            Log.e("Object", object.toString());
+            new GenericAsyncPostObject(
+                    MainActivity.this,
+                    MainActivity.this,
+                    TaskType.SCAN_ID_CARD).
+                    execute(object);
 
 
+
+
+        } else {
+            CD.showDialog(MainActivity.this, "Please Connect to Internet and try again.");
+        }
+    }
 
 
     private ScanDataPojo updateScanData(ScanDataPojo scanData) {
@@ -356,7 +384,7 @@ public class MainActivity extends LocationBaseActivity implements SamplePresente
     @Override
     protected void onResume() {
         super.onResume();
-        registerReceiver(mReceiver, new IntentFilter("UploadServer"));
+       // registerReceiver(mReceiver, new IntentFilter("UploadServer"));
         registerReceiver(mReceiver, new IntentFilter("verifyData"));
         registerReceiver(mReceiver, new IntentFilter("UploadServerManual"));
         if (getLocationManager().isWaitingForLocation()
@@ -434,46 +462,31 @@ public class MainActivity extends LocationBaseActivity implements SamplePresente
 
 
     @Override
-    public void onTaskCompleted(ResponsePojo result, TaskType taskType) throws JSONException {
-        if (taskType == TaskType.UPLOAD_SCANNED_PASS) {
+    public void onTaskCompleted(ResponsePojoGet result, TaskType taskType) throws JSONException {
+        if (taskType == TaskType.SCAN_ID_CARD) {
 
-            Log.e("We are Heter", "Result" + result.toString());
             if (result.getResponse().isEmpty()) {
-                //Toast.makeText(MainActivity.this, "Data Stored Locally", Toast.LENGTH_SHORT).show();
                 CD.showDialog(MainActivity.this, "Please Connect to Internet and try again.");
             } else {
 
                 try {
                     SuccessResponse response = JsonParse.getSuccessResponse(result.getResponse());
 
-                    if (response.getStatus().equalsIgnoreCase("200")) {
-                        Log.e("verify",response.toString());
-                        //TODO
-                        CD.showDialogHTML(MainActivity.this, response.getResponse(), response.getMessage());
+                    if (response.getStatus().equalsIgnoreCase("OK")) {
+
+                        if(Econstants.checkJsonObject(response.getResponse())){
+                            Log.e("verify",response.getResponse());
+
+                        }else{
+                            CD.showDialog(MainActivity.this, "Something went wrong. Please try again.");
+                        }
+
+
                     } else {
-                        CD.showDialog(MainActivity.this, response.getResponse());
+                      //  CD.showDialog(MainActivity.this, response.getResponse());
                     }
                 } catch (Exception ex) {
-                    CD.showDialog(MainActivity.this, result.getResponse());
-                }
-
-            }
-
-
-        } else if (taskType == TaskType.VERIFY_DETAILS) {
-
-            Log.e("We are Heter", "Result" + result.toString());
-            if (result.getResponse().isEmpty()) {
-                //Toast.makeText(MainActivity.this, "Data Stored Locally", Toast.LENGTH_SHORT).show();
-                CD.showDialog(MainActivity.this, "Please Connect to Internet and try again.");
-            } else {
-                //TODO PArse Json Response
-                // Toast.makeText(MainActivity.this, "Data Stored Locally", Toast.LENGTH_SHORT).show();
-                SuccessResponse response = JsonParse.getSuccessResponse(result.getResponse());
-                if (response.getStatus().equalsIgnoreCase("200")) {
-                    CD.showDialog(MainActivity.this, response.getResponse());
-                } else {
-                    CD.showDialog(MainActivity.this, response.getResponse());
+                   // CD.showDialog(MainActivity.this, result.getResponse());
                 }
 
             }

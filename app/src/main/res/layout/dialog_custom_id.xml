@@ -121,6 +121,8 @@
 
         </LinearLayout>
 
+
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -139,20 +141,41 @@
 
     </LinearLayout>
 
-
+    <LinearLayout
+        android:layout_below="@+id/layoutphoto"
+        android:layout_weight="1"
+        android:gravity="center_vertical|center_horizontal|center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
     <Button
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:text="OK"
         android:id="@+id/dialog_ok"
+        android:layout_margin="2dp"
         android:gravity="center_vertical|center_horizontal"
-        android:layout_below="@+id/layoutphoto"
         android:layout_marginBottom="20dp"
         android:layout_marginTop="10px"
         android:background="@color/darkblue"
         android:layout_centerHorizontal="true"
         android:textColor="#ffffffff" />
+
+        <Button
+            android:id="@+id/sms"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:text="Send SMS"
+            android:layout_margin="2dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="10px"
+            android:background="@color/green"
+            android:layout_centerHorizontal="true"
+            android:textColor="#ffffffff" />
+
+    </LinearLayout>
 
     <!--android:background="@drawable/btn_flat_red_selector"-->
 

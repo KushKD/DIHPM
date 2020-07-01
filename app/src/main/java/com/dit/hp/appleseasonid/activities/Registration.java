@@ -292,7 +292,9 @@ public class Registration extends AppCompatActivity implements AsyncTaskListener
                         Manifest.permission.ACCESS_COARSE_LOCATION,
                         Manifest.permission.ACCESS_BACKGROUND_LOCATION,
                         Manifest.permission.CAMERA,
-                        Manifest.permission.VIBRATE
+                        Manifest.permission.VIBRATE,
+                        Manifest.permission.SEND_SMS,
+                        Manifest.permission.RECEIVE_SMS
 
 
                 }, 0);

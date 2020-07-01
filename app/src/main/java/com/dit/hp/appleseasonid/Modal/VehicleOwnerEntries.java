@@ -10,61 +10,26 @@ public class VehicleOwnerEntries implements Serializable {
 
 
     private Long vehicleOwnerId;
-
-
     private String idCardNumber;
-
-
     private int vehicleDistrictId;
-
-
     private int vehicleBarrierId;
-
-
     private int vehicleTypeId;
-
-
     private int vehicleOwnerTypeId;
-
-
     private String vehicleOwnerName;
-
-
     private String vehicleOwnerImageName;
-
     private Long vehicleOwnerMobileNumber;
-
-
     private String isValidFrom;
-
-
     private String isValidUpto;
-
-
     private String vehicleOwnerAadhaarNumber;
-
-
     private String vehicleOwnerVehicleNumber;
-
-
     private String vehicleOwnerChassisNumber;
-
-
     private String vehicleOwnerEngineNumber;
-
-
     private String vehicleOwnerDrivingLicence;
-
-
     private String mobileInformation;
-
-
     private String otherInformation;
-
-
     private int dataEnteredBy;
-
     private boolean active;
+
 
     public boolean isActive() {
         return active;

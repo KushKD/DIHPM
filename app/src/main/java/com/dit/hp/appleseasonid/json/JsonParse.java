@@ -3,11 +3,9 @@ package com.dit.hp.appleseasonid.json;
 import android.util.Log;
 
 import com.dit.hp.appleseasonid.Modal.IDCardServerObject;
-import com.dit.hp.appleseasonid.Modal.ScanDataPojo;
+import com.dit.hp.appleseasonid.Modal.IdCardScanPojo;
 import com.dit.hp.appleseasonid.Modal.SuccessResponse;
 import com.dit.hp.appleseasonid.Modal.User;
-import com.dit.hp.appleseasonid.Modal.VerifyObject;
-import com.dit.hp.appleseasonid.utilities.CommonUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,15 +17,13 @@ import org.json.JSONObject;
  */
 public class JsonParse {
 
-    public static ScanDataPojo getObjectSave(String qrcodeData) throws JSONException {
-
+    public static IdCardScanPojo getObjectSave(String qrcodeData) throws JSONException {
         JSONObject responseObject = new JSONObject(qrcodeData);
-        ScanDataPojo data = new ScanDataPojo();
-        data.setPassNo(responseObject.getString("pass"));
-        data.setMobileNumbr(responseObject.getString("mobile"));
-        data.setPrsonNo(responseObject.getString("person"));
-        data.setDateIssueDate(responseObject.getString("date"));
-        data.setScanDate(CommonUtils.getCurrentDate());
+        IdCardScanPojo data = new IdCardScanPojo();
+        data.setVehicle_number(responseObject.getString("vehicle_number"));
+        data.setId_card_number(responseObject.getString("id_card_number"));
+        data.setMobile_number(responseObject.getLong("mobile_number"));
+
 
         return data;
     }
@@ -61,11 +57,13 @@ public class JsonParse {
         JSONObject responseObject = new JSONObject(data);
         IDCardServerObject sr = new IDCardServerObject();
         sr.setImageUrl(responseObject.getString("fileDownloadUri"));
+        sr.setGenerateIDCardUrl_(responseObject.getString("generateIDCardUrl_"));
 
         JSONObject responseObject2 = responseObject.getJSONObject("ownerData");
 
         sr.setDriverName(responseObject2.getString("vehicleOwnerName"));
         sr.setIdCardNumber(responseObject2.getString("idCardNumber"));
+        sr.setPhoneNumber(responseObject2.getString("vehicleOwnerMobileNumber"));
 
         return sr;
     }
@@ -74,27 +72,7 @@ public class JsonParse {
 
 
 
-    public static VerifyObject createVerifyMessage(String data) throws JSONException {
-
-        JSONObject responseObject = new JSONObject(data);
-        VerifyObject sr = new VerifyObject();
-        sr.setId(responseObject.getString("id"));
-        sr.setPass_id(responseObject.getString("pass_id"));
-
-        return sr;
-    }
-
-    //createJson
-    public static String createJson(VerifyObject data) throws JSONException {
-
-        JSONObject object = new JSONObject();
-        object.put("id",data.getId());
-        object.put("pass_id",data.getPass_id());
-        object.put("remarks",data.getRemarks());
 
 
-
-        return object.toString();
-    }
 
 }

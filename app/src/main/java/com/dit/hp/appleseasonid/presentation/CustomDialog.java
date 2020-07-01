@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.text.Html;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -17,18 +17,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dit.hp.appleseasonid.Modal.IDCardServerObject;
-import com.dit.hp.appleseasonid.Modal.ScanDataPojo;
-import com.dit.hp.appleseasonid.Modal.VerifyObject;
 import com.dit.hp.appleseasonid.R;
 import com.dit.hp.appleseasonid.json.JsonParse;
 import com.dit.hp.appleseasonid.lazyloader.ImageLoader;
-import com.dit.hp.appleseasonid.utilities.CommonUtils;
-import com.dit.hp.appleseasonid.utilities.DateTime;
-import com.dit.hp.appleseasonid.utilities.Preferences;
 
 import org.json.JSONException;
-
-import java.text.ParseException;
 
 /**
  * @author Kush.Dhawan
@@ -137,28 +130,13 @@ public class CustomDialog {
 
 
                 //TODO
-                Log.e("Message",msgServer);
-                //{"pass_id":51827,"id":587}
-                String serverMessage = null;
-                try{
-                    VerifyObject objectVerify = JsonParse.createVerifyMessage(msgServer);
-                    if(remarks.getText().toString()!=null || !remarks.getText().toString().isEmpty()){
-                        objectVerify.setRemarks(remarks.getText().toString().trim());
-                    }else{
-                        objectVerify.setRemarks("");
-                    }
-                    //Create Object
-                     serverMessage = JsonParse.createJson(objectVerify);
-                    Log.e("Server ",serverMessage);
-                }catch (JSONException ex){
-                    serverMessage = msgServer;
-                }
+
 
 
                 Intent intent = new Intent("verifyData");
                 intent.setPackage(activity.getPackageName());
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("VERIFY_DATA", serverMessage);
+
                 intent.putExtras(bundle);
                 activity.sendBroadcast(intent);
                 dialog.dismiss();
@@ -383,7 +361,7 @@ public class CustomDialog {
 //
 //    }
 
-    public void showIdCard(final Activity activity, IDCardServerObject object)  {
+    public void showIdCard(final Activity activity, final IDCardServerObject object)  {
         final Dialog dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
@@ -399,6 +377,7 @@ public class CustomDialog {
         TextView name = (TextView) dialog.findViewById(R.id.name);
         TextView id_card = (TextView) dialog.findViewById(R.id.id_card);
         ImageView id_photo =  (ImageView)dialog.findViewById(R.id.id_photo);
+        Button sms = dialog.findViewById(R.id.sms);
 
         il.DisplayImage(object.getImageUrl(), id_photo, null,null, false);
 
@@ -407,6 +386,58 @@ public class CustomDialog {
         id_card.setText(object.getIdCardNumber());
 
         Button dialog_ok = (Button) dialog.findViewById(R.id.dialog_ok);
+
+        sms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SmsManager.getDefault().sendTextMessage(object.getPhoneNumber(), null, object.getGenerateIDCardUrl_(), null,null);
+            }
+        });
+
+        dialog_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activity.finish();
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+
+    }
+
+    public void displayIdCardDetails(final Activity activity, final IDCardServerObject object)  {
+        final Dialog dialog = new Dialog(activity);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.dialog_custom_id);
+
+        ImageLoader il = new ImageLoader(activity);
+
+        int width = (int) (activity.getResources().getDisplayMetrics().widthPixels );
+        int height = (int) (activity.getResources().getDisplayMetrics().heightPixels );
+        dialog.getWindow().setLayout(width, height);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        TextView name = (TextView) dialog.findViewById(R.id.name);
+        TextView id_card = (TextView) dialog.findViewById(R.id.id_card);
+        ImageView id_photo =  (ImageView)dialog.findViewById(R.id.id_photo);
+        Button sms = dialog.findViewById(R.id.sms);
+
+        il.DisplayImage(object.getImageUrl(), id_photo, null,null, false);
+
+
+        name.setText(object.getDriverName());
+        id_card.setText(object.getIdCardNumber());
+
+        Button dialog_ok = (Button) dialog.findViewById(R.id.dialog_ok);
+
+        sms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SmsManager.getDefault().sendTextMessage(object.getPhoneNumber(), null, object.getGenerateIDCardUrl_(), null,null);
+            }
+        });
 
         dialog_ok.setOnClickListener(new View.OnClickListener() {
             @Override

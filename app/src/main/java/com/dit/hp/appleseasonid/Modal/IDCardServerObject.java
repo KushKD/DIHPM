@@ -7,6 +7,24 @@ public class IDCardServerObject implements Serializable {
     private String imageUrl;
     private String driverName;
     private String idCardNumber;
+    private String generateIDCardUrl_;
+    private String phoneNumber;
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getGenerateIDCardUrl_() {
+        return generateIDCardUrl_;
+    }
+
+    public void setGenerateIDCardUrl_(String generateIDCardUrl_) {
+        this.generateIDCardUrl_ = generateIDCardUrl_;
+    }
 
     public String getImageUrl() {
         return imageUrl;
@@ -38,6 +56,8 @@ public class IDCardServerObject implements Serializable {
                 "imageUrl='" + imageUrl + '\'' +
                 ", driverName='" + driverName + '\'' +
                 ", idCardNumber='" + idCardNumber + '\'' +
+                ", generateIDCardUrl_='" + generateIDCardUrl_ + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
                 '}';
     }
 }
