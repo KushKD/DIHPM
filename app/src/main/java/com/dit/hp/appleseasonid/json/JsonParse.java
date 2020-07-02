@@ -2,6 +2,7 @@ package com.dit.hp.appleseasonid.json;
 
 import android.util.Log;
 
+import com.dit.hp.appleseasonid.Modal.IDCardOwnerServerVerify;
 import com.dit.hp.appleseasonid.Modal.IDCardServerObject;
 import com.dit.hp.appleseasonid.Modal.IdCardScanPojo;
 import com.dit.hp.appleseasonid.Modal.SuccessResponse;
@@ -64,6 +65,33 @@ public class JsonParse {
         sr.setDriverName(responseObject2.getString("vehicleOwnerName"));
         sr.setIdCardNumber(responseObject2.getString("idCardNumber"));
         sr.setPhoneNumber(responseObject2.getString("vehicleOwnerMobileNumber"));
+
+        return sr;
+    }
+
+
+    public static IDCardOwnerServerVerify getIdCardUserServerDetailsComplete(String data) throws JSONException {
+
+        JSONObject responseObject = new JSONObject(data);
+        IDCardOwnerServerVerify sr = new IDCardOwnerServerVerify();
+        sr.setImageurl(responseObject.optString("fileDownloadUri"));
+        sr.setIdcardUrl(responseObject.optString("generateIDCardUrl_"));
+
+        JSONObject responseObject2 = responseObject.getJSONObject("ownerData");
+
+        sr.setVehicleOwnerName(responseObject2.optString("vehicleOwnerName"));
+        sr.setIdCardNumber(responseObject2.optString("idCardNumber"));
+       // sr.setVehicleOwnerMobileNumber(Long.valueOf(responseObject2.getString("vehicleOwnerMobileNumber")));
+        sr.setIsValidFrom(responseObject2.optString("isValidFrom"));
+        sr.setIsValidUpto(responseObject2.optString("isValidUpto"));
+        sr.setVehicleOwnerAadhaarNumber(responseObject2.optString("vehicleOwnerAadhaarNumber"));
+        sr.setVehicleOwnerChassisNumber(responseObject2.optString("vehicleOwnerChassisNumber"));
+        sr.setVehicleOwnerDrivingLicence(responseObject2.optString("vehicleOwnerDrivingLicence"));
+        sr.setVehicleOwnerEngineNumber(responseObject2.optString("vehicleOwnerEngineNumber"));
+        sr.setVehicleOwnerVehicleNumber(responseObject2.optString("vehicleOwnerVehicleNumber"));
+        sr.setDataEnteredBy(responseObject2.optInt("dataEnteredBy"));
+        sr.setVehicleBarrierId(responseObject2.optInt("vehicleBarrierId"));
+        sr.setVehicleDistrictId(responseObject2.optInt("vehicleDistrictId"));
 
         return sr;
     }

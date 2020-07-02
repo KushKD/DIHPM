@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
 import android.location.Location;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
@@ -18,6 +19,7 @@ import android.widget.GridView;
 
 import com.dit.hp.appleseasonid.Adapter.HomeGridViewAdapter;
 import com.dit.hp.appleseasonid.Adapter.SliderAdapter;
+import com.dit.hp.appleseasonid.Modal.IDCardOwnerServerVerify;
 import com.dit.hp.appleseasonid.Modal.IdCardScanPojo;
 import com.dit.hp.appleseasonid.Modal.ModulesPojo;
 import com.dit.hp.appleseasonid.Modal.ResponsePojo;
@@ -52,6 +54,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.RequiresApi;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 public class MainActivity extends LocationBaseActivity implements SamplePresenter.SampleView, AsyncTaskListenerObject {
@@ -461,6 +464,7 @@ public class MainActivity extends LocationBaseActivity implements SamplePresente
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onTaskCompleted(ResponsePojoGet result, TaskType taskType) throws JSONException {
         if (taskType == TaskType.SCAN_ID_CARD) {
@@ -475,7 +479,14 @@ public class MainActivity extends LocationBaseActivity implements SamplePresente
                     if (response.getStatus().equalsIgnoreCase("OK")) {
 
                         if(Econstants.checkJsonObject(response.getResponse())){
-                            Log.e("verify",response.getResponse());
+                            try{
+                                Log.e("verify",response.getResponse());
+                                IDCardOwnerServerVerify  IDCard = JsonParse.getIdCardUserServerDetailsComplete(response.getResponse());
+                                Log.e("IDCard",IDCard.toString());
+                                CD.displayIdCardDetailsComplete(MainActivity.this,IDCard);
+                            }catch(Exception ex){
+                                CD.showDialog(MainActivity.this, ex.getLocalizedMessage());
+                            }
 
                         }else{
                             CD.showDialog(MainActivity.this, "Something went wrong. Please try again.");

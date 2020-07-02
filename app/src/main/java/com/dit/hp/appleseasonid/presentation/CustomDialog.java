@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.util.Log;
@@ -16,6 +17,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
+
+import com.dit.hp.appleseasonid.Modal.IDCardOwnerServerVerify;
 import com.dit.hp.appleseasonid.Modal.IDCardServerObject;
 import com.dit.hp.appleseasonid.R;
 import com.dit.hp.appleseasonid.json.JsonParse;
@@ -443,6 +447,79 @@ public class CustomDialog {
             @Override
             public void onClick(View v) {
                 activity.finish();
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+
+    }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void displayIdCardDetailsComplete(final Activity activity, final IDCardOwnerServerVerify object)  {
+        final Dialog dialog = new Dialog(activity);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.dialog_custom_id_complete);
+
+        ImageLoader il = new ImageLoader(activity);
+
+
+
+        int width = (int) (activity.getResources().getDisplayMetrics().widthPixels );
+        int height = (int) (activity.getResources().getDisplayMetrics().heightPixels );
+        dialog.getWindow().setLayout(width, height);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        TextView name = (TextView) dialog.findViewById(R.id.name);
+        TextView mobilenumber = (TextView) dialog.findViewById(R.id.mobilenumber);
+        TextView passvalidfrom = (TextView) dialog.findViewById(R.id.passvalidfrom);
+        TextView passvalidto = (TextView) dialog.findViewById(R.id.passvalidto);
+        TextView aadhaarnumber = (TextView) dialog.findViewById(R.id.aadhaarnumber);
+        TextView vehicletype = (TextView) dialog.findViewById(R.id.vehicletype);
+        TextView vehicle_owner_type = (TextView) dialog.findViewById(R.id.vehicle_owner_type);
+        TextView vehicle_number = (TextView) dialog.findViewById(R.id.vehicle_number);
+        TextView chassis_number = (TextView) dialog.findViewById(R.id.chassis_number);
+        TextView engine_number = (TextView) dialog.findViewById(R.id.engine_number);
+        TextView driving_licence_number = (TextView) dialog.findViewById(R.id.driving_licence_number);
+        TextView districtname = (TextView) dialog.findViewById(R.id.districtname);
+        TextView barriername = (TextView) dialog.findViewById(R.id.barriername);
+        TextView id_card = (TextView) dialog.findViewById(R.id.id_card);
+        ImageView id_photo =  (ImageView)dialog.findViewById(R.id.compressed_image);
+        Button verify = dialog.findViewById(R.id.verify);
+
+        il.DisplayImage(object.getImageurl(), id_photo, null,null, false);
+
+
+        name.setText(object.getVehicleOwnerName());
+      //  mobilenumber.setText(Long.valueOf(object.getVehicleOwnerMobileNumber()));
+        passvalidfrom.setText(object.getIsValidFrom());
+        passvalidto.setText(object.getIsValidUpto());
+        aadhaarnumber.setText(object.getVehicleOwnerAadhaarNumber());
+        //vehicletype.setText(object.getVehicleTypeId());
+       // vehicle_owner_type.setText(object.getVehicleOwnerId());
+        vehicle_number.setText(object.getVehicleOwnerVehicleNumber());
+        chassis_number.setText(object.getVehicleOwnerChassisNumber());
+        engine_number.setText(object.getVehicleOwnerEngineNumber());
+        driving_licence_number.setText(object.getVehicleOwnerDrivingLicence());
+      //  districtname.setText(object.getVehicleDistrictId());
+       // barriername.setText(object.getVehicleBarrierId());
+        id_card.setText(object.getIdCardNumber());
+
+        Button dialog_ok = (Button) dialog.findViewById(R.id.back);
+
+        verify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               //Verify
+            }
+        });
+
+        dialog_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               // activity.finish();
                 dialog.dismiss();
             }
         });
