@@ -130,7 +130,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="fill_parent"
                                 android:layout_weight="1"
-                                android:gravity="left|center_vertical|center_horizontal"
+                                android:gravity="center|center_vertical|center_horizontal"
                                 android:padding="5dp"
                                 android:text="Enter Name"
                                 android:textColor="@color/darkblue" />
@@ -170,7 +170,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="fill_parent"
                                 android:layout_weight="1"
-                                android:gravity="left|center_vertical|center_horizontal"
+                                android:gravity="center|center_vertical|center_horizontal"
                                 android:text="Enter Mobile Number "
                                 android:textColor="@color/darkblue" />
 
@@ -206,7 +206,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="fill_parent"
                                 android:layout_weight="1"
-                                android:gravity="left|center_vertical|center_horizontal"
+                                android:gravity="center|center_vertical|center_horizontal"
                                 android:text="Pass Valid From"
                                 android:textColor="@color/darkblue" />
 
@@ -238,7 +238,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="fill_parent"
                                 android:layout_weight="1"
-                                android:gravity="left|center_vertical|center_horizontal"
+                                android:gravity="center|center_vertical|center_horizontal"
                                 android:text="Pass Valid Till"
                                 android:textColor="@color/darkblue" />
 
@@ -268,7 +268,7 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="fill_parent"
                                 android:layout_weight="1"
-                                android:gravity="left|center_vertical|center_horizontal"
+                                android:gravity="center|center_vertical|center_horizontal"
                                 android:padding="5dp"
                                 android:text="Aadhaar Number"
                                 android:textColor="@color/navyblue" />

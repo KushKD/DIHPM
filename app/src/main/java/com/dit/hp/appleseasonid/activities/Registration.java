@@ -83,7 +83,7 @@ public class Registration extends AppCompatActivity implements AsyncTaskListener
         phone = findViewById(R.id.phone);
         phone.addTextChangedListener(textWatcher);
         otp = findViewById(R.id.otp);
-        otp.addTextChangedListener(verifyTextWatcher);
+       // otp.addTextChangedListener(verifyTextWatcher);
         register = findViewById(R.id.register);
 
 
@@ -163,42 +163,35 @@ public class Registration extends AppCompatActivity implements AsyncTaskListener
             }
         });
 
-
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-                if (!phone.getText().toString().trim().isEmpty() && phone.getText().toString().trim().length() == 10) {
-
-                    //  if (!name.getText().toString().isEmpty() && name.getText().toString() != null) {
-
-
-//                        Preferences.getInstance().loadPreferences(Registration.this);
-//                        Preferences.getInstance().district_id = Global_district_id;
-//                        Preferences.getInstance().districtName = globalDistrictName;
-//                        Preferences.getInstance().barrier_id = Global_barrier_id;
-//                        Preferences.getInstance().barrierName = globalBarrierName;
-//                        Preferences.getInstance().phone_number = phone.getText().toString().trim();
-//                        Preferences.getInstance().isLoggedIn = true;
-//                        Preferences.getInstance().savePreferences(Registration.this);
-//                        Intent mainIntent = new Intent(Registration.this, MainActivity.class);
-//                        Registration.this.startActivity(mainIntent);
-//                        Registration.this.finish();
-
-
-//                    } else {
-//                        CD.showDialog(Registration.this, "Please enter name");
-//                    }
-
-
-                } else {
-                    CD.showDialog(Registration.this, "Please enter a valid 10 digit Mobile number");
+                Log.e("Test","dfdfd");
+                if (otp.getText().toString().length() == 6) {
+                    if (AppStatus.getInstance(Registration.this).isOnline()) {
+                        UploadObject object = new UploadObject();
+                        object.setUrl(Econstants.url);
+                        object.setMethordName(Econstants.methordVerifyOtp);
+                        object.setTasktype(TaskType.VEREIFY_OTP);
+                        object.setParam(phone.getText().toString().trim() + "/" + otp.getText().toString().trim());
+                        Log.e("Object", object.toString());
+                        new Generic_Async_Get(
+                                Registration.this,
+                                Registration.this,
+                                TaskType.VEREIFY_OTP).
+                                execute(object);
+                    } else {
+                        CD.showDialog(Registration.this, Econstants.internetNotAvailable);
+                    }
                 }
-
-
+            else {
+                    CD.showDialog(Registration.this, "Please enter a valid OTP Number.");
+                }
             }
         });
+
+
+
 
 
     }
@@ -369,18 +362,18 @@ public class Registration extends AppCompatActivity implements AsyncTaskListener
                 if (result.getResponseCode().equalsIgnoreCase(Integer.toString(HttpsURLConnection.HTTP_OK))) {
                     response = JsonParse.getSuccessResponse(result.getResponse());
                     if (response.getStatus().equalsIgnoreCase("OK")) {
-                        phone.setEnabled(false);
+
                         Toast.makeText(Registration.this, response.getResponse(), Toast.LENGTH_SHORT).show();
 
                     } else {
-                        phone.setEnabled(true);
+
                         Toast.makeText(Registration.this, response.getResponse(), Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    CD.showDialog(Registration.this, response.getMessage());
+                    Toast.makeText(Registration.this, response.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }catch(Exception ex){
-                CD.showDialog(Registration.this,result.getResponse());
+                Toast.makeText(Registration.this, "Unable to send OTP . Please try again.", Toast.LENGTH_SHORT).show();
             }
 
         }
