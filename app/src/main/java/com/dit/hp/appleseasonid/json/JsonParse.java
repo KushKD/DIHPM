@@ -92,6 +92,7 @@ public class JsonParse {
         sr.setDataEnteredBy(responseObject2.optInt("dataEnteredBy"));
         sr.setVehicleBarrierId(responseObject2.optInt("vehicleBarrierId"));
         sr.setVehicleDistrictId(responseObject2.optInt("vehicleDistrictId"));
+        sr.setVehicleOwnerId(responseObject2.optInt("vehicleOwnerId"));
 
         return sr;
     }

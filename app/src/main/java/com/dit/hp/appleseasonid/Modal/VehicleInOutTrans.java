@@ -98,6 +98,7 @@ public class VehicleInOutTrans implements Serializable {
 			jsonObject.put("latitude", getLatitude());
 			jsonObject.put("longitude", getLongitude());
 			jsonObject.put("remarks", getRemarks());
+			jsonObject.put("isActive", isActive());
 
 
 			return jsonObject.toString();

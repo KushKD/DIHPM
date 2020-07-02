@@ -160,81 +160,28 @@ public class MainActivity extends LocationBaseActivity implements SamplePresente
             @Override
             public void onReceive(Context context, Intent intent) {
                 Log.e("We are Here", intent.getAction());
-                if (intent.getAction() == "UploadServer") {
-                    //SCAN_DATA
-                    Log.e("We are Here 2", intent.getAction());
-
-                    if (AppStatus.getInstance(MainActivity.this).isOnline()) {
-                        Bundle extras = intent.getExtras();
-                        ScanDataPojo data = (ScanDataPojo) extras.getSerializable("SCAN_DATA");
-                        Log.e("Data From Dialog", data.toString());
-
-                        //TODO Internet Check
-
-                        UploadObject object = new UploadObject();
-                        object.setUrl("http://covid19epass.hp.gov.in/api/v1/savebarrierdata");
-                        object.setTasktype(TaskType.UPLOAD_SCANNED_PASS);
-                        object.setMethordName("savebarrierdata");
-                        object.setScanDataPojo(data);
-
-                        new GenericAsyncPostObject(
-                                MainActivity.this,
-                                MainActivity.this,
-                                TaskType.UPLOAD_SCANNED_PASS).
-                                execute(object);
-                    } else {
-                        CD.showDialog(MainActivity.this, "Please Connect to Internet and try again.");
-                    }
-
-                } else if (intent.getAction() == "UploadServerManual") {
-                    //SCAN_DATA
-                    Log.e("We are Here 2", intent.getAction());
-
-                    if (AppStatus.getInstance(MainActivity.this).isOnline()) {
-                        Bundle extras = intent.getExtras();
-                        ScanDataPojo data = (ScanDataPojo) extras.getSerializable("SCAN_DATA");
-
-
-                        //TODO Update LAT LONG
-                        data = updateLocation(data);
-                        Log.e("UploadServerManual", data.toString());
-                        UploadObject object = new UploadObject();
-                        object.setUrl("http://covid19epass.hp.gov.in/api/v1/savebarrierdata");
-                        object.setTasktype(TaskType.UPLOAD_SCANNED_PASS);
-                        object.setMethordName("savebarrierdata");
-                        object.setScanDataPojo(data);
-
-                        new GenericAsyncPostObject(
-                                MainActivity.this,
-                                MainActivity.this,
-                                TaskType.UPLOAD_SCANNED_PASS).
-                                execute(object);
-                    } else {
-                        CD.showDialog(MainActivity.this, "Please Connect to Internet and try again.");
-                    }
-
-                } else if (intent.getAction() == "verifyData") {
+                   if (intent.getAction() == "verifyData") {
 
                     //SCAN_DATA
                     Log.e("We are Here 2sd ", intent.getAction());
 
                     if (AppStatus.getInstance(MainActivity.this).isOnline()) {
                         Bundle extras = intent.getExtras();
-                        String data = extras.getString("VERIFY_DATA");
+                        String data = extras.getString("VEHICLE_TRANSACTION");
                         Log.e("Data From Dialog", data.toString());
 
                         UploadObject object = new UploadObject();
-                        object.setUrl("http://covid19epass.hp.gov.in/api/v1/verifydetails");
+                        object.setUrl(Econstants.url);
                         object.setTasktype(TaskType.VERIFY_DETAILS);
-                        object.setMethordName("verifydetails");
+                        object.setMethordName(Econstants.methordSaveVehicleTransaction);
                         object.setParam(data);
 
 
-                        new GenericAsyncPostObject(
-                                MainActivity.this,
-                                MainActivity.this,
-                                TaskType.VERIFY_DETAILS).
-                                execute(object);
+//                        new GenericAsyncPostObject(
+//                                MainActivity.this,
+//                                MainActivity.this,
+//                                TaskType.VERIFY_DETAILS).
+//                                execute(object);
 
                     } else {
                         CD.showDialog(MainActivity.this, "Please Connect to Internet and try again.");
@@ -340,28 +287,7 @@ public class MainActivity extends LocationBaseActivity implements SamplePresente
     }
 
 
-    private ScanDataPojo updateScanData(ScanDataPojo scanData) {
 
-
-        scanData.setScannedByPhoneNumber(Preferences.getInstance().phone_number);
-        scanData.setDistict(Preferences.getInstance().district_id);
-        scanData.setBarrrier(Preferences.getInstance().barrier_id);
-
-        if (!userLocation.isEmpty()) {
-            try {
-                String[] locations = userLocation.split(",");
-                scanData.setLatitude(locations[0]);
-                scanData.setLongitude(locations[1]);
-            } catch (Exception ex) {
-                CD.showDialog(MainActivity.this, "Unable to get the Location.");
-            }
-        } else {
-            scanData.setLatitude("0");
-            scanData.setLongitude("0");
-        }
-
-        return scanData;
-    }
 
 
     /**
@@ -387,9 +313,7 @@ public class MainActivity extends LocationBaseActivity implements SamplePresente
     @Override
     protected void onResume() {
         super.onResume();
-       // registerReceiver(mReceiver, new IntentFilter("UploadServer"));
         registerReceiver(mReceiver, new IntentFilter("verifyData"));
-        registerReceiver(mReceiver, new IntentFilter("UploadServerManual"));
         if (getLocationManager().isWaitingForLocation()
                 && !getLocationManager().isAnyDialogShowing()) {
             displayProgress();
@@ -483,7 +407,7 @@ public class MainActivity extends LocationBaseActivity implements SamplePresente
                                 Log.e("verify",response.getResponse());
                                 IDCardOwnerServerVerify  IDCard = JsonParse.getIdCardUserServerDetailsComplete(response.getResponse());
                                 Log.e("IDCard",IDCard.toString());
-                                CD.displayIdCardDetailsComplete(MainActivity.this,IDCard);
+                                CD.displayIdCardDetailsComplete(MainActivity.this,IDCard, userLocation);
                             }catch(Exception ex){
                                 CD.showDialog(MainActivity.this, ex.getLocalizedMessage());
                             }
@@ -503,6 +427,40 @@ public class MainActivity extends LocationBaseActivity implements SamplePresente
             }
 
 
+        }
+        if(taskType == TaskType.VERIFY_DETAILS){
+            if (result.getResponse().isEmpty()) {
+                CD.showDialog(MainActivity.this, "Please Connect to Internet and try again.");
+            } else {
+
+                try {
+                    SuccessResponse response = JsonParse.getSuccessResponse(result.getResponse());
+
+                    if (response.getStatus().equalsIgnoreCase("OK")) {
+
+                        if(Econstants.checkJsonObject(response.getResponse())){
+                            try{
+                                Log.e("verify",response.getResponse());
+//                                IDCardOwnerServerVerify  IDCard = JsonParse.getIdCardUserServerDetailsComplete(response.getResponse());
+//                                Log.e("IDCard",IDCard.toString());
+//                                CD.displayIdCardDetailsComplete(MainActivity.this,IDCard, userLocation);
+                            }catch(Exception ex){
+                                CD.showDialog(MainActivity.this, ex.getLocalizedMessage());
+                            }
+
+                        }else{
+                            CD.showDialog(MainActivity.this, "Something went wrong. Please try again.");
+                        }
+
+
+                    } else {
+                        //  CD.showDialog(MainActivity.this, response.getResponse());
+                    }
+                } catch (Exception ex) {
+                    // CD.showDialog(MainActivity.this, result.getResponse());
+                }
+
+            }
         }
     }
 }

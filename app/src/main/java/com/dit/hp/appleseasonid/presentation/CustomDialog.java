@@ -21,7 +21,9 @@ import androidx.annotation.RequiresApi;
 
 import com.dit.hp.appleseasonid.Modal.IDCardOwnerServerVerify;
 import com.dit.hp.appleseasonid.Modal.IDCardServerObject;
+import com.dit.hp.appleseasonid.Modal.VehicleInOutTrans;
 import com.dit.hp.appleseasonid.R;
+import com.dit.hp.appleseasonid.activities.MainActivity;
 import com.dit.hp.appleseasonid.json.JsonParse;
 import com.dit.hp.appleseasonid.lazyloader.ImageLoader;
 
@@ -457,13 +459,15 @@ public class CustomDialog {
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public void displayIdCardDetailsComplete(final Activity activity, final IDCardOwnerServerVerify object)  {
+    public void displayIdCardDetailsComplete(final Activity activity, final IDCardOwnerServerVerify object, String userLocation)  {
         final Dialog dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
         dialog.setContentView(R.layout.dialog_custom_id_complete);
 
         ImageLoader il = new ImageLoader(activity);
+
+        final VehicleInOutTrans vehicleInOutTrans = new VehicleInOutTrans();
 
 
 
@@ -485,6 +489,7 @@ public class CustomDialog {
         TextView driving_licence_number = (TextView) dialog.findViewById(R.id.driving_licence_number);
         TextView districtname = (TextView) dialog.findViewById(R.id.districtname);
         TextView barriername = (TextView) dialog.findViewById(R.id.barriername);
+        EditText remarks =  dialog.findViewById(R.id.remarksnew);
         TextView id_card = (TextView) dialog.findViewById(R.id.id_card);
         ImageView id_photo =  (ImageView)dialog.findViewById(R.id.compressed_image);
         Button verify = dialog.findViewById(R.id.verify);
@@ -506,13 +511,44 @@ public class CustomDialog {
       //  districtname.setText(object.getVehicleDistrictId());
        // barriername.setText(object.getVehicleBarrierId());
         id_card.setText(object.getIdCardNumber());
+        //Set Remarks
+
+        String remarks_ = remarks.getText().toString();
+
+        vehicleInOutTrans.setActive(true);
+        vehicleInOutTrans.setBarrierId(object.getVehicleBarrierId());
+        vehicleInOutTrans.setCapturedBy(object.getDataEnteredBy());
+        vehicleInOutTrans.setRemarks(remarks_);
+        vehicleInOutTrans.setVehicleOwnerId(object.getVehicleOwnerId());
+
+        if (!userLocation.isEmpty()) {
+            try {
+                String[] locations = userLocation.split(",");
+                vehicleInOutTrans.setLatitude(Double.valueOf(locations[0]));
+                vehicleInOutTrans.setLongitude(Double.valueOf(locations[1]));
+            } catch (Exception ex) {
+                showDialog(activity, "Unable to get the Location.");
+            }
+        } else {
+            vehicleInOutTrans.setLatitude(Double.valueOf("0"));
+            vehicleInOutTrans.setLongitude(Double.valueOf("0"));
+        }
 
         Button dialog_ok = (Button) dialog.findViewById(R.id.back);
 
         verify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               //Verify
+               //TODO  vehicleInOutTrans
+                     System.out.println("====Manual Entry" + vehicleInOutTrans.toJSON());
+                    Intent intent = new Intent("verifyData");
+                    intent.setPackage(activity.getPackageName());
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("VEHICLE_TRANSACTION", vehicleInOutTrans.toJSON());
+                    intent.putExtras(bundle);
+                    activity.sendBroadcast(intent);
+                    dialog.dismiss();
+
             }
         });
 
