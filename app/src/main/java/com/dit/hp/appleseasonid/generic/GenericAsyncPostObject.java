@@ -61,6 +61,10 @@ public class GenericAsyncPostObject extends AsyncTask<UploadObject,Void , Respon
                 Data_From_Server = http_manager.PostDataScanQRCode(data);
                 Log.e("Data hhghsds",Data_From_Server.toString());
                 return Data_From_Server;
+            }else if(TaskType.SEARCH_ID.toString().equalsIgnoreCase(data.getTasktype().toString())){
+                Data_From_Server = http_manager.PostDataScanQRCode(data);
+                Log.e("Data hhghsds",Data_From_Server.toString());
+                return Data_From_Server;
             }
 
 

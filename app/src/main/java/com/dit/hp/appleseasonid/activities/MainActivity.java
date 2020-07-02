@@ -110,8 +110,13 @@ public class MainActivity extends LocationBaseActivity implements SamplePresente
 //
         ModulesPojo mp3 = new ModulesPojo();
         mp3.setId("3");
-        mp3.setName("Log Out");
-        mp3.setLogo("logout");
+        mp3.setName("Search ID Card");
+        mp3.setLogo("searchid");
+
+        ModulesPojo mp4 = new ModulesPojo();
+        mp4.setId("4");
+        mp4.setName("Log Out");
+        mp4.setLogo("logout");
 //
 //        ModulesPojo mp4 = new ModulesPojo();
 //        mp4.setId("4");
@@ -122,7 +127,7 @@ public class MainActivity extends LocationBaseActivity implements SamplePresente
         modules.add(mp);
         modules.add(mp2);
         modules.add(mp3);
-//        modules.add(mp4);
+        modules.add(mp4);
 
         // Log.e("userLocation",userLocation);
 
@@ -175,7 +180,7 @@ public class MainActivity extends LocationBaseActivity implements SamplePresente
                         object.setTasktype(TaskType.VERIFY_DETAILS);
                         object.setMethordName(Econstants.methordSaveVehicleTransaction);
                         object.setParam(data);
-
+                        Log.e("Data",data);
 
                         new GenericAsyncPostObject(
                                 MainActivity.this,
@@ -188,7 +193,35 @@ public class MainActivity extends LocationBaseActivity implements SamplePresente
                     }
 
 
-                }
+                } else if (intent.getAction() == "SEARCHID") {
+
+                       //SCAN_DATA
+
+
+                       if (AppStatus.getInstance(MainActivity.this).isOnline()) {
+                           Bundle extras = intent.getExtras();
+                           String data = extras.getString("SEARCH_DATA");
+                           Log.e("Data From Dialog", data.toString());
+
+                           UploadObject object = new UploadObject();
+                           object.setUrl(Econstants.url);
+                           object.setTasktype(TaskType.SEARCH_ID);
+                           object.setMethordName(Econstants.methordSearchId);
+                           object.setParam(data);
+
+
+                           new GenericAsyncPostObject(
+                                   MainActivity.this,
+                                   MainActivity.this,
+                                   TaskType.SEARCH_ID).
+                                   execute(object);
+
+                       } else {
+                           CD.showDialog(MainActivity.this, "Please Connect to Internet and try again.");
+                       }
+
+
+                   }
             }
         };
 
@@ -314,6 +347,7 @@ public class MainActivity extends LocationBaseActivity implements SamplePresente
     protected void onResume() {
         super.onResume();
         registerReceiver(mReceiver, new IntentFilter("verifyData"));
+        registerReceiver(mReceiver, new IntentFilter("SEARCHID"));
         if (getLocationManager().isWaitingForLocation()
                 && !getLocationManager().isAnyDialogShowing()) {
             displayProgress();
@@ -392,7 +426,7 @@ public class MainActivity extends LocationBaseActivity implements SamplePresente
     @Override
     public void onTaskCompleted(ResponsePojoGet result, TaskType taskType) throws JSONException {
         if (taskType == TaskType.SCAN_ID_CARD) {
-
+            Log.e("Data",result.toString());
             if (result.getResponse().isEmpty()) {
                 CD.showDialog(MainActivity.this, "Please Connect to Internet and try again.");
             } else {
@@ -429,6 +463,40 @@ public class MainActivity extends LocationBaseActivity implements SamplePresente
 
         }
         if(taskType == TaskType.VERIFY_DETAILS){
+            if (result.getResponse().isEmpty()) {
+                CD.showDialog(MainActivity.this, "Please Connect to Internet and try again.");
+            } else {
+
+                try {
+                    SuccessResponse response = JsonParse.getSuccessResponse(result.getResponse());
+
+                    if (response.getStatus().equalsIgnoreCase("OK")) {
+
+                        if(Econstants.checkJsonObject(response.getResponse())){
+                            try{
+                                Log.e("verify",response.getResponse());
+//                                IDCardOwnerServerVerify  IDCard = JsonParse.getIdCardUserServerDetailsComplete(response.getResponse());
+//                                Log.e("IDCard",IDCard.toString());
+                              //  CD.displayIdCardDetailsComplete(MainActivity.this,IDCard, userLocation);
+                            }catch(Exception ex){
+                                CD.showDialog(MainActivity.this, ex.getLocalizedMessage());
+                            }
+
+                        }else{
+                            CD.showDialog(MainActivity.this, "Something went wrong. Please try again.");
+                        }
+
+
+                    } else {
+                        //  CD.showDialog(MainActivity.this, response.getResponse());
+                    }
+                } catch (Exception ex) {
+                    // CD.showDialog(MainActivity.this, result.getResponse());
+                }
+
+            }
+        }
+        if(taskType == TaskType.SEARCH_ID){
             if (result.getResponse().isEmpty()) {
                 CD.showDialog(MainActivity.this, "Please Connect to Internet and try again.");
             } else {

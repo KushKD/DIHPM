@@ -104,7 +104,7 @@ public class HomeGridViewAdapter extends BaseAdapter {
                     (c).startActivity(i);
 
                 }
-                if (s.getId().equalsIgnoreCase("3")) {
+                if (s.getId().equalsIgnoreCase("4")) {
                     Preferences.getInstance().loadPreferences(c.getApplicationContext());
 
 
@@ -131,13 +131,13 @@ public class HomeGridViewAdapter extends BaseAdapter {
                     ((Activity) c).startActivityForResult(i, 101);
 
                 }
-                if (s.getName().equalsIgnoreCase("Manual Entry")) {
+                if (s.getId().equalsIgnoreCase("3")) {
+                   //TODO
 
-//                    Intent i = new Intent(c.getApplicationContext(), ManualEntry.class);
-//
-//                    (c).startActivity(i);
-
+                    CD.showDialogSearchByPassId((Activity) c);
                 }
+
+
 
 
             }

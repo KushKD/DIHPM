@@ -39,6 +39,7 @@ public class Econstants {
     public static final String methordUploadData = "/uploadData/";
     public static final String methordverifyVehicle = "/verifyVehicle/";
     public static final String methordSaveVehicleTransaction = "/saveVehicleData/";
+    public static final String methordSearchId = "/searchId/";
 
     public static final String Date_Format = "dd-MM-yyyy";
 

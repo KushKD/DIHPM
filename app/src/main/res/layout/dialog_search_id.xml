@@ -1,0 +1,394 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/customborder_dialog"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/a"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/darkblue"
+
+        android:gravity="center"
+        android:padding="10dp"
+        android:scaleType="fitCenter"/>
+
+    <!--android:src="@drawable/dialog_cross"-->
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/a"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="5dp"
+        android:gravity="center_horizontal"
+        android:text="Search Via Pass Number"
+        android:textColor="@color/blue"
+        android:textSize="16sp" />
+
+
+    <LinearLayout
+        android:id="@+id/layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/name"
+        android:orientation="vertical">
+
+
+
+
+        <!-- Brief -->
+        <LinearLayout
+            android:id="@+id/brief"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:background="#fff"
+            android:elevation="4dp"
+            android:visibility="gone"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center|center_vertical|center_horizontal"
+                android:padding="5dp"
+                android:text="Pass Number "
+                android:textColor="@color/darkblue" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center|center_vertical|center_horizontal"
+                android:padding="5dp"
+                android:text="HP- "
+                android:textColor="@color/darkblue"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/passnumber"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/customborder_dialog"
+                android:gravity="center|center_vertical|center_horizontal"
+                android:inputType="number"
+                android:maxLines="1"
+                android:padding="5dp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <!-- Hindi -->
+        <LinearLayout
+            android:id="@+id/hindi"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:background="#fff"
+            android:elevation="4dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center|center_vertical|center_horizontal"
+                android:padding="5dp"
+                android:text="Vehicle Number"
+                android:textColor="@color/darkblue" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+
+                android:gravity="center|center_vertical|center_horizontal"
+                android:padding="5dp"
+                android:text="View" />
+
+        </LinearLayout>
+
+        <!-- English -->
+        <LinearLayout
+            android:id="@+id/english"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:background="#fff"
+            android:elevation="4dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center|center_vertical|center_horizontal"
+                android:padding="5dp"
+                android:text="Mobile Number"
+                android:textColor="@color/darkblue" />
+
+            <TextView
+                android:id="@+id/mobile"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center|center_vertical|center_horizontal"
+                android:padding="5dp"
+                android:text="View"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <!-- Nothing -->
+        <LinearLayout
+            android:id="@+id/nothing"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="2dp"
+            android:background="#fff"
+            android:elevation="4dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center|center_vertical|center_horizontal"
+                android:padding="5dp"
+                android:text="Pass Valid Date"
+                android:textColor="@color/darkblue" />
+
+            <TextView
+                android:id="@+id/dateissue"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center|center_vertical|center_horizontal"
+                android:padding="5dp"
+                android:text="View"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Nothing -->
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="2dp"
+            android:background="#fff"
+            android:visibility="gone"
+            android:elevation="4dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center|center_vertical|center_horizontal"
+                android:padding="5dp"
+                android:text="District"
+                android:textColor="@color/darkblue" />
+
+            <TextView
+                android:id="@+id/district"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center|center_vertical|center_horizontal"
+                android:padding="5dp"
+                android:text="View"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="2dp"
+            android:background="#fff"
+            android:visibility="gone"
+            android:elevation="4dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center|center_vertical|center_horizontal"
+                android:padding="5dp"
+                android:text="Barrier"
+                android:textColor="@color/darkblue" />
+
+            <TextView
+                android:id="@+id/barrier"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center|center_vertical|center_horizontal"
+                android:padding="5dp"
+                android:text="View"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="2dp"
+            android:background="#fff"
+            android:elevation="4dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center|center_vertical|center_horizontal"
+                android:padding="5dp"
+                android:text="Mobile Number"
+                android:textColor="@color/darkblue" />
+
+            <EditText
+                android:id="@+id/mobilenumber"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:inputType="number"
+                android:maxLength="10"
+                android:gravity="center|center_vertical|center_horizontal"
+                android:padding="5dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="2dp"
+            android:background="#fff"
+            android:elevation="4dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center|center_vertical|center_horizontal"
+                android:padding="5dp"
+                android:text="Vehicle Number"
+                android:textColor="@color/darkblue" />
+
+            <EditText
+                android:id="@+id/vehiclenumber"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+
+                android:gravity="center|center_vertical|center_horizontal"
+                android:padding="5dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:layout_margin="5dp"
+            android:visibility="gone"
+            android:gravity="center|center_vertical|center_horizontal"
+            android:padding="5dp"
+            android:text=" Other Details"
+            android:textColor="@color/white"
+            android:background="@color/darkblue"/>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="2dp"
+            android:background="#fff"
+            android:visibility="gone"
+            android:elevation="4dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center|center_vertical|center_horizontal"
+                android:padding="5dp"
+                android:text="No. of Persons"
+                android:textColor="@color/darkblue" />
+
+            <EditText
+                android:id="@+id/number_of_passengers"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/customborder_dialog"
+                android:gravity="center|center_vertical|center_horizontal"
+                android:inputType="number"
+                android:maxLength="1"
+                android:padding="5dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/dialog_ok"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/layout"
+        android:layout_margin="5dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/cancel"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_marginRight="2dp"
+            android:layout_weight="1"
+            android:background="@color/darkblue"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="Back"
+            android:textColor="#ffffffff" />
+
+        <Button
+            android:id="@+id/proceed"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="2dp"
+            android:layout_weight="1"
+            android:background="@color/green"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="Verify"
+            android:textColor="#ffffffff" />
+
+    </LinearLayout>
+
+    <!--android:background="@drawable/btn_flat_red_selector"-->
+
+</RelativeLayout>
