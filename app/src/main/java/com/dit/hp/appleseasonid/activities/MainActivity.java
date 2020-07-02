@@ -177,11 +177,11 @@ public class MainActivity extends LocationBaseActivity implements SamplePresente
                         object.setParam(data);
 
 
-//                        new GenericAsyncPostObject(
-//                                MainActivity.this,
-//                                MainActivity.this,
-//                                TaskType.VERIFY_DETAILS).
-//                                execute(object);
+                        new GenericAsyncPostObject(
+                                MainActivity.this,
+                                MainActivity.this,
+                                TaskType.VERIFY_DETAILS).
+                                execute(object);
 
                     } else {
                         CD.showDialog(MainActivity.this, "Please Connect to Internet and try again.");
