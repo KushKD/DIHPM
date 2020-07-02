@@ -447,7 +447,7 @@ public class MainActivity extends LocationBaseActivity implements SamplePresente
                             }
 
                         }else{
-                            CD.showDialog(MainActivity.this, "Something went wrong. Please try again.");
+                            CD.showDialog(MainActivity.this, response.getResponse());
                         }
 
 
@@ -483,7 +483,7 @@ public class MainActivity extends LocationBaseActivity implements SamplePresente
                             }
 
                         }else{
-                            CD.showDialog(MainActivity.this, "Something went wrong. Please try again.");
+                            CD.showDialog(MainActivity.this, response.getResponse());
                         }
 
 
@@ -509,15 +509,15 @@ public class MainActivity extends LocationBaseActivity implements SamplePresente
                         if(Econstants.checkJsonObject(response.getResponse())){
                             try{
                                 Log.e("verify",response.getResponse());
-//                                IDCardOwnerServerVerify  IDCard = JsonParse.getIdCardUserServerDetailsComplete(response.getResponse());
-//                                Log.e("IDCard",IDCard.toString());
-//                                CD.displayIdCardDetailsComplete(MainActivity.this,IDCard, userLocation);
+                                IDCardOwnerServerVerify  IDCard = JsonParse.getIdCardUserServerDetailsComplete(response.getResponse());
+                                Log.e("IDCard",IDCard.toString());
+                                CD.displayIdCardDetailsComplete(MainActivity.this,IDCard, userLocation);
                             }catch(Exception ex){
                                 CD.showDialog(MainActivity.this, ex.getLocalizedMessage());
                             }
 
                         }else{
-                            CD.showDialog(MainActivity.this, "Something went wrong. Please try again.");
+                            CD.showDialog(MainActivity.this, response.getResponse());
                         }
 
 
