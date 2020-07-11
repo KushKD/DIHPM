@@ -26,7 +26,8 @@ import java.io.UnsupportedEncodingException;
 public class Econstants {
 
     //Development
-    public static final String url = "http://staging12.hp.gov.in/hppoliceid/api";
+    public static final String url = "http://staging12.hp.gov.in/api";
+   // public static final String url = " http://transportid.hp.gov.in/api";
     public static final String stateID = "9";
     public static final String blank = "";
     public static final String internetNotAvailable = "Internet not Available. Please Connect to Internet and try again.";

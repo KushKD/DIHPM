@@ -39,7 +39,7 @@ public class CustomDialog {
     int downloadIdOne;
 
 
-    public void showDialog(final Activity activity, String msg)  {
+    public void showDialog(final Activity activity, String msg) {
         final Dialog dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
@@ -67,7 +67,7 @@ public class CustomDialog {
 
     }
 
-    public void showDialogCloseActivity(final Activity activity, String msg)  {
+    public void showDialogCloseActivity(final Activity activity, String msg) {
         final Dialog dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
@@ -86,7 +86,7 @@ public class CustomDialog {
         dialog_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                 activity.finish();
+                activity.finish();
                 dialog.dismiss();
             }
         });
@@ -134,10 +134,7 @@ public class CustomDialog {
             public void onClick(View v) {
 
 
-
-
                 //TODO
-
 
 
                 Intent intent = new Intent("verifyData");
@@ -192,7 +189,7 @@ public class CustomDialog {
     }
 
 
-    public void showDialogSearchByPassId(final Activity activity)  {
+    public void showDialogSearchByPassId(final Activity activity) {
 
         final Dialog dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -207,10 +204,6 @@ public class CustomDialog {
         // TextView name = (TextView)dialog.findViewById(R.id.name);
         final EditText mobilenumber = (EditText) dialog.findViewById(R.id.mobilenumber);
         final EditText vehiclenumber = (EditText) dialog.findViewById(R.id.vehiclenumber);
-
-
-
-
 
 
         Button cancel = (Button) dialog.findViewById(R.id.cancel);
@@ -229,10 +222,9 @@ public class CustomDialog {
             public void onClick(View v) {
 
 
-
                 if (!mobilenumber.getText().toString().isEmpty() && mobilenumber.getText().toString() != null
-                    && !vehiclenumber.getText().toString().isEmpty() && vehiclenumber.getText().toString() != null){
-                    IdCardScanPojo  scanData = new IdCardScanPojo();
+                        && !vehiclenumber.getText().toString().isEmpty() && vehiclenumber.getText().toString() != null) {
+                    IdCardScanPojo scanData = new IdCardScanPojo();
                     scanData.setMobile_number(Long.parseLong(mobilenumber.getText().toString()));
                     scanData.setVehicle_number(vehiclenumber.getText().toString());
 
@@ -255,7 +247,7 @@ public class CustomDialog {
 
     }
 
-    public void showIdCard(final Activity activity, final IDCardServerObject object)  {
+    public void showIdCard(final Activity activity, final IDCardServerObject object) {
         final Dialog dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
@@ -263,17 +255,17 @@ public class CustomDialog {
 
         ImageLoader il = new ImageLoader(activity);
 
-        int width = (int) (activity.getResources().getDisplayMetrics().widthPixels );
-        int height = (int) (activity.getResources().getDisplayMetrics().heightPixels );
+        int width = (int) (activity.getResources().getDisplayMetrics().widthPixels);
+        int height = (int) (activity.getResources().getDisplayMetrics().heightPixels);
         dialog.getWindow().setLayout(width, height);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         TextView name = (TextView) dialog.findViewById(R.id.name);
         TextView id_card = (TextView) dialog.findViewById(R.id.id_card);
-        ImageView id_photo =  (ImageView)dialog.findViewById(R.id.id_photo);
+        ImageView id_photo = (ImageView) dialog.findViewById(R.id.id_photo);
         Button sms = dialog.findViewById(R.id.sms);
 
-        il.DisplayImage(object.getImageUrl(), id_photo, null,null, false);
+        il.DisplayImage(object.getImageUrl(), id_photo, null, null, false);
 
 
         name.setText(object.getDriverName());
@@ -284,7 +276,7 @@ public class CustomDialog {
         sms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SmsManager.getDefault().sendTextMessage(object.getPhoneNumber(), null, object.getGenerateIDCardUrl_(), null,null);
+                SmsManager.getDefault().sendTextMessage(object.getPhoneNumber(), null, object.getGenerateIDCardUrl_(), null, null);
             }
         });
 
@@ -300,7 +292,7 @@ public class CustomDialog {
 
     }
 
-    public void displayIdCardDetails(final Activity activity, final IDCardServerObject object)  {
+    public void displayIdCardDetails(final Activity activity, final IDCardServerObject object) {
         final Dialog dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
@@ -308,17 +300,17 @@ public class CustomDialog {
 
         ImageLoader il = new ImageLoader(activity);
 
-        int width = (int) (activity.getResources().getDisplayMetrics().widthPixels );
-        int height = (int) (activity.getResources().getDisplayMetrics().heightPixels );
+        int width = (int) (activity.getResources().getDisplayMetrics().widthPixels);
+        int height = (int) (activity.getResources().getDisplayMetrics().heightPixels);
         dialog.getWindow().setLayout(width, height);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         TextView name = (TextView) dialog.findViewById(R.id.name);
         TextView id_card = (TextView) dialog.findViewById(R.id.id_card);
-        ImageView id_photo =  (ImageView)dialog.findViewById(R.id.id_photo);
+        ImageView id_photo = (ImageView) dialog.findViewById(R.id.id_photo);
         Button sms = dialog.findViewById(R.id.sms);
 
-        il.DisplayImage(object.getImageUrl(), id_photo, null,null, false);
+        il.DisplayImage(object.getImageUrl(), id_photo, null, null, false);
 
 
         name.setText(object.getDriverName());
@@ -329,7 +321,7 @@ public class CustomDialog {
         sms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SmsManager.getDefault().sendTextMessage(object.getPhoneNumber(), null, object.getGenerateIDCardUrl_(), null,null);
+                SmsManager.getDefault().sendTextMessage(object.getPhoneNumber(), null, object.getGenerateIDCardUrl_(), null, null);
             }
         });
 
@@ -347,7 +339,7 @@ public class CustomDialog {
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public void displayIdCardDetailsComplete(final Activity activity, final IDCardOwnerServerVerify object, String userLocation)  {
+    public void displayIdCardDetailsComplete(final Activity activity, final IDCardOwnerServerVerify object, String userLocation) {
         final Dialog dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
@@ -358,9 +350,8 @@ public class CustomDialog {
         final VehicleInOutTrans vehicleInOutTrans = new VehicleInOutTrans();
 
 
-
-        int width = (int) (activity.getResources().getDisplayMetrics().widthPixels );
-        int height = (int) (activity.getResources().getDisplayMetrics().heightPixels );
+        int width = (int) (activity.getResources().getDisplayMetrics().widthPixels);
+        int height = (int) (activity.getResources().getDisplayMetrics().heightPixels);
         dialog.getWindow().setLayout(width, height);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
@@ -377,36 +368,35 @@ public class CustomDialog {
         TextView driving_licence_number = (TextView) dialog.findViewById(R.id.driving_licence_number);
         TextView districtname = (TextView) dialog.findViewById(R.id.districtname);
         TextView barriername = (TextView) dialog.findViewById(R.id.barriername);
-        EditText remarks =  dialog.findViewById(R.id.remarksnew);
+        final EditText remarks = (EditText) dialog.findViewById(R.id.remarksnew);
         TextView id_card = (TextView) dialog.findViewById(R.id.id_card);
-        ImageView id_photo =  (ImageView)dialog.findViewById(R.id.compressed_image);
+        ImageView id_photo = (ImageView) dialog.findViewById(R.id.compressed_image);
         Button verify = dialog.findViewById(R.id.verify);
 
-        il.DisplayImage(object.getImageurl(), id_photo, null,null, false);
+        il.DisplayImage(object.getImageurl(), id_photo, null, null, false);
 
+        String mobile = String.valueOf(object.getVehicleOwnerMobileNumber());
 
         name.setText(object.getVehicleOwnerName());
-      //  mobilenumber.setText(Long.valueOf(object.getVehicleOwnerMobileNumber()));
+        mobilenumber.setText(mobile);
         passvalidfrom.setText(object.getIsValidFrom());
         passvalidto.setText(object.getIsValidUpto());
         aadhaarnumber.setText(object.getVehicleOwnerAadhaarNumber());
-        //vehicletype.setText(object.getVehicleTypeId());
-       // vehicle_owner_type.setText(object.getVehicleOwnerId());
+        vehicletype.setText(object.getVehicleTypeName());
+        vehicle_owner_type.setText(object.getVehicleOwnerType());
         vehicle_number.setText(object.getVehicleOwnerVehicleNumber());
         chassis_number.setText(object.getVehicleOwnerChassisNumber());
         engine_number.setText(object.getVehicleOwnerEngineNumber());
         driving_licence_number.setText(object.getVehicleOwnerDrivingLicence());
-      //  districtname.setText(object.getVehicleDistrictId());
-       // barriername.setText(object.getVehicleBarrierId());
+        districtname.setText(object.getVehicleDistrictName());
+        barriername.setText(object.getVehicleBarrierName());
         id_card.setText(object.getIdCardNumber());
         //Set Remarks
 
-        String remarks_ = remarks.getText().toString();
 
         vehicleInOutTrans.setActive(true);
         vehicleInOutTrans.setBarrierId(object.getVehicleBarrierId());
         vehicleInOutTrans.setCapturedBy(object.getDataEnteredBy());
-        vehicleInOutTrans.setRemarks(remarks_);
         vehicleInOutTrans.setVehicleOwnerId(object.getVehicleOwnerId());
 
         if (!userLocation.isEmpty()) {
@@ -427,15 +417,18 @@ public class CustomDialog {
         verify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               //TODO  vehicleInOutTrans
-                     System.out.println("====Manual Entry" + vehicleInOutTrans.toJSON());
-                    Intent intent = new Intent("verifyData");
-                    intent.setPackage(activity.getPackageName());
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("VEHICLE_TRANSACTION", vehicleInOutTrans.toJSON());
-                    intent.putExtras(bundle);
-                    activity.sendBroadcast(intent);
-                    dialog.dismiss();
+                String remarks_ = remarks.getText().toString();
+                vehicleInOutTrans.setRemarks(remarks_);
+
+                //TODO  vehicleInOutTrans
+                System.out.println("====Manual Entry" + vehicleInOutTrans.toJSON());
+                Intent intent = new Intent("verifyData");
+                intent.setPackage(activity.getPackageName());
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("VEHICLE_TRANSACTION", vehicleInOutTrans.toJSON());
+                intent.putExtras(bundle);
+                activity.sendBroadcast(intent);
+                dialog.dismiss();
 
             }
         });
@@ -443,7 +436,7 @@ public class CustomDialog {
         dialog_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // activity.finish();
+                // activity.finish();
                 dialog.dismiss();
             }
         });
@@ -451,7 +444,6 @@ public class CustomDialog {
         dialog.show();
 
     }
-
 
 
 }

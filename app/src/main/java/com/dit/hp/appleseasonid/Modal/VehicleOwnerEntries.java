@@ -220,13 +220,17 @@ public class VehicleOwnerEntries implements Serializable {
     public String toJSON() {
 
         JSONObject jsonObject = new JSONObject();
+        JSONObject  district = new JSONObject();
+        JSONObject barrier = new JSONObject();
+        JSONObject vehicleType = new JSONObject();
+        JSONObject usertype = new JSONObject();
         try {
             jsonObject.put("vehicleOwnerId", getVehicleOwnerId());
             jsonObject.put("idCardNumber", getIdCardNumber());
-            jsonObject.put("vehicleDistrictId", getVehicleDistrictId());
-            jsonObject.put("vehicleBarrierId", getVehicleBarrierId());
-            jsonObject.put("vehicleTypeId", getVehicleTypeId());
-            jsonObject.put("vehicleOwnerTypeId", getVehicleOwnerTypeId());
+            jsonObject.put("districtMaster", district.put("districtId",getVehicleDistrictId()));
+            jsonObject.put("barriermaster", barrier.put("barrierId",getVehicleBarrierId()));
+            jsonObject.put("vehicleType", vehicleType.put("vehicleId",getVehicleTypeId()));
+            jsonObject.put("vehicleUser", usertype.put("vehicleOwnerTypeId",getVehicleOwnerTypeId()));
             jsonObject.put("vehicleOwnerName", getVehicleOwnerName());
             jsonObject.put("vehicleOwnerImageName", getVehicleOwnerImageName());
             jsonObject.put("vehicleOwnerMobileNumber", getVehicleOwnerMobileNumber());
@@ -240,7 +244,7 @@ public class VehicleOwnerEntries implements Serializable {
             jsonObject.put("mobileInformation", getMobileInformation());
             jsonObject.put("otherInformation", getOtherInformation());
             jsonObject.put("dataEnteredBy", getDataEnteredBy());
-            jsonObject.put("active",isActive());
+            jsonObject.put("active",true);
 
 
             return jsonObject.toString();

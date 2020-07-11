@@ -78,10 +78,18 @@ public class JsonParse {
         sr.setIdcardUrl(responseObject.optString("generateIDCardUrl_"));
 
         JSONObject responseObject2 = responseObject.getJSONObject("ownerData");
+        JSONObject responseObject3 = responseObject2.getJSONObject("districtMaster");
+        Log.e("Object3", responseObject3.toString());
+        JSONObject responseObject4 = responseObject2.getJSONObject("barriermaster");
+        Log.e("Object4", responseObject4.toString());
+
+        JSONObject responseObject5 = responseObject2.getJSONObject("vehicleType");
+        JSONObject responseObject6 = responseObject2.getJSONObject("vehicleUser");
+
 
         sr.setVehicleOwnerName(responseObject2.optString("vehicleOwnerName"));
         sr.setIdCardNumber(responseObject2.optString("idCardNumber"));
-       // sr.setVehicleOwnerMobileNumber(Long.valueOf(responseObject2.getString("vehicleOwnerMobileNumber")));
+        sr.setVehicleOwnerMobileNumber(responseObject2.getLong("vehicleOwnerMobileNumber"));
         sr.setIsValidFrom(responseObject2.optString("isValidFrom"));
         sr.setIsValidUpto(responseObject2.optString("isValidUpto"));
         sr.setVehicleOwnerAadhaarNumber(responseObject2.optString("vehicleOwnerAadhaarNumber"));
@@ -90,9 +98,13 @@ public class JsonParse {
         sr.setVehicleOwnerEngineNumber(responseObject2.optString("vehicleOwnerEngineNumber"));
         sr.setVehicleOwnerVehicleNumber(responseObject2.optString("vehicleOwnerVehicleNumber"));
         sr.setDataEnteredBy(responseObject2.optInt("dataEnteredBy"));
-        sr.setVehicleBarrierId(responseObject2.optInt("vehicleBarrierId"));
-        sr.setVehicleDistrictId(responseObject2.optInt("vehicleDistrictId"));
+        sr.setVehicleBarrierId(responseObject4.optInt("barrierId"));
+        sr.setVehicleBarrierName(responseObject4.optString("barrierName"));
+        sr.setVehicleDistrictId(responseObject3.optInt("districtId"));
+        sr.setVehicleDistrictName(responseObject3.optString("districtName"));
         sr.setVehicleOwnerId(responseObject2.optInt("vehicleOwnerId"));
+        sr.setVehicleOwnerType(responseObject6.optString("vehicleOwnerTypeName"));
+        sr.setVehicleTypeName(responseObject5.optString("vehicleName"));
 
         return sr;
     }

@@ -249,7 +249,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:background="@drawable/customborder_dialog"
-                                android:gravity="center|center_vertical|center_horizontal"
+                                android:gravity="left|center_vertical|center_horizontal"
                                 android:inputType="phone"
                                 android:padding="5dp" />
                         </LinearLayout>
@@ -350,12 +350,12 @@
                             <TextView
                                 android:id="@+id/vehicletype"
                                 android:layout_width="match_parent"
-                                android:layout_height="fill_parent"
-                                android:layout_margin="10dp"
+                                android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:maxLength="12"
                                 android:background="@drawable/customborder_dialog"
-                                android:fontFamily="@font/raleway_semibold"
-                                android:textColor="@color/blue" />
+                                android:gravity="left|center_vertical|center_horizontal"
+                                android:padding="5dp" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -380,12 +380,12 @@
                             <TextView
                                 android:id="@+id/vehicle_owner_type"
                                 android:layout_width="match_parent"
-                                android:layout_height="fill_parent"
-                                android:layout_margin="10dp"
+                                android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:maxLength="12"
                                 android:background="@drawable/customborder_dialog"
-                                android:fontFamily="@font/raleway_semibold"
-                                android:textColor="@color/blue" />
+                                android:gravity="left|center_vertical|center_horizontal"
+                                android:padding="5dp"/>
                         </LinearLayout>
 
                         <LinearLayout
@@ -413,7 +413,7 @@
                                 android:layout_height="fill_parent"
                                 android:layout_weight="1"
                                 android:background="@drawable/customborder_dialog"
-                                android:gravity="center|center_vertical|center_horizontal"
+                                android:gravity="left|center_vertical|center_horizontal"
                                 android:maxLines="1"
                                 android:padding="5dp" />
                         </LinearLayout>
@@ -443,7 +443,7 @@
                                 android:layout_height="fill_parent"
                                 android:layout_weight="1"
                                 android:background="@drawable/customborder_dialog"
-                                android:gravity="center|center_vertical|center_horizontal"
+                                android:gravity="left|center_vertical|center_horizontal"
                                 android:maxLines="1"
                                 android:padding="5dp" />
                         </LinearLayout>
@@ -473,7 +473,7 @@
                                 android:layout_height="fill_parent"
                                 android:layout_weight="1"
                                 android:background="@drawable/customborder_dialog"
-                                android:gravity="center|center_vertical|center_horizontal"
+                                android:gravity="left|center_vertical|center_horizontal"
                                 android:maxLines="1"
                                 android:padding="5dp" />
                         </LinearLayout>
@@ -504,7 +504,7 @@
                                 android:layout_height="fill_parent"
                                 android:layout_weight="1"
                                 android:background="@drawable/customborder_dialog"
-                                android:gravity="center|center_vertical|center_horizontal"
+                                android:gravity="left|center_vertical|center_horizontal"
                                 android:maxLines="1"
                                 android:padding="5dp" />
                         </LinearLayout>
@@ -628,8 +628,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:background="@drawable/customborder_dialog"
-                                android:gravity="center|center_vertical|center_horizontal"
-                                android:inputType="phone"
+                                android:gravity="left|center_vertical|center_horizontal"
+
                                 android:padding="5dp" />
                         </LinearLayout>
 
@@ -661,7 +661,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:background="@drawable/customborder_dialog"
-                                android:gravity="center|center_vertical|center_horizontal"
+                                android:gravity="left|center_vertical|center_horizontal"
                                 android:inputType="phone"
                                 android:padding="5dp" />
                         </LinearLayout>
@@ -692,7 +692,6 @@
                                 android:layout_weight="1"
                                 android:background="@drawable/customborder_dialog"
                                 android:gravity="left"
-                                android:inputType="textMultiLine"
                                 android:padding="5dp" />
                         </LinearLayout>
 
