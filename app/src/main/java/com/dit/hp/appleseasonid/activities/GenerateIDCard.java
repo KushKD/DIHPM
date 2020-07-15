@@ -78,7 +78,7 @@ import rx.android.schedulers.AndroidSchedulers;
 public class GenerateIDCard extends AppCompatActivity implements AsyncTaskListenerObjectGet, View.OnClickListener, AsyncTaskListenerFile {
 
     EditText name, mobilenumber, aadhaarnumber, vehicle_number, chassis_number, engine_number, driving_licence_number, remarks;
-    TextView districtname, barriername, passvalidfrom, passvalidto, date, time;
+    TextView districtname, barriername, passvalidfrom, passvalidto, date, time, owneraddress, driveraddress;
     Spinner vehicletype, vehicle_owner_type;
     CustomDialog CD = new CustomDialog();
     List<VehicleType> vehicleTypes = null;
@@ -98,6 +98,7 @@ public class GenerateIDCard extends AppCompatActivity implements AsyncTaskListen
     private File actualImage;
     private File compressedImage;
     IDCardPojo cardPojo = null;
+
 
 
     @Override
@@ -207,6 +208,21 @@ public class GenerateIDCard extends AppCompatActivity implements AsyncTaskListen
                 vehicleOwnerEntries.setVehicleTypeId(Integer.parseInt(globalVehicleId));
                 vehicleOwnerEntries.setVehicleOwnerTypeId(Integer.parseInt(globalVehicleUserId));
                 vehicleOwnerEntries.setActive(true);
+
+                if(!owneraddress.getText().toString().isEmpty() || owneraddress.getText().toString()!=null){
+                    vehicleOwnerEntries.setVehicleOwnerAddress(owneraddress.getText().toString());
+                }else{
+                    vehicleOwnerEntries.setVehicleOwnerAddress("");
+                }
+
+                if(!driveraddress.getText().toString().isEmpty() || driveraddress.getText().toString()!=null){
+                    vehicleOwnerEntries.setVehicleDriverAddress(driveraddress.getText().toString());
+                }else{
+                    vehicleOwnerEntries.setVehicleDriverAddress("");
+                }
+
+
+
 
 
 
@@ -426,6 +442,8 @@ public class GenerateIDCard extends AppCompatActivity implements AsyncTaskListen
         submit = findViewById(R.id.submit);
         back = findViewById(R.id.back);
         compressedImageView = findViewById(R.id.compressed_image);
+        owneraddress = findViewById(R.id.owneraddress);
+        driveraddress = findViewById(R.id.driveraddress);
 
         clearImage();
 

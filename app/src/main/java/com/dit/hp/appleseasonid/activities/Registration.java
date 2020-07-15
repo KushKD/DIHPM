@@ -368,12 +368,15 @@ public class Registration extends AppCompatActivity implements AsyncTaskListener
                     } else {
 
                         Toast.makeText(Registration.this, response.getResponse(), Toast.LENGTH_SHORT).show();
+
                     }
                 } else {
                     Toast.makeText(Registration.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+
                 }
             }catch(Exception ex){
                 Toast.makeText(Registration.this, "Unable to send OTP . Please try again.", Toast.LENGTH_SHORT).show();
+                phone.setText("");
             }
 
         }
@@ -402,9 +405,11 @@ public class Registration extends AppCompatActivity implements AsyncTaskListener
                 } else {
                     Log.e("User else", response.getResponse());
                     Toast.makeText(Registration.this, response.getResponse(), Toast.LENGTH_SHORT).show();
+
                 }
             } else {
                 CD.showDialog(Registration.this, response.getMessage());
+
             }
         }
 

@@ -1,13 +1,15 @@
 package com.dit.hp.appleseasonid.Modal;
 
+import com.dit.hp.appleseasonid.utilities.CommonUtils;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.util.Date;
 
 
 public class VehicleOwnerEntries implements Serializable {
-
 
     private Long vehicleOwnerId;
     private String idCardNumber;
@@ -29,7 +31,17 @@ public class VehicleOwnerEntries implements Serializable {
     private String otherInformation;
     private int dataEnteredBy;
     private boolean active;
+    private String vehicleOwnerAddress;
+    private String vehicleDriverAddress;
+    private String card_created_on;
 
+    public String getCard_created_on() {
+        return card_created_on;
+    }
+
+    public void setCard_created_on(String card_created_on) {
+        this.card_created_on = card_created_on;
+    }
 
     public boolean isActive() {
         return active;
@@ -191,30 +203,28 @@ public class VehicleOwnerEntries implements Serializable {
         this.dataEnteredBy = dataEnteredBy;
     }
 
-    @Override
-    public String toString() {
-        return "VehicleOwnerEntries{" +
-                "vehicleOwnerId=" + vehicleOwnerId +
-                ", idCardNumber='" + idCardNumber + '\'' +
-                ", vehicleDistrictId=" + vehicleDistrictId +
-                ", vehicleBarrierId=" + vehicleBarrierId +
-                ", vehicleTypeId=" + vehicleTypeId +
-                ", vehicleOwnerTypeId=" + vehicleOwnerTypeId +
-                ", vehicleOwnerName='" + vehicleOwnerName + '\'' +
-                ", vehicleOwnerImageName='" + vehicleOwnerImageName + '\'' +
-                ", vehicleOwnerMobileNumber=" + vehicleOwnerMobileNumber +
-                ", isValidFrom='" + isValidFrom + '\'' +
-                ", isValidUpto='" + isValidUpto + '\'' +
-                ", vehicleOwnerAadhaarNumber='" + vehicleOwnerAadhaarNumber + '\'' +
-                ", vehicleOwnerVehicleNumber='" + vehicleOwnerVehicleNumber + '\'' +
-                ", vehicleOwnerChassisNumber='" + vehicleOwnerChassisNumber + '\'' +
-                ", vehicleOwnerEngineNumber='" + vehicleOwnerEngineNumber + '\'' +
-                ", vehicleOwnerDrivingLicence='" + vehicleOwnerDrivingLicence + '\'' +
-                ", mobileInformation='" + mobileInformation + '\'' +
-                ", otherInformation='" + otherInformation + '\'' +
-                ", dataEnteredBy=" + dataEnteredBy +
-                ", active=" + active +
-                '}';
+    public String getVehicleOwnerAddress() {
+        return vehicleOwnerAddress;
+    }
+
+    public void setVehicleOwnerAddress(String vehicleOwnerAddress) {
+        this.vehicleOwnerAddress = vehicleOwnerAddress;
+    }
+
+    public String getVehicleDriverAddress() {
+        return vehicleDriverAddress;
+    }
+
+    public void setVehicleDriverAddress(String vehicleDriverAddress) {
+        this.vehicleDriverAddress = vehicleDriverAddress;
+    }
+
+    public String getCreatedDate() {
+        return card_created_on;
+    }
+
+    public void setCreatedDate(String createdDate) {
+        this.card_created_on = createdDate;
     }
 
     public String toJSON() {
@@ -244,8 +254,10 @@ public class VehicleOwnerEntries implements Serializable {
             jsonObject.put("mobileInformation", getMobileInformation());
             jsonObject.put("otherInformation", getOtherInformation());
             jsonObject.put("dataEnteredBy", getDataEnteredBy());
+            jsonObject.put("vehicleOwnerAddress", getVehicleOwnerAddress());
+            jsonObject.put("vehicleDriverAddress", getVehicleDriverAddress());
             jsonObject.put("active",true);
-
+            jsonObject.put("cardCreation", CommonUtils.getCurrentDate());
 
             return jsonObject.toString();
         } catch (JSONException e) {

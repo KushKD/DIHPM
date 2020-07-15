@@ -91,10 +91,13 @@ public class VehicleInOutTrans implements Serializable {
 	public String toJSON() {
 
 		JSONObject jsonObject = new JSONObject();
+		JSONObject  ownderDetails = new JSONObject();
+		JSONObject barrier = new JSONObject();
+
 		try {
-			jsonObject.put("vehicleOwnerId", getVehicleOwnerId());
+			jsonObject.put("vehicleOwnerDetails", ownderDetails.put("vehicleOwnerId",getVehicleOwnerId()));
 			jsonObject.put("capturedBy", getCapturedBy());
-			jsonObject.put("barrierId", getBarrierId());
+			jsonObject.put("barriermaster", barrier.put("barrierId",getBarrierId()));
 			jsonObject.put("latitude", getLatitude());
 			jsonObject.put("longitude", getLongitude());
 			jsonObject.put("remarks", getRemarks());

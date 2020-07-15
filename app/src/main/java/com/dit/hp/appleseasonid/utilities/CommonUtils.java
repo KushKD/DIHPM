@@ -274,7 +274,7 @@ public class CommonUtils {
     }
 
     public static String getCurrentDate(){
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         String date = sdf.format(new Date());
         return date;
     }

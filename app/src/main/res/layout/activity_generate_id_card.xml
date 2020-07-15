@@ -188,6 +188,68 @@
                         </LinearLayout>
 
 
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_margin="3dp"
+                            android:layout_marginTop="2dp"
+                            android:layout_weight="1"
+                            android:background="#fff"
+                            android:elevation="4dp"
+                            android:orientation="horizontal">
+
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="fill_parent"
+                                android:layout_weight="1"
+                                android:gravity="center|center_vertical|center_horizontal"
+                                android:text="Vehicle Driver Address "
+                                android:textColor="@color/darkblue" />
+
+
+                            <EditText
+                                android:id="@+id/driveraddress"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@drawable/customborder_dialog"
+                                android:gravity="left|center_vertical|center_horizontal"
+                                android:padding="5dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_margin="3dp"
+                            android:layout_marginTop="2dp"
+                            android:layout_weight="1"
+                            android:background="#fff"
+                            android:elevation="4dp"
+                            android:orientation="horizontal">
+
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="fill_parent"
+                                android:layout_weight="1"
+                                android:gravity="center|center_vertical|center_horizontal"
+                                android:text="Vehicle Owner Address "
+                                android:textColor="@color/darkblue" />
+
+
+                            <EditText
+                                android:id="@+id/owneraddress"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@drawable/customborder_dialog"
+                                android:gravity="left|center_vertical|center_horizontal"
+
+                                android:padding="5dp" />
+                        </LinearLayout>
+
+
 
 
                         <LinearLayout
