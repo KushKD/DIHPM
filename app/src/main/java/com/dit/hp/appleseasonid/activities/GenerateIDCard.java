@@ -231,13 +231,7 @@ public class GenerateIDCard extends AppCompatActivity implements AsyncTaskListen
                     vehicleOwnerEntries.setIsValidUpto(passvalidto.getText().toString().trim());
 
 
-                if (aadhaarnumber.getText().toString() == null || aadhaarnumber.getText().toString().isEmpty()) {
-                    vehicleOwnerEntries.setVehicleOwnerAadhaarNumber("");
 
-                } else {
-
-                    vehicleOwnerEntries.setVehicleOwnerAadhaarNumber(aadhaarnumber.getText().toString().trim());
-                }
 
                 if (vehicle_number.getText().toString() == null || vehicle_number.getText().toString().isEmpty()) {
                     vehicleOwnerEntries.setVehicleOwnerVehicleNumber("");
@@ -274,38 +268,44 @@ public class GenerateIDCard extends AppCompatActivity implements AsyncTaskListen
                 if (name.getText().toString() != null && !name.getText().toString().isEmpty()) {
                     vehicleOwnerEntries.setVehicleOwnerName(name.getText().toString());
 
-                    if (mobilenumber.getText().toString() != null && !mobilenumber.getText().toString().isEmpty()) {
+                    if (mobilenumber.getText().toString() != null && !mobilenumber.getText().toString().isEmpty() && mobilenumber.getText().toString().length()==10) {
                         vehicleOwnerEntries.setVehicleOwnerMobileNumber(Long.parseLong(mobilenumber.getText().toString().trim()));
 
-                        if (actualImage != null) {
-                            vehicleOwnerEntries.setVehicleOwnerImageName(compressedImage.getName().trim());
-                            vehicleOwnerEntries.setOtherInformation("");
-                            vehicleOwnerEntries.setMobileInformation("");
-                            System.out.println("==="+Preferences.getInstance().userid);
-                            vehicleOwnerEntries.setDataEnteredBy(Integer.parseInt(Preferences.getInstance().userid));
-                            System.out.println(vehicleOwnerEntries.toJSON());
+                        if (aadhaarnumber.getText().toString() != null && !aadhaarnumber.getText().toString().isEmpty() && aadhaarnumber.getText().toString().length()==12  ) {
+                            vehicleOwnerEntries.setVehicleOwnerAadhaarNumber(aadhaarnumber.getText().toString().trim());
 
-                            cardPojo = new IDCardPojo();
-                            cardPojo.setFunctionName(Econstants.methordUploadData);
-                            cardPojo.setVahicleEntries(vehicleOwnerEntries);
-                            cardPojo.setFilePath(compressedImage.getPath());
-                            cardPojo.setTaskType(TaskType.UPLOAD_DATA);
-                            cardPojo.setUrl(Econstants.url);
+                            if (actualImage != null) {
+                                vehicleOwnerEntries.setVehicleOwnerImageName(compressedImage.getName().trim());
+                                vehicleOwnerEntries.setOtherInformation("");
+                                vehicleOwnerEntries.setMobileInformation("");
+                                System.out.println("===" + Preferences.getInstance().userid);
+                                vehicleOwnerEntries.setDataEnteredBy(Integer.parseInt(Preferences.getInstance().userid));
+                                System.out.println(vehicleOwnerEntries.toJSON());
 
-                            if (AppStatus.getInstance(GenerateIDCard.this).isOnline()) {
-                                new Generic_Async_UploadFiles(GenerateIDCard.this,
-                                        GenerateIDCard.this,
-                                        TaskType.UPLOAD_DATA).execute(cardPojo);
+                                cardPojo = new IDCardPojo();
+                                cardPojo.setFunctionName(Econstants.methordUploadData);
+                                cardPojo.setVahicleEntries(vehicleOwnerEntries);
+                                cardPojo.setFilePath(compressedImage.getPath());
+                                cardPojo.setTaskType(TaskType.UPLOAD_DATA);
+                                cardPojo.setUrl(Econstants.url);
+
+                                if (AppStatus.getInstance(GenerateIDCard.this).isOnline()) {
+                                    new Generic_Async_UploadFiles(GenerateIDCard.this,
+                                            GenerateIDCard.this,
+                                            TaskType.UPLOAD_DATA).execute(cardPojo);
+                                } else {
+                                    CD.showDialog(GenerateIDCard.this, Econstants.internetNotAvailable);
+                                }
+
+
                             } else {
-                                CD.showDialog(GenerateIDCard.this, Econstants.internetNotAvailable);
+                                CD.showDialog(GenerateIDCard.this, "Please Click the Photo of the Person.");
                             }
-
-
+                            System.out.println(vehicleOwnerEntries.toJSON());
                         } else {
-                            CD.showDialog(GenerateIDCard.this, "Please Click the Photo of the Person.");
-                        }
-                        System.out.println(vehicleOwnerEntries.toJSON());
 
+                            CD.showDialog(GenerateIDCard.this,"Please enter a valid 12 digit Aadhaar number.");
+                        }
 
                     } else {
                         CD.showDialog(GenerateIDCard.this, "Please Enter a valid 10 digit mobile number");

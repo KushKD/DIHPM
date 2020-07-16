@@ -245,7 +245,7 @@ public class VehicleOwnerEntries implements Serializable {
             jsonObject.put("vehicleOwnerImageName", getVehicleOwnerImageName());
             jsonObject.put("vehicleOwnerMobileNumber", getVehicleOwnerMobileNumber());
             jsonObject.put("isValidFrom", getIsValidFrom());
-            jsonObject.put("isValidUpto", getIsValidUpto());
+            jsonObject.put("isValidUpto", "31-12-2020");
             jsonObject.put("vehicleOwnerAadhaarNumber", getVehicleOwnerAadhaarNumber());
             jsonObject.put("vehicleOwnerVehicleNumber", getVehicleOwnerVehicleNumber());
             jsonObject.put("vehicleOwnerChassisNumber", getVehicleOwnerChassisNumber());
