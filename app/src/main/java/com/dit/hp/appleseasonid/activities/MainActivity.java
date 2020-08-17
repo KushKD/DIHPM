@@ -35,6 +35,7 @@ import com.dit.hp.appleseasonid.interfaces.AsyncTaskListenerObject;
 import com.dit.hp.appleseasonid.json.JsonParse;
 import com.dit.hp.appleseasonid.presentation.CustomDialog;
 import com.dit.hp.appleseasonid.utilities.AppStatus;
+import com.dit.hp.appleseasonid.utilities.CommonUtils;
 import com.dit.hp.appleseasonid.utilities.Econstants;
 import com.dit.hp.appleseasonid.utilities.Preferences;
 import com.dit.hp.appleseasonid.utilities.SamplePresenter;
@@ -78,6 +79,10 @@ public class MainActivity extends LocationBaseActivity implements SamplePresente
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+//        String ipgetLocalIpAddress = CommonUtils.getLocalIpAddress();
+//        Log.e("ipgetLocalIpAddress",ipgetLocalIpAddress);
+//        Log.e("-=-=-=-=",CommonUtils.getIPAddress(true));  working
 
 
 

@@ -7,6 +7,7 @@ import com.dit.hp.appleseasonid.Modal.ResponsePojoGet;
 import com.dit.hp.appleseasonid.Modal.UploadObject;
 import com.dit.hp.appleseasonid.Modal.VahanObject;
 import com.dit.hp.appleseasonid.security.CryptographyAES;
+import com.dit.hp.appleseasonid.utilities.CommonUtils;
 import com.dit.hp.appleseasonid.utilities.Econstants;
 import com.dit.hp.appleseasonid.utilities.Preferences;
 
@@ -175,7 +176,11 @@ public class HttpManager {
             JSONObject jsonObject = new JSONObject();
 
             jsonObject.put("regNo", object.getParameters_to_send().trim());
-            jsonObject.put("Ip","127.0.0.1");
+            try{
+                jsonObject.put("Ip", CommonUtils.getIPAddress(true));
+            }catch (Exception ex){
+                jsonObject.put("Ip", "127.0.0.1");
+            }
             jsonObject.put("userId", Preferences.getInstance().userid);
             System.out.println("JSON TO SEND==== " + jsonObject.toString());
             OutputStreamWriter out = new OutputStreamWriter(conn_.getOutputStream());
