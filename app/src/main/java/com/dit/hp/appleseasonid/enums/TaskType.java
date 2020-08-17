@@ -17,7 +17,9 @@ public enum TaskType {
     GET_OTP(9),
     VEREIFY_OTP(10),
     SCAN_ID_CARD(11),
-    SEARCH_ID(12);
+    SEARCH_ID(12),
+    SAARTHI(13),
+    VAHAN(14);
 
     int value; private TaskType(int value) { this.value = value; }
 }

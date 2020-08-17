@@ -22,6 +22,9 @@ import androidx.annotation.RequiresApi;
 import com.dit.hp.appleseasonid.Modal.IDCardOwnerServerVerify;
 import com.dit.hp.appleseasonid.Modal.IDCardServerObject;
 import com.dit.hp.appleseasonid.Modal.IdCardScanPojo;
+import com.dit.hp.appleseasonid.Modal.SaarthiObject;
+import com.dit.hp.appleseasonid.Modal.VahanObject;
+import com.dit.hp.appleseasonid.Modal.VehicleDetailsObject;
 import com.dit.hp.appleseasonid.Modal.VehicleInOutTrans;
 import com.dit.hp.appleseasonid.R;
 import com.dit.hp.appleseasonid.activities.MainActivity;
@@ -445,5 +448,98 @@ public class CustomDialog {
 
     }
 
+
+    public void showVahanDetails(final Activity activity, final VehicleDetailsObject object) {
+        final Dialog dialog = new Dialog(activity);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.dialog_custom_vahan);
+
+        int width = (int) (activity.getResources().getDisplayMetrics().widthPixels * 0.95);
+        int height = (int) (activity.getResources().getDisplayMetrics().heightPixels * 0.95);
+        dialog.getWindow().setLayout(width, height);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        ImageLoader il = new ImageLoader(activity);
+
+
+
+        TextView name = (TextView) dialog.findViewById(R.id.name);
+        TextView status = (TextView) dialog.findViewById(R.id.status);
+        TextView fitupto = (TextView) dialog.findViewById(R.id.fitupto);
+        TextView registeredat = (TextView) dialog.findViewById(R.id.registeredat);
+        TextView chassis = (TextView) dialog.findViewById(R.id.chassis);
+        TextView engine = (TextView) dialog.findViewById(R.id.engine);
+        TextView registration = (TextView) dialog.findViewById(R.id.registration);
+        Button sms = dialog.findViewById(R.id.sms);
+
+        name.setText(object.getRcOwnerName());
+        status.setText(object.getRcStatus());
+        fitupto.setText(object.getRcFitUpto());
+        registeredat.setText(object.getRcRegisteredAt());
+        chassis.setText(object.getRcChassisNo());
+        engine.setText(object.getRcEngineNumber());
+
+        registration.setText(object.getRcRegistrationNo());
+
+
+        Button dialog_ok = (Button) dialog.findViewById(R.id.ok);
+
+
+
+        dialog_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+
+    }
+
+    public void showSaarthiDetails(final Activity activity, final SaarthiObject object) {
+        final Dialog dialog = new Dialog(activity);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.dialog_custom_saarthi);
+
+        int width = (int) (activity.getResources().getDisplayMetrics().widthPixels * 0.95);
+        int height = (int) (activity.getResources().getDisplayMetrics().heightPixels * 0.95);
+        dialog.getWindow().setLayout(width, height);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        ImageLoader il = new ImageLoader(activity);
+
+
+        TextView name = (TextView) dialog.findViewById(R.id.name);
+        TextView status = (TextView) dialog.findViewById(R.id.status);
+        TextView dlnum = (TextView) dialog.findViewById(R.id.dlnum);
+        TextView issueauth = (TextView) dialog.findViewById(R.id.issueauth);
+        TextView nontrans = (TextView) dialog.findViewById(R.id.nontrans);
+
+
+        name.setText(object.getDlLicName());
+        status.setText(object.getDlLicStatus());
+        dlnum.setText(object.getDlLicNum());
+        issueauth.setText(object.getIssuing_authority());
+        nontrans.setText(object.getDlNonTransValidTill());
+
+
+
+        Button dialog_ok = (Button) dialog.findViewById(R.id.ok);
+
+
+
+        dialog_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+
+    }
 
 }

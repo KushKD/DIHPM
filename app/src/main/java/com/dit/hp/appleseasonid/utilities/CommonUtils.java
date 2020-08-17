@@ -321,5 +321,15 @@ public class CommonUtils {
         return result;
     }
 
+    public static boolean positiveNegitive(Integer number) {
+        if (number > 0) {
+            return true;
+        } else if (number < 0) {
+            return false;
+        } else {
+            return false;
+        }
+    }
+
 
 }

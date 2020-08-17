@@ -5,8 +5,11 @@ import android.util.Log;
 import com.dit.hp.appleseasonid.Modal.IDCardOwnerServerVerify;
 import com.dit.hp.appleseasonid.Modal.IDCardServerObject;
 import com.dit.hp.appleseasonid.Modal.IdCardScanPojo;
+import com.dit.hp.appleseasonid.Modal.SaarthiObject;
 import com.dit.hp.appleseasonid.Modal.SuccessResponse;
 import com.dit.hp.appleseasonid.Modal.User;
+import com.dit.hp.appleseasonid.Modal.VahanObject;
+import com.dit.hp.appleseasonid.Modal.VehicleDetailsObject;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,10 +50,9 @@ public class JsonParse {
         sr.setUserName(responseObject.getString("user_name"));
         sr.setUserId(responseObject.getInt("user_id"));
         sr.setMobileNumber(responseObject.getLong("mobile_number"));
-        Log.e("Data",sr.toString());
+        Log.e("Data", sr.toString());
         return sr;
     }
-
 
 
     public static IDCardServerObject getIdCardUserServerDetails(String data) throws JSONException {
@@ -70,23 +72,38 @@ public class JsonParse {
     }
 
 
+    public static VehicleDetailsObject getVehicleDataVahan (String data) throws JSONException {
+
+        JSONObject responseObject = new JSONObject(data);
+
+        VehicleDetailsObject obj = new VehicleDetailsObject();
+        obj.setRcChassisNo(responseObject.getString("rcChassisNo"));
+        obj.setRcEngineNumber(responseObject.getString("rcEngineNumber"));
+        obj.setRcFitUpto(responseObject.getString("rcFitUpto"));
+        obj.setRcRegisteredAt(responseObject.getString("rcRegisteredAt"));
+        obj.setRcStatus(responseObject.getString("rcStatus"));
+        obj.setRcRegistrationNo(responseObject.getString("rcRegistrationNo"));
+        obj.setRcStatusAsOn(responseObject.getString("rcStatusAsOn"));
+        obj.setRcOwnerName(responseObject.getString("rcOwnerName"));
+        System.out.println(data.toString());
+
+        return obj;
+    }
+
+
     public static IDCardOwnerServerVerify getIdCardUserServerDetailsComplete(String data) throws JSONException {
 
         JSONObject responseObject = new JSONObject(data);
         IDCardOwnerServerVerify sr = new IDCardOwnerServerVerify();
         sr.setImageurl(responseObject.optString("fileDownloadUri"));
         sr.setIdcardUrl(responseObject.optString("generateIDCardUrl_"));
-
         JSONObject responseObject2 = responseObject.getJSONObject("ownerData");
         JSONObject responseObject3 = responseObject2.getJSONObject("districtMaster");
         Log.e("Object3", responseObject3.toString());
         JSONObject responseObject4 = responseObject2.getJSONObject("barriermaster");
         Log.e("Object4", responseObject4.toString());
-
         JSONObject responseObject5 = responseObject2.getJSONObject("vehicleType");
         JSONObject responseObject6 = responseObject2.getJSONObject("vehicleUser");
-
-
         sr.setVehicleOwnerName(responseObject2.optString("vehicleOwnerName"));
         sr.setIdCardNumber(responseObject2.optString("idCardNumber"));
         sr.setVehicleOwnerMobileNumber(responseObject2.getLong("vehicleOwnerMobileNumber"));
@@ -110,10 +127,23 @@ public class JsonParse {
     }
 
 
-
-
-
-
+    public static SaarthiObject parseJson(String data) throws JSONException {
+        SaarthiObject object = null;
+        if (data != null) {
+            object = new SaarthiObject();
+            JSONObject o = new JSONObject(data);
+            System.out.println(o.toString());
+            object.setDlLicName(o.optString("dlLicName"));
+            object.setDlLicNum(o.optString("dlLicNum"));
+            object.setDlLicStatus(o.optString("dlLicStatus"));
+            object.setDlNonTransValidTill(o.optString("dlNonTransValidTill"));
+            object.setErrorCode(o.optInt("errorCode"));
+            object.setErrorMessage(o.optString("errorMessage"));
+            object.setIssuing_authority(o.optString("issuing_authority"));
+            object.setDlTransValidTill(o.optString("dlTransValidTill"));
+        }
+        return object;
+    }
 
 
 }

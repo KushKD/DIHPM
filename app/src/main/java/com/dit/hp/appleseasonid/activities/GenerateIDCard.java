@@ -25,23 +25,31 @@ import com.dit.hp.appleseasonid.Adapter.VehicleUserTypesAdapter;
 import com.dit.hp.appleseasonid.Modal.IDCardPojo;
 import com.dit.hp.appleseasonid.Modal.IDCardServerObject;
 import com.dit.hp.appleseasonid.Modal.ResponsePojoGet;
+import com.dit.hp.appleseasonid.Modal.SaarthiObject;
 import com.dit.hp.appleseasonid.Modal.SuccessResponse;
 import com.dit.hp.appleseasonid.Modal.UploadObject;
+import com.dit.hp.appleseasonid.Modal.VahanObject;
+import com.dit.hp.appleseasonid.Modal.VehicleDetailsObject;
 import com.dit.hp.appleseasonid.Modal.VehicleOwnerEntries;
 import com.dit.hp.appleseasonid.Modal.VehicleType;
 import com.dit.hp.appleseasonid.Modal.VehicleUserTypePojo;
 import com.dit.hp.appleseasonid.R;
 import com.dit.hp.appleseasonid.enums.TaskType;
+import com.dit.hp.appleseasonid.generic.GenericAsyncPostObject;
+import com.dit.hp.appleseasonid.generic.GenericAsyncPostObjectVahan;
 import com.dit.hp.appleseasonid.generic.Generic_Async_Get;
 import com.dit.hp.appleseasonid.generic.Generic_Async_UploadFiles;
 import com.dit.hp.appleseasonid.interfaces.AsyncTaskListenerFile;
 import com.dit.hp.appleseasonid.interfaces.AsyncTaskListenerObjectGet;
+import com.dit.hp.appleseasonid.interfaces.AsyncTaskListenerObjectSaarthi;
+import com.dit.hp.appleseasonid.interfaces.AsyncTaskListenerObjectVahan;
 import com.dit.hp.appleseasonid.json.JsonParse;
 import com.dit.hp.appleseasonid.presentation.CustomDialog;
 import com.dit.hp.appleseasonid.utilities.AppStatus;
 import com.dit.hp.appleseasonid.utilities.CommonUtils;
 import com.dit.hp.appleseasonid.utilities.DateTime;
 import com.dit.hp.appleseasonid.utilities.Econstants;
+import com.dit.hp.appleseasonid.utilities.ParseXML;
 import com.dit.hp.appleseasonid.utilities.Preferences;
 import com.doi.spinnersearchable.SearchableSpinner;
 
@@ -52,6 +60,7 @@ import com.sandrios.sandriosCamera.internal.ui.model.Media;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xml.sax.SAXException;
 
 import java.io.File;
 import java.io.IOException;
@@ -66,16 +75,20 @@ import java.util.Locale;
 import java.util.Random;
 
 import javax.net.ssl.HttpsURLConnection;
+import javax.xml.parsers.ParserConfigurationException;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
 import id.zelory.compressor.Compressor;
 
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 import rx.android.schedulers.AndroidSchedulers;
 
-public class GenerateIDCard extends AppCompatActivity implements AsyncTaskListenerObjectGet, View.OnClickListener, AsyncTaskListenerFile {
+public class GenerateIDCard extends AppCompatActivity implements
+        AsyncTaskListenerObjectGet, View.OnClickListener,
+        AsyncTaskListenerFile, AsyncTaskListenerObjectVahan {
 
     EditText name, mobilenumber, aadhaarnumber, vehicle_number, chassis_number, engine_number, driving_licence_number, remarks;
     TextView districtname, barriername, passvalidfrom, passvalidto, date, time, owneraddress, driveraddress;
@@ -90,7 +103,7 @@ public class GenerateIDCard extends AppCompatActivity implements AsyncTaskListen
     private DatePickerDialog toDatePickerDialog;
     private SimpleDateFormat dateFormatter;
     private String GetFromDate = null;
-    Button submit, back, click_image;
+    Button submit, back, click_image, sarthi, vahan;
     Media media = null;
     VehicleOwnerEntries vehicleOwnerEntries = null;
 
@@ -98,7 +111,6 @@ public class GenerateIDCard extends AppCompatActivity implements AsyncTaskListen
     private File actualImage;
     private File compressedImage;
     IDCardPojo cardPojo = null;
-
 
 
     @Override
@@ -191,6 +203,75 @@ public class GenerateIDCard extends AppCompatActivity implements AsyncTaskListen
             }
         });
 
+
+        sarthi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //New Code
+                if (!driving_licence_number.getText().toString().isEmpty() && driving_licence_number.getText().toString() != null) {
+                    if (AppStatus.getInstance(GenerateIDCard.this).isOnline()) {
+                        UploadObject objectToSend = new UploadObject();
+                        objectToSend.setUrl(Econstants.vahan);
+                        objectToSend.setMethordName(Econstants.getDL);
+                        objectToSend.setTasktype(TaskType.SAARTHI);
+                        objectToSend.setParam(driving_licence_number.getText().toString());
+
+                        new Generic_Async_Get(
+                                GenerateIDCard.this,
+                                GenerateIDCard.this,
+                                TaskType.SAARTHI).
+                                execute(objectToSend);
+
+                    } else {
+
+                        // Toast.makeText(PolicyHomeScreen.this,"No Data Available.",Toast.LENGTH_LONG).show();
+                        CD.showDialog(GenerateIDCard.this, "Please Connect to Internet and try again.");
+                    }
+                } else {
+                    CD.showDialog(GenerateIDCard.this, "Please enter Driving Licence Number.");
+                }
+
+
+            }
+        });
+
+
+        vahan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (!vehicle_number.getText().toString().isEmpty() && vehicle_number.getText().toString() != null) {
+                    if (AppStatus.getInstance(GenerateIDCard.this).isOnline()) {
+                        VahanObject objectToSend = new VahanObject();
+                        objectToSend.setUrl(Econstants.vahan);
+                        objectToSend.setFunction_name(Econstants.getCarDetailsVahan);
+                        objectToSend.setTaskType(TaskType.VAHAN);
+                        objectToSend.setParameters_to_send(vehicle_number.getText().toString());
+
+
+                        new GenericAsyncPostObjectVahan(
+                                GenerateIDCard.this,
+                                GenerateIDCard.this,
+                                TaskType.VAHAN).
+                                execute(objectToSend);
+
+
+                    } else {
+
+                        // Toast.makeText(PolicyHomeScreen.this,"No Data Available.",Toast.LENGTH_LONG).show();
+                        CD.showDialog(GenerateIDCard.this, "Please Connect to Internet and try again.");
+                    }
+                } else {
+                    CD.showDialog(GenerateIDCard.this, "Please enter Vehicle Number.");
+                }
+
+
+            }
+
+        });
+
+
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -209,28 +290,21 @@ public class GenerateIDCard extends AppCompatActivity implements AsyncTaskListen
                 vehicleOwnerEntries.setVehicleOwnerTypeId(Integer.parseInt(globalVehicleUserId));
                 vehicleOwnerEntries.setActive(true);
 
-                if(!owneraddress.getText().toString().isEmpty() || owneraddress.getText().toString()!=null){
+                if (!owneraddress.getText().toString().isEmpty() || owneraddress.getText().toString() != null) {
                     vehicleOwnerEntries.setVehicleOwnerAddress(owneraddress.getText().toString());
-                }else{
+                } else {
                     vehicleOwnerEntries.setVehicleOwnerAddress("");
                 }
 
-                if(!driveraddress.getText().toString().isEmpty() || driveraddress.getText().toString()!=null){
+                if (!driveraddress.getText().toString().isEmpty() || driveraddress.getText().toString() != null) {
                     vehicleOwnerEntries.setVehicleDriverAddress(driveraddress.getText().toString());
-                }else{
+                } else {
                     vehicleOwnerEntries.setVehicleDriverAddress("");
                 }
 
 
-
-
-
-
-
-                    vehicleOwnerEntries.setIsValidFrom(passvalidfrom.getText().toString().trim());
-                    vehicleOwnerEntries.setIsValidUpto(passvalidto.getText().toString().trim());
-
-
+                vehicleOwnerEntries.setIsValidFrom(passvalidfrom.getText().toString().trim());
+                vehicleOwnerEntries.setIsValidUpto(passvalidto.getText().toString().trim());
 
 
                 if (vehicle_number.getText().toString() == null || vehicle_number.getText().toString().isEmpty()) {
@@ -268,10 +342,10 @@ public class GenerateIDCard extends AppCompatActivity implements AsyncTaskListen
                 if (name.getText().toString() != null && !name.getText().toString().isEmpty()) {
                     vehicleOwnerEntries.setVehicleOwnerName(name.getText().toString());
 
-                    if (mobilenumber.getText().toString() != null && !mobilenumber.getText().toString().isEmpty() && mobilenumber.getText().toString().length()==10) {
+                    if (mobilenumber.getText().toString() != null && !mobilenumber.getText().toString().isEmpty() && mobilenumber.getText().toString().length() == 10) {
                         vehicleOwnerEntries.setVehicleOwnerMobileNumber(Long.parseLong(mobilenumber.getText().toString().trim()));
 
-                        if (aadhaarnumber.getText().toString() != null && !aadhaarnumber.getText().toString().isEmpty() && aadhaarnumber.getText().toString().length()==12  ) {
+                        if (aadhaarnumber.getText().toString() != null && !aadhaarnumber.getText().toString().isEmpty() && aadhaarnumber.getText().toString().length() == 12) {
                             vehicleOwnerEntries.setVehicleOwnerAadhaarNumber(aadhaarnumber.getText().toString().trim());
 
                             if (actualImage != null) {
@@ -304,7 +378,7 @@ public class GenerateIDCard extends AppCompatActivity implements AsyncTaskListen
                             System.out.println(vehicleOwnerEntries.toJSON());
                         } else {
 
-                            CD.showDialog(GenerateIDCard.this,"Please enter a valid 12 digit Aadhaar number.");
+                            CD.showDialog(GenerateIDCard.this, "Please enter a valid 12 digit Aadhaar number.");
                         }
 
                     } else {
@@ -445,6 +519,9 @@ public class GenerateIDCard extends AppCompatActivity implements AsyncTaskListen
         owneraddress = findViewById(R.id.owneraddress);
         driveraddress = findViewById(R.id.driveraddress);
 
+        sarthi = findViewById(R.id.sarthi);
+        vahan = findViewById(R.id.vahan);
+
         clearImage();
 
         try {
@@ -516,6 +593,31 @@ public class GenerateIDCard extends AppCompatActivity implements AsyncTaskListen
                 }
             }
         }
+
+        //SAARTHI
+        else if (TaskType.SAARTHI == taskType) {
+            Log.e("Saarthi Data", result.toString());
+            if (result.getResponseCode().equalsIgnoreCase(Integer.toString(HttpsURLConnection.HTTP_OK))) {
+                SuccessResponse response = JsonParse.getSuccessResponse(result.getResponse());
+                if (response.getStatus().equalsIgnoreCase("OK")) {
+
+                   //TODO KD
+                    SaarthiObject objectVehicle = JsonParse.parseJson(response.getResponse());
+                    Log.e("Object@#$%^", objectVehicle.toString());
+                    driving_licence_number.setText(objectVehicle.getDlLicNum());
+                    driving_licence_number.setEnabled(false);
+                    CD.showSaarthiDetails(GenerateIDCard.this, objectVehicle);
+
+                } else {
+                    CD.showDialog(GenerateIDCard.this, response.getMessage());
+                    driving_licence_number.setText("");
+                    driving_licence_number.setEnabled(true);
+                    CD.showDialog(GenerateIDCard.this, response.getMessage());
+
+                }
+
+            }
+        }
     }
 
 
@@ -563,7 +665,7 @@ public class GenerateIDCard extends AppCompatActivity implements AsyncTaskListen
 
     private void setCompressedImage() {
         compressedImageView.setImageBitmap(BitmapFactory.decodeFile(compressedImage.getAbsolutePath()));
-       // compressedImageView.setImageBitmap(getRotateImage(media.getPath(), myBitmap));
+        // compressedImageView.setImageBitmap(getRotateImage(media.getPath(), myBitmap));
 
     }
 
@@ -588,24 +690,69 @@ public class GenerateIDCard extends AppCompatActivity implements AsyncTaskListen
     @Override
     public void onTaskCompleted(IDCardPojo result, TaskType taskType) throws JSONException {
         SuccessResponse response = null;
-        if(taskType == result.getTaskType()){
-            Log.e("Result",result.getReponse());
+        if (taskType == result.getTaskType()) {
+            Log.e("Result", result.getReponse());
             if (Integer.toString(result.getResponseCode()).equalsIgnoreCase(Integer.toString(HttpsURLConnection.HTTP_OK))) {
                 response = JsonParse.getSuccessResponse(result.getReponse());
                 if (response.getStatus().equalsIgnoreCase("OK")) {
                     IDCardServerObject object = JsonParse.getIdCardUserServerDetails(response.getResponse());
-                    Log.e("Object@#$%^",object.toString());
-                    CD.showIdCard(GenerateIDCard.this,object);
+                    Log.e("Object@#$%^", object.toString());
+                    CD.showIdCard(GenerateIDCard.this, object);
 
-                    } else {
-                        CD.showDialog(GenerateIDCard.this, response.getMessage());
-
-                    }
                 } else {
                     CD.showDialog(GenerateIDCard.this, response.getMessage());
+
                 }
+            } else {
+                CD.showDialog(GenerateIDCard.this, response.getMessage());
             }
         }
+    }
 
 
+    @Override
+    public void onTaskCompleted(VahanObject data, TaskType taskType) throws JSONException, IOException, SAXException, ParserConfigurationException {
+        //TODO
+        SuccessResponse response = null;
+
+        if (data.getSuccessFail().equalsIgnoreCase("FALIURE")) {
+            CD.showDialog(GenerateIDCard.this, data.getResponse());
+            chassis_number.setText("");
+            chassis_number.setEnabled(true);
+            engine_number.setText("");
+            engine_number.setEnabled(true);
+        } else {
+            //Save Data TODO
+
+            try {
+
+
+                response = JsonParse.getSuccessResponse(data.getResponse());
+                if (response.getStatus().equalsIgnoreCase("OK")) {
+                    VehicleDetailsObject objectVehicle = JsonParse.getVehicleDataVahan(response.getResponse());
+                    Log.e("Object@#$%^", objectVehicle.toString());
+                    chassis_number.setText(objectVehicle.getRcChassisNo());
+                    engine_number.setText(objectVehicle.getRcEngineNumber());
+                    chassis_number.setEnabled(false);
+                    engine_number.setEnabled(false);
+                    CD.showVahanDetails(GenerateIDCard.this, objectVehicle);
+
+                } else {
+                    CD.showDialog(GenerateIDCard.this, response.getMessage());
+                    chassis_number.setText("");
+                    chassis_number.setEnabled(true);
+                    engine_number.setText("");
+                    engine_number.setEnabled(true);
+                    CD.showDialog(GenerateIDCard.this, response.getMessage());
+
+                }
+
+
+            } catch (Exception ex) {
+                Log.e("Exception", ex.getLocalizedMessage());
+            }
+            //TODO Show Custom Dialog
+        }
+
+    }
 }

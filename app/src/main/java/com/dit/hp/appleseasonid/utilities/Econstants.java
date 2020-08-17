@@ -26,8 +26,8 @@ import java.io.UnsupportedEncodingException;
 public class Econstants {
 
     //Development
-    public static final String url = "http://staging12.hp.gov.in/api";
-   // public static final String url = " http://transportid.hp.gov.in/api";
+   // public static final String url = "http://staging12.hp.gov.in/api";
+    public static final String url = " http://transportid.hp.gov.in/api";
     public static final String stateID = "9";
     public static final String blank = "";
     public static final String internetNotAvailable = "Internet not Available. Please Connect to Internet and try again.";
@@ -43,6 +43,16 @@ public class Econstants {
     public static final String methordSearchId = "/searchId/";
 
     public static final String Date_Format = "dd-MM-yyyy";
+
+    public static final String vahan = "http://staging12.hp.gov.in/api/";
+    public static final String getCarDetailsVahan = "getVehicleDetails";
+    public static final String getDL = "getDlDetails/";
+    public static final String getEngineDetailsVahan = "getEngineDetails";
+    public static final String securityKeyAES = "hPeDisTRict@310720";
+    public static final String clientId = "HPEDISTRICT";
+
+
+
 
 
     public static ResponsePojoGet createOfflineObject(String url, String requestParams, String response, String Code, String functionName) {

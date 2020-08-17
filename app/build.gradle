@@ -38,4 +38,7 @@ dependencies {
     implementation project(path: ':qrcodescanner')
     implementation project(path: ':locationmanager')
     implementation project(path: ':spinnersearchable')
+    // https://mvnrepository.com/artifact/commons-codec/commons-codec
+    implementation group: 'commons-codec', name: 'commons-codec', version: '1.9'
+
 }

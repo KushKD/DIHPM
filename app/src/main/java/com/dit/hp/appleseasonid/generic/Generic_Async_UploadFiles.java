@@ -41,7 +41,8 @@ public class Generic_Async_UploadFiles extends AsyncTask<IDCardPojo, String, IDC
         mProgressDialog = new ProgressDialog(context);
         mProgressDialog.setTitle("Uploading");
         mProgressDialog.setMessage("Uploading Files and Images, Please Wait!");
-        mProgressDialog.setIndeterminate(false);
+       // mProgressDialog.setIndeterminate(false);
+        mProgressDialog.setCancelable(false);
         mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         mProgressDialog.show();
     }
